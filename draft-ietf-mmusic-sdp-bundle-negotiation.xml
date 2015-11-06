@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-23.txt" updates="3264" submissionType="IETF" xml:lang="en">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-24.txt" updates="3264" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
 		Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -1009,68 +1009,53 @@
 		<section title="RTP/RTCP Multiplexing" anchor="sec-rtprtcp-mux" toc="default">
 			<section title="General" anchor="sec-rtprtcp-mux-gen" toc="default">
                 <t>
-                    When a BUNDLE group, which contains RTP based media, is created, the
-                    offerer and answerer MUST negotiate whether to enable RTP/RTCP
-                    multiplexing for the RTP based media associated with the BUNDLE group
-                    <xref format="default" pageno="false" target="RFC5761"/>.
+                    Within a BUNDLE group, the offerer and answerer MUST enable
+                    RTP/RTCP multiplexing <xref format="default" pageno="false" 
+                    target="RFC5761"/> for the RTP-based media associated with 
+                    the BUNDLE group.
                 </t>
                 <t>
-                    If RTP/RTCP multiplexing is enabled, the same address:port
+                    When RTP/RTCP multiplexing is enabled, the same address:port
                     combination will be used for sending all RTP packets
                     and the RTCP packets associated with the BUNDLE group. Each endpoint
                     will send the packets towards the BUNDLE address of the other
                     endpoint. The same address:port combination MAY be used
                     for receiving RTP packets and RTCP packets.
                 </t>
-                <t>
-                    If RTP/RTCP multiplexing is not enabled, separate address:port
-                    combinations will be used for sending the RTP packets
-                    and the RTCP packets. The same address:port combinations
-                    MAY be used for receiving RTP packets and RTCP packets.
-                    If the remote endpoint has associated an SDP
-                    'rtcp' attribute with the "m=" line associated with the BUNDLE-tag,
-                    the attribute value will be used for sending all RTCP packets
-                    associated with the BUNDLE group towards that endpoint.
-                </t>
 			</section>			
 			<section title="SDP Offer/Answer Procedures" anchor="sec-rtprtcp-mux-oa" toc="default">
 				<section title="General" anchor="sec-rtprtcp-mux-oa-gen" toc="default">
 					<t>
-						This section describes how an offerer and answerer can use the SDP 'rtcp-mux' attribute
-						<xref format="default" pageno="false" target="RFC5761"/> and the SDP 'rtcp' attribute
-						<xref format="default" pageno="false" target="RFC3605"/> to negotiate usage of RTP/RTCP 
-						multiplexing for RTP based media associated with a BUNDLE group.
+						This section describes how an offerer and answerer use the 
+                        SDP 'rtcp-mux' attribute <xref format="default" pageno="false" 
+                        target="RFC5761"/> to negotiate usage of RTP/RTCP multiplexing 
+                        for RTP-based media associated with a BUNDLE group.
 					</t>
+                    <t>
+                        The procedures in this section only apply to RTP-based "m=" lines.
+                    </t>
 				</section>			
 				<section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
 					<t>
-						When an offerer generates an initial offer, if the offerer wants to
-						negotiate usage of RTP/RTCP multiplexing within a BUNDLE group, the
+						When an offerer generates an initial offer, the
 						offerer MUST associate an SDP 'rtcp-mux' attribute 
 						<xref format="default" pageno="false" target="RFC5761"/> with
 						each bundled RTP-based "m=" line (including any bundle-only "m="
 						line) in the offer.  
 					</t>
 					<t>
-						If the offerer does not want to negotiate usage of RTP/RTCP
-						multiplexing, it MUST NOT associate an SDP 'rtcp-mux' attribute
-						with any bundled "m=" line in the offer.
-					</t>
-					<t>
-						In addition, the offerer can associate an SDP 
-						'rtcp' attribute <xref format="default" pageno="false" target="RFC3605"/> 
-						with one or more bundled RTP-based "m=" lines (including any bundle-only 
-						"m=" line) in the offer, in order to provide a port for receiving 
-						RTCP packets (if the answerer does not accept usage of RTP/RTCP multiplexing, 
-						or if the offerer does not want to negotiate usage of RTP/RTCP multiplexing).
+                        NOTE: The offerer might also associate an SDP 'rtcp' attribute
+                        <xref format="default" pageno="false" target="RFC3605"/> with
+                        a bundled "m=" line, excluding a bundle-only "m=" line,
+                        in order to provide a fallback port for RTCP. However, the 
+                        fallback port will only be used in case the answerer does not 
+                        include the "m=" line in the BUNDLE group in the associated 
+                        answer.
 					</t>
 					<t>
 						In the initial offer, the IP address and port combination for RTCP
-						MUST be unique in each bundled RTP-based "m=" line, similar to RTP.
-					</t>
-					<t>
-						NOTE: In case the offer wants to receive RTCP packets on the next
-						higher port value, the SDP 'rtcp' attribute is not needed.
+						MUST be unique in each bundled RTP-based "m=" line (excluding a
+                        'bundle-only' "m=" line), similar to RTP.
 					</t>
 				</section>			
 				<section title="Generating the SDP Answer" anchor="sec-rtprtcp-mux-oa-ans" toc="default">
@@ -1078,11 +1063,13 @@
 						When an answerer generates an answer, if the offerer indicated
 						support of RTP/RTCP multiplexing <xref format="default" pageno="false" target="RFC5761"/> 
 						within a BUNDLE group in the associated offer, the answerer MUST 
-						either accept or reject the usage of RTP/RTCP multiplexing for the 
-						whole BUNDLE group in the answer.
-					</t>
+                        accept usage of RTP/RTCP multiplexing within the BUNDLE group. 
+                        If an SDP "rtcp-mux" attribute was not associated with a bundled "m=" 
+                        line in the associated offer, the answerer MUST NOT included that 
+                        "m=" line in the BUNDLE group.
+                    </t>
 					<t>
-						If the answerer accepts the usage of RTP/RTCP multiplexing within the
+						When the answerer accepts the usage of RTP/RTCP multiplexing within the
 						BUNDLE group, it MUST associate an SDP 'rtcp-mux' attribute with each
 						bundled RTP-based "m=" line in the answer.  The answerer MUST NOT
 						associate an SDP 'rtcp' attribute with any bundled "m=" line in the
@@ -1091,32 +1078,13 @@
 						with each RTP-based bundled "m=" line towards the offerer.
 					</t>
 					<t>
-						If the answerer does not accept the usage of RTP/RTCP multiplexing 
-						within the BUNDLE group, it MUST NOT associate an SDP 'rtcp-mux'
-						attribute with any bundled "m=" line in the answer. 
-						The answerer will use the RTP and RTCP port values associated with the 
-						selected offerer BUNDLE address for sending RTP and RTCP packets 
-						associated with each RTP-based bundled "m=" line towards the offerer. 
-					</t>
-					<t>
-						In addition, if the answerer rejects the usage of RTP/RTCP multiplexing within
-						the BUNDLE group, it MAY associate an SDP 'rtcp' attribute, with identical
-						attribute values, with each RTP-based bundled "m=" line in the answer, in 
-						order to provide a port value for receiving RTCP packets from the offerer.
-					</t>
-					<t>
-						NOTE: In case the answerer wants to receive RTCP packets on the next
-						higher port value, the SDP 'rtcp' attribute is not needed.
-					</t>
-					<t>
 						If the usage of RTP/RTCP multiplexing within a BUNDLE group has been 
-						negotiated in a previous offer/answer transaction, and if the offerer indicates 
-						that it wants to continue using RTP/RTCP multiplexing in a subsequent offer,
-						the answerer MUST associate an SDP 'rtcp-mux' attribute with each
-						bundled "m=" line in the answer. I.e. the answerer MUST NOT disable
-						the usage of RTP/RTCP multiplexing.
+						negotiated in a previous offer/answer transaction, the answerer MUST 
+                        associate an SDP 'rtcp-mux' attribute with each bundled RTP-based "m=" line 
+                        in the answer.
 					</t>
 					<t>
+                        TODO: See if this text is needed. What if an m= line is moved out of a BUNDLE group?
 						If the usage of RTP/RTCP multiplexing within a BUNDLE group has not been negotiated
 						in a previous offer/answer transaction, and if the offerer indicates that it
 						wants to use RTP/RTCP multiplexing in a subsequent offer, the answerer either
@@ -1133,50 +1101,20 @@
 						BUNDLE address for sending RTP and RTCP packets associated with each
 						RTP-based bundled "m=" line towards the answerer.
 					</t>
-					<t>
-						If the answerer did not accept the usage of RTP/RTCP multiplexing
-						(see <xref target="sec-rtprtcp-mux-oa-ans"/>), the offerer will use separate 
-						address:port combinations for sending RTP and RTCP packets towards the answerer.  
-						If the answerer associated an SDP 'rtcp' attribute with the "m=" line 
-						representing the answerer BUNDLE address, the offerer will use the 
-						attribute port value for sending RTCP packets associated with each 
-						bundled RTP-based "m=" line towards the answerer. Otherwise the 
-						offerer will use the next higher port value associated with the 
-						answerer BUNDLE address for sending RTCP packets towards the answerer.
-					</t>
+                    <t>
+                        NOTE: If is considered a protocol error if the answerer has not
+                        accpeted the usage of RTP/RTCP multiplexing for RTP-based "m=" lines
+                        that the answerer included in the BUNDLE group.
+                    </t>
 				</section>				
 				<section title="Modifying the Session" anchor="sec-rtprtcp-mux-oa-mod" toc="default">
 					<t>
-						When an offerer generates a subsequent offer, if it wants to
-						negotiate the usage of RTP/RTCP multiplexing within a BUNDLE group, or if
-						it wants to continue the use of previously negotiated RTP/RTCP multiplexing, 
-						it MUST associate an SDP 'rtcp-mux' attribute with each RTP-based bundled "m=" line 
+                        When an offerer generatees a subsequent offer, it MUST associate an 
+                        SDP 'rtcp-mux' attribute with each RTP-based bundled "m=" line 
 						(including any bundled "m=" line that the offerer wants to add to the BUNDLE 
 						group), unless the offerer wants to disable or remove the "m=" line from the 
-						BUNDLE group.
-					</t>
-					<t>
-						If the offerer does not want to negotiate the usage of RTP/RTCP
-						multiplexing within the BUNDLE group, or if it wants to disable previously
-						negotiated usage of RTP/RTCP multiplexing, it MUST NOT associate an 
-						SDP 'rtcp-mux' and attribute with any bundled "m=" line in the subsequent offer.
-					</t>
-					<t>
-						In addition, if the offerer does not indicate support of RTP/RTCP multiplexing
-						within the subsequent offer, it MAY associate an SDP 'rtcp' attribute, with
-						identical attribute values, with each RTP-based bundled "m=" line (including any 
-						bundled "m=" line that  the offerer wants to add to the BUNDLE group), in order 
-						to provide a port for receiving RTCP packets.
-					</t>
-					<t>
-						NOTE: It is RECOMMENDED that, once the usage of RTP/RTCP multiplexing has
-						been negotiated within a BUNDLE group, that the usage is not
-						disabled.  Disabling RTP/RTCP multiplexing means that the offerer and
-						answerer need to reserve new ports, to be used for sending and
-						receiving RTCP packets. Similar, if the usage of a specific RTCP port
-						has been negotiated within a BUNDLE group, it is RECOMMENDED
-						that the port value is not modified.
-					</t>
+						BUNDLE group. 
+                    </t>
 				</section>
 			</section>			
 		</section>
@@ -1288,7 +1226,14 @@
                     Each usage of the DTLS association within the BUNDLE
                     group MUST use the same mechanism for determining
                     which endpoints (the offerer or answerer) becomes
-                    DTLS client and DTLS server; and
+                    DTLS client and DTLS server;
+                </t>
+                <t>
+                    Each usage of the DTLS association within the Bundle
+                    group MUST use the same mechanism for determining
+                    whether an offer or answer will trigger the
+                    establishment of a new DTLS association, or whether
+                    an existing DTLS association will be used; and
                 </t>
                 <t>
                     If the DTLS client supports DTLS-SRTP
@@ -2002,6 +1947,11 @@ SDP Answer (2)
 
     <section title="Change Log">
 		<t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-23
+			<list style="symbols">
+                <t>- RTCP-MUX mandatory for bundled RTP m- lines</t>
+			</list>
+		</t>		
 		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-22
 			<list style="symbols">
                 <t>- Correction of Ari's family name</t>

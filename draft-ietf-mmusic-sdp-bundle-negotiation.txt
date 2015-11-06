@@ -5,14 +5,14 @@ MMUSIC Working Group                                         C. Holmberg
 Internet-Draft                                                  Ericsson
 Updates: 3264 (if approved)                                H. Alvestrand
 Intended status: Standards Track                                  Google
-Expires: January 21, 2016                                    C. Jennings
+Expires: May 8, 2016                                         C. Jennings
                                                                    Cisco
-                                                           July 20, 2015
+                                                        November 5, 2015
 
 
  Negotiating Media Multiplexing Using the Session Description Protocol
                                  (SDP)
-            draft-ietf-mmusic-sdp-bundle-negotiation-23.txt
+            draft-ietf-mmusic-sdp-bundle-negotiation-24.txt
 
 Abstract
 
@@ -52,12 +52,12 @@ Status of This Memo
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 1]
+Holmberg, et al.           Expires May 8, 2016                  [Page 1]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
-   This Internet-Draft will expire on January 21, 2016.
+   This Internet-Draft will expire on May 8, 2016.
 
 Copyright Notice
 
@@ -108,9 +108,9 @@ Table of Contents
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 2]
+Holmberg, et al.           Expires May 8, 2016                  [Page 2]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    9.  Protocol Identification . . . . . . . . . . . . . . . . . . .  16
@@ -125,67 +125,67 @@ Internet-Draft                Bundled media                    July 2015
      10.3.  RTP/RTCP Multiplexing  . . . . . . . . . . . . . . . . .  19
        10.3.1.  General  . . . . . . . . . . . . . . . . . . . . . .  19
        10.3.2.  SDP Offer/Answer Procedures  . . . . . . . . . . . .  20
-   11. ICE Considerations  . . . . . . . . . . . . . . . . . . . . .  22
-     11.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  22
-     11.2.  SDP Offer/Answer Procedures  . . . . . . . . . . . . . .  23
-       11.2.1.  General  . . . . . . . . . . . . . . . . . . . . . .  23
-       11.2.2.  Generating the Initial SDP Offer . . . . . . . . . .  23
-       11.2.3.  Generating the SDP Answer  . . . . . . . . . . . . .  23
-       11.2.4.  Offerer Processing of the SDP Answer . . . . . . . .  24
-       11.2.5.  Modifying the Session  . . . . . . . . . . . . . . .  24
-   12. DTLS Considerations . . . . . . . . . . . . . . . . . . . . .  24
-   13. Update to RFC 3264  . . . . . . . . . . . . . . . . . . . . .  24
-     13.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  24
-     13.2.  Original text of section 5.1 (2nd paragraph) of RFC 3264  25
+   11. ICE Considerations  . . . . . . . . . . . . . . . . . . . . .  21
+     11.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  21
+     11.2.  SDP Offer/Answer Procedures  . . . . . . . . . . . . . .  22
+       11.2.1.  General  . . . . . . . . . . . . . . . . . . . . . .  22
+       11.2.2.  Generating the Initial SDP Offer . . . . . . . . . .  22
+       11.2.3.  Generating the SDP Answer  . . . . . . . . . . . . .  22
+       11.2.4.  Offerer Processing of the SDP Answer . . . . . . . .  22
+       11.2.5.  Modifying the Session  . . . . . . . . . . . . . . .  22
+   12. DTLS Considerations . . . . . . . . . . . . . . . . . . . . .  23
+   13. Update to RFC 3264  . . . . . . . . . . . . . . . . . . . . .  23
+     13.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  23
+     13.2.  Original text of section 5.1 (2nd paragraph) of RFC 3264  24
      13.3.  New text replacing section 5.1 (2nd paragraph) of RFC
-            3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  25
-     13.4.  Original text of section 8.2 (2nd paragraph) of RFC 3264  25
+            3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     13.4.  Original text of section 8.2 (2nd paragraph) of RFC 3264  24
      13.5.  New text replacing section 8.2 (2nd paragraph) of RFC
-            3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  26
-     13.6.  Original text of section 8.4 (6th paragraph) of RFC 3264  26
+            3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  24
+     13.6.  Original text of section 8.4 (6th paragraph) of RFC 3264  25
      13.7.  New text replacing section 8.4 (6th paragraph) of RFC
-            3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  26
-   14. RTP/RTCP extensions for identification-tag transport  . . . .  26
-     14.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  26
-     14.2.  RTCP MID SDES Item . . . . . . . . . . . . . . . . . . .  27
-     14.3.  RTP MID Header Extension . . . . . . . . . . . . . . . .  28
-   15. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  28
-     15.1.  New SDES item  . . . . . . . . . . . . . . . . . . . . .  28
-     15.2.  New RTP Header Extension URI . . . . . . . . . . . . . .  29
-     15.3.  New SDP Attribute  . . . . . . . . . . . . . . . . . . .  29
-     15.4.  New SDP Group Semantics  . . . . . . . . . . . . . . . .  30
-   16. Security Considerations . . . . . . . . . . . . . . . . . . .  30
-   17. Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .  31
-     17.1.  Example: Bundle Address Selection  . . . . . . . . . . .  31
-     17.2.  Example: BUNDLE Extension Rejected . . . . . . . . . . .  33
+            3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  25
+   14. RTP/RTCP extensions for identification-tag transport  . . . .  25
+     14.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  25
+     14.2.  RTCP MID SDES Item . . . . . . . . . . . . . . . . . . .  26
+     14.3.  RTP MID Header Extension . . . . . . . . . . . . . . . .  27
+   15. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
+     15.1.  New SDES item  . . . . . . . . . . . . . . . . . . . . .  27
+     15.2.  New RTP Header Extension URI . . . . . . . . . . . . . .  28
+     15.3.  New SDP Attribute  . . . . . . . . . . . . . . . . . . .  28
+     15.4.  New SDP Group Semantics  . . . . . . . . . . . . . . . .  28
+   16. Security Considerations . . . . . . . . . . . . . . . . . . .  29
+   17. Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .  29
+     17.1.  Example: Bundle Address Selection  . . . . . . . . . . .  29
+     17.2.  Example: BUNDLE Extension Rejected . . . . . . . . . . .  31
      17.3.  Example: Offerer Adds A Media Description To A BUNDLE
-            Group  . . . . . . . . . . . . . . . . . . . . . . . . .  34
+            Group  . . . . . . . . . . . . . . . . . . . . . . . . .  32
      17.4.  Example: Offerer Moves A Media Description Out Of A
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 3]
+Holmberg, et al.           Expires May 8, 2016                  [Page 3]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
-            BUNDLE Group . . . . . . . . . . . . . . . . . . . . . .  36
+            BUNDLE Group . . . . . . . . . . . . . . . . . . . . . .  34
      17.5.  Example: Offerer Disables A Media Description Within A
-            BUNDLE Group . . . . . . . . . . . . . . . . . . . . . .  37
-   18. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  39
-   19. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  39
-   20. References  . . . . . . . . . . . . . . . . . . . . . . . . .  45
-     20.1.  Normative References . . . . . . . . . . . . . . . . . .  45
-     20.2.  Informative References . . . . . . . . . . . . . . . . .  46
-   Appendix A.  Design Considerations  . . . . . . . . . . . . . . .  47
-     A.1.  General . . . . . . . . . . . . . . . . . . . . . . . . .  47
-     A.2.  UA Interoperability . . . . . . . . . . . . . . . . . . .  48
-     A.3.  Usage of port number value zero . . . . . . . . . . . . .  49
-     A.4.  B2BUA And Proxy Interoperability  . . . . . . . . . . . .  49
-       A.4.1.  Traffic Policing  . . . . . . . . . . . . . . . . . .  50
-       A.4.2.  Bandwidth Allocation  . . . . . . . . . . . . . . . .  50
-     A.5.  Candidate Gathering . . . . . . . . . . . . . . . . . . .  50
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  51
+            BUNDLE Group . . . . . . . . . . . . . . . . . . . . . .  35
+   18. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  37
+   19. Change Log  . . . . . . . . . . . . . . . . . . . . . . . . .  37
+   20. References  . . . . . . . . . . . . . . . . . . . . . . . . .  43
+     20.1.  Normative References . . . . . . . . . . . . . . . . . .  43
+     20.2.  Informative References . . . . . . . . . . . . . . . . .  44
+   Appendix A.  Design Considerations  . . . . . . . . . . . . . . .  45
+     A.1.  General . . . . . . . . . . . . . . . . . . . . . . . . .  45
+     A.2.  UA Interoperability . . . . . . . . . . . . . . . . . . .  46
+     A.3.  Usage of port number value zero . . . . . . . . . . . . .  47
+     A.4.  B2BUA And Proxy Interoperability  . . . . . . . . . . . .  47
+       A.4.1.  Traffic Policing  . . . . . . . . . . . . . . . . . .  48
+       A.4.2.  Bandwidth Allocation  . . . . . . . . . . . . . . . .  48
+     A.5.  Candidate Gathering . . . . . . . . . . . . . . . . . . .  49
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  49
 
 1.  Introduction
 
@@ -220,9 +220,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 4]
+Holmberg, et al.           Expires May 8, 2016                  [Page 4]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    As defined in RFC 4566 [RFC4566], the semantics of assigning the same
@@ -276,9 +276,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 5]
+Holmberg, et al.           Expires May 8, 2016                  [Page 5]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    Answerer BUNDLE-tag: The first identification-tag in a given SDP
@@ -332,9 +332,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 6]
+Holmberg, et al.           Expires May 8, 2016                  [Page 6]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
 4.  Applicability Statement
@@ -388,9 +388,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 7]
+Holmberg, et al.           Expires May 8, 2016                  [Page 7]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
       Name: bundle-only
@@ -444,9 +444,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 8]
+Holmberg, et al.           Expires May 8, 2016                  [Page 8]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
 7.2.  Connection Data (c=)
@@ -500,9 +500,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016                [Page 9]
+Holmberg, et al.           Expires May 8, 2016                  [Page 9]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    wants to create a BUNDLE group, and the answerer rejects the offer,
@@ -556,9 +556,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 10]
+Holmberg, et al.           Expires May 8, 2016                 [Page 10]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    [Section 17.1] shows an example of an initial offer.
@@ -612,9 +612,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 11]
+Holmberg, et al.           Expires May 8, 2016                 [Page 11]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    The answerer MUST NOT associate an SDP 'bundle-only' attribute with
@@ -668,9 +668,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 12]
+Holmberg, et al.           Expires May 8, 2016                 [Page 12]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    The answerer MUST NOT assign the answerer BUNDLE address to an "m="
@@ -724,9 +724,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 13]
+Holmberg, et al.           Expires May 8, 2016                 [Page 13]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    selected by the answerer [Section 8.3.2], as the address for each
@@ -780,9 +780,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 14]
+Holmberg, et al.           Expires May 8, 2016                 [Page 14]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    NOTE: Unless the offerer assigns the new suggested offerer BUNDLE
@@ -836,9 +836,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 15]
+Holmberg, et al.           Expires May 8, 2016                 [Page 15]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    o  MUST NOT place the identification-tag associated with the "m="
@@ -892,9 +892,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 16]
+Holmberg, et al.           Expires May 8, 2016                 [Page 16]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    This document describes a mechanism to identify the protocol of
@@ -948,9 +948,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 17]
+Holmberg, et al.           Expires May 8, 2016                 [Page 17]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    o  A specific payload type value can be used in multiple bundled "m="
@@ -1004,9 +1004,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 18]
+Holmberg, et al.           Expires May 8, 2016                 [Page 18]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    address:port combination cannot be used to associate received RTP
@@ -1042,121 +1042,91 @@ Internet-Draft                Bundled media                    July 2015
 
 10.3.1.  General
 
-   When a BUNDLE group, which contains RTP based media, is created, the
-   offerer and answerer MUST negotiate whether to enable RTP/RTCP
-   multiplexing for the RTP based media associated with the BUNDLE group
-   [RFC5761].
+   Within a BUNDLE group, the offerer and answerer MUST enable RTP/RTCP
+   multiplexing [RFC5761] for the RTP-based media associated with the
+   BUNDLE group.
 
-   If RTP/RTCP multiplexing is enabled, the same address:port
+   When RTP/RTCP multiplexing is enabled, the same address:port
    combination will be used for sending all RTP packets and the RTCP
    packets associated with the BUNDLE group.  Each endpoint will send
    the packets towards the BUNDLE address of the other endpoint.  The
    same address:port combination MAY be used for receiving RTP packets
    and RTCP packets.
 
-   If RTP/RTCP multiplexing is not enabled, separate address:port
-   combinations will be used for sending the RTP packets and the RTCP
-   packets.  The same address:port combinations MAY be used for
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 19]
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 19]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
-
-   receiving RTP packets and RTCP packets.  If the remote endpoint has
-   associated an SDP 'rtcp' attribute with the "m=" line associated with
-   the BUNDLE-tag, the attribute value will be used for sending all RTCP
-   packets associated with the BUNDLE group towards that endpoint.
 
 10.3.2.  SDP Offer/Answer Procedures
 
 10.3.2.1.  General
 
-   This section describes how an offerer and answerer can use the SDP
-   'rtcp-mux' attribute [RFC5761] and the SDP 'rtcp' attribute [RFC3605]
-   to negotiate usage of RTP/RTCP multiplexing for RTP based media
-   associated with a BUNDLE group.
+   This section describes how an offerer and answerer use the SDP 'rtcp-
+   mux' attribute [RFC5761] to negotiate usage of RTP/RTCP multiplexing
+   for RTP-based media associated with a BUNDLE group.
+
+   The procedures in this section only apply to RTP-based "m=" lines.
 
 10.3.2.2.  Generating the Initial SDP Offer
 
-   When an offerer generates an initial offer, if the offerer wants to
-   negotiate usage of RTP/RTCP multiplexing within a BUNDLE group, the
-   offerer MUST associate an SDP 'rtcp-mux' attribute [RFC5761] with
-   each bundled RTP-based "m=" line (including any bundle-only "m="
-   line) in the offer.
+   When an offerer generates an initial offer, the offerer MUST
+   associate an SDP 'rtcp-mux' attribute [RFC5761] with each bundled
+   RTP-based "m=" line (including any bundle-only "m=" line) in the
+   offer.
 
-   If the offerer does not want to negotiate usage of RTP/RTCP
-   multiplexing, it MUST NOT associate an SDP 'rtcp-mux' attribute with
-   any bundled "m=" line in the offer.
-
-   In addition, the offerer can associate an SDP 'rtcp' attribute
-   [RFC3605] with one or more bundled RTP-based "m=" lines (including
-   any bundle-only "m=" line) in the offer, in order to provide a port
-   for receiving RTCP packets (if the answerer does not accept usage of
-   RTP/RTCP multiplexing, or if the offerer does not want to negotiate
-   usage of RTP/RTCP multiplexing).
+   NOTE: The offerer might also associate an SDP 'rtcp' attribute
+   [RFC3605] with a bundled "m=" line, excluding a bundle-only "m="
+   line, in order to provide a fallback port for RTCP.  However, the
+   fallback port will only be used in case the answerer does not include
+   the "m=" line in the BUNDLE group in the associated answer.
 
    In the initial offer, the IP address and port combination for RTCP
-   MUST be unique in each bundled RTP-based "m=" line, similar to RTP.
-
-   NOTE: In case the offer wants to receive RTCP packets on the next
-   higher port value, the SDP 'rtcp' attribute is not needed.
+   MUST be unique in each bundled RTP-based "m=" line (excluding a
+   'bundle-only' "m=" line), similar to RTP.
 
 10.3.2.3.  Generating the SDP Answer
 
    When an answerer generates an answer, if the offerer indicated
    support of RTP/RTCP multiplexing [RFC5761] within a BUNDLE group in
-   the associated offer, the answerer MUST either accept or reject the
-   usage of RTP/RTCP multiplexing for the whole BUNDLE group in the
-   answer.
+   the associated offer, the answerer MUST accept usage of RTP/RTCP
+   multiplexing within the BUNDLE group.  If an SDP "rtcp-mux" attribute
+   was not associated with a bundled "m=" line in the associated offer,
+   the answerer MUST NOT included that "m=" line in the BUNDLE group.
 
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 20]
-
-Internet-Draft                Bundled media                    July 2015
-
-
-   If the answerer accepts the usage of RTP/RTCP multiplexing within the
-   BUNDLE group, it MUST associate an SDP 'rtcp-mux' attribute with each
-   bundled RTP-based "m=" line in the answer.  The answerer MUST NOT
-   associate an SDP 'rtcp' attribute with any bundled "m=" line in the
-   answer.  The answerer will use the port value of the selected offerer
-   BUNDLE address for sending RTP and RTCP packets associated with each
-   RTP-based bundled "m=" line towards the offerer.
-
-   If the answerer does not accept the usage of RTP/RTCP multiplexing
-   within the BUNDLE group, it MUST NOT associate an SDP 'rtcp-mux'
-   attribute with any bundled "m=" line in the answer.  The answerer
-   will use the RTP and RTCP port values associated with the selected
+   When the answerer accepts the usage of RTP/RTCP multiplexing within
+   the BUNDLE group, it MUST associate an SDP 'rtcp-mux' attribute with
+   each bundled RTP-based "m=" line in the answer.  The answerer MUST
+   NOT associate an SDP 'rtcp' attribute with any bundled "m=" line in
+   the answer.  The answerer will use the port value of the selected
    offerer BUNDLE address for sending RTP and RTCP packets associated
    with each RTP-based bundled "m=" line towards the offerer.
 
-   In addition, if the answerer rejects the usage of RTP/RTCP
-   multiplexing within the BUNDLE group, it MAY associate an SDP 'rtcp'
-   attribute, with identical attribute values, with each RTP-based
-   bundled "m=" line in the answer, in order to provide a port value for
-   receiving RTCP packets from the offerer.
-
-   NOTE: In case the answerer wants to receive RTCP packets on the next
-   higher port value, the SDP 'rtcp' attribute is not needed.
-
    If the usage of RTP/RTCP multiplexing within a BUNDLE group has been
-   negotiated in a previous offer/answer transaction, and if the offerer
-   indicates that it wants to continue using RTP/RTCP multiplexing in a
-   subsequent offer, the answerer MUST associate an SDP 'rtcp-mux'
-   attribute with each bundled "m=" line in the answer.  I.e. the
-   answerer MUST NOT disable the usage of RTP/RTCP multiplexing.
+   negotiated in a previous offer/answer transaction, the answerer MUST
+   associate an SDP 'rtcp-mux' attribute with each bundled RTP-based
+   "m=" line in the answer.
 
-   If the usage of RTP/RTCP multiplexing within a BUNDLE group has not
-   been negotiated in a previous offer/answer transaction, and if the
-   offerer indicates that it wants to use RTP/RTCP multiplexing in a
-   subsequent offer, the answerer either accepts or rejects the usage,
-   using the procedures above.
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 20]
+
+Internet-Draft                Bundled media                November 2015
+
+
+   TODO: See if this text is needed.  What if an m= line is moved out of
+   a BUNDLE group?  If the usage of RTP/RTCP multiplexing within a
+   BUNDLE group has not been negotiated in a previous offer/answer
+   transaction, and if the offerer indicates that it wants to use RTP/
+   RTCP multiplexing in a subsequent offer, the answerer either accepts
+   or rejects the usage, using the procedures above.
 
 10.3.2.4.  Offerer Processing of the SDP Answer
 
@@ -1167,55 +1137,17 @@ Internet-Draft                Bundled media                    July 2015
    answerer BUNDLE address for sending RTP and RTCP packets associated
    with each RTP-based bundled "m=" line towards the answerer.
 
-   If the answerer did not accept the usage of RTP/RTCP multiplexing
-   (see Section 10.3.2.3), the offerer will use separate address:port
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 21]
-
-Internet-Draft                Bundled media                    July 2015
-
-
-   combinations for sending RTP and RTCP packets towards the answerer.
-   If the answerer associated an SDP 'rtcp' attribute with the "m=" line
-   representing the answerer BUNDLE address, the offerer will use the
-   attribute port value for sending RTCP packets associated with each
-   bundled RTP-based "m=" line towards the answerer.  Otherwise the
-   offerer will use the next higher port value associated with the
-   answerer BUNDLE address for sending RTCP packets towards the
-   answerer.
+   NOTE: If is considered a protocol error if the answerer has not
+   accpeted the usage of RTP/RTCP multiplexing for RTP-based "m=" lines
+   that the answerer included in the BUNDLE group.
 
 10.3.2.5.  Modifying the Session
 
-   When an offerer generates a subsequent offer, if it wants to
-   negotiate the usage of RTP/RTCP multiplexing within a BUNDLE group,
-   or if it wants to continue the use of previously negotiated RTP/RTCP
-   multiplexing, it MUST associate an SDP 'rtcp-mux' attribute with each
-   RTP-based bundled "m=" line (including any bundled "m=" line that the
-   offerer wants to add to the BUNDLE group), unless the offerer wants
-   to disable or remove the "m=" line from the BUNDLE group.
-
-   If the offerer does not want to negotiate the usage of RTP/RTCP
-   multiplexing within the BUNDLE group, or if it wants to disable
-   previously negotiated usage of RTP/RTCP multiplexing, it MUST NOT
-   associate an SDP 'rtcp-mux' and attribute with any bundled "m=" line
-   in the subsequent offer.
-
-   In addition, if the offerer does not indicate support of RTP/RTCP
-   multiplexing within the subsequent offer, it MAY associate an SDP
-   'rtcp' attribute, with identical attribute values, with each RTP-
-   based bundled "m=" line (including any bundled "m=" line that the
-   offerer wants to add to the BUNDLE group), in order to provide a port
-   for receiving RTCP packets.
-
-   NOTE: It is RECOMMENDED that, once the usage of RTP/RTCP multiplexing
-   has been negotiated within a BUNDLE group, that the usage is not
-   disabled.  Disabling RTP/RTCP multiplexing means that the offerer and
-   answerer need to reserve new ports, to be used for sending and
-   receiving RTCP packets.  Similar, if the usage of a specific RTCP
-   port has been negotiated within a BUNDLE group, it is RECOMMENDED
-   that the port value is not modified.
+   When an offerer generatees a subsequent offer, it MUST associate an
+   SDP 'rtcp-mux' attribute with each RTP-based bundled "m=" line
+   (including any bundled "m=" line that the offerer wants to add to the
+   BUNDLE group), unless the offerer wants to disable or remove the "m="
+   line from the BUNDLE group.
 
 11.  ICE Considerations
 
@@ -1224,14 +1156,6 @@ Internet-Draft                Bundled media                    July 2015
    This section describes how to use the BUNDLE grouping extension
    together with the Interactive Connectivity Establishment (ICE)
    mechanism [RFC5245].
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 22]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    The procedures defined in [RFC5245] also apply to usage of ICE with
    BUNDLE, with the following exception:
@@ -1243,6 +1167,15 @@ Internet-Draft                Bundled media                    July 2015
 
    Support and usage of ICE mechanism together with the BUNDLE extension
    is OPTIONAL.
+
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 21]
+
+Internet-Draft                Bundled media                November 2015
+
 
 11.2.  SDP Offer/Answer Procedures
 
@@ -1278,17 +1211,6 @@ Internet-Draft                Bundled media                    July 2015
    line (including "m=" lines that were indicated as bundle-only in the
    associated offer) in the answer.
 
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 23]
-
-Internet-Draft                Bundled media                    July 2015
-
-
 11.2.4.  Offerer Processing of the SDP Answer
 
    When an offerer receives an answer, if the answerer supports and uses
@@ -1302,6 +1224,14 @@ Internet-Draft                Bundled media                    July 2015
    When an offerer generates a subsequent offer, it assigns unique or
    shared ICE candidates to the bundled "m=" lines, according to
    (Section 11.1).
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 22]
+
+Internet-Draft                Bundled media                November 2015
+
 
 12.  DTLS Considerations
 
@@ -1317,7 +1247,12 @@ Internet-Draft                Bundled media                    July 2015
 
    o  Each usage of the DTLS association within the BUNDLE group MUST
       use the same mechanism for determining which endpoints (the
-      offerer or answerer) becomes DTLS client and DTLS server; and
+      offerer or answerer) becomes DTLS client and DTLS server;
+
+   o  Each usage of the DTLS association within the Bundle group MUST
+      use the same mechanism for determining whether an offer or answer
+      will trigger the establishment of a new DTLS association, or
+      whether an existing DTLS association will be used; and
 
    o  If the DTLS client supports DTLS-SRTP [RFC5764] it MUST include
       the 'use_srtp' extension [RFC5764] in the DTLS ClientHello message
@@ -1338,16 +1273,21 @@ Internet-Draft                Bundled media                    July 2015
 
    o  Section 5.1 (Unicast Streams).
 
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 24]
-
-Internet-Draft                Bundled media                    July 2015
-
-
    o  Section 8.2 (Removing a Media Stream).
 
    o  Section 8.4 (Putting a Unicast Media Stream on Hold).
+
+
+
+
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 23]
+
+Internet-Draft                Bundled media                November 2015
+
 
 13.2.  Original text of section 5.1 (2nd paragraph) of RFC 3264
 
@@ -1391,22 +1331,20 @@ Internet-Draft                Bundled media                    July 2015
    attributes present previously, and MAY list just a single media
    format from amongst those in the offer.
 
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 25]
-
-Internet-Draft                Bundled media                    July 2015
-
-
 13.5.  New text replacing section 8.2 (2nd paragraph) of RFC 3264
 
    A stream that is offered with a port of zero MUST by default be
    marked with port zero in the answer, unless an extension mechanism,
    which specifies semantics for the usage of a non-zero port value, is
    used.  If the stream is marked with port zero in the answer, the
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 24]
+
+Internet-Draft                Bundled media                November 2015
+
+
    answer MAY omit all attributes present previously, and MAY list just
    a single media format from amongst those in the offer."
 
@@ -1450,17 +1388,18 @@ Internet-Draft                Bundled media                    July 2015
    procedures in [RFC5888].  Each identification-tag uniquely represents
    an "m=" line.
 
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 26]
-
-Internet-Draft                Bundled media                    July 2015
-
-
    This section defines a new RTCP SDES item [RFC3550], 'MID', which is
    used to carry identification-tags within RTCP SDES packets.  This
    section also defines a new RTP header extension [RFC5285], which is
    used to carry identification-tags in RTP packets.
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 25]
+
+Internet-Draft                Bundled media                November 2015
+
 
    The SDES item and RTP header extension make it possible for a
    receiver to associate received RTCP- and RTP packets with a specific
@@ -1502,17 +1441,6 @@ Internet-Draft                Bundled media                    July 2015
 14.2.  RTCP MID SDES Item
 
 
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 27]
-
-Internet-Draft                Bundled media                    July 2015
-
-
        0                   1                   2                   3
        0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
       +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+
@@ -1521,6 +1449,13 @@ Internet-Draft                Bundled media                    July 2015
 
 
    The identification-tag payload is UTF-8 encoded, as in SDP.
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 26]
+
+Internet-Draft                Bundled media                November 2015
+
 
    The identification-tag is not zero terminated.
 
@@ -1560,20 +1495,22 @@ Internet-Draft                Bundled media                    July 2015
    [RFC EDITOR NOTE: Please replace RFCXXXX with the RFC number of this
    document.]
 
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 28]
-
-Internet-Draft                Bundled media                    July 2015
-
-
    [RFC EDITOR NOTE: Please replace TBD with the assigned SDES
    identifier value.]
 
    This document adds the MID SDES item to the IANA "RTCP SDES item
    types" registry as follows:
+
+
+
+
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 27]
+
+Internet-Draft                Bundled media                November 2015
 
 
            Value:          TBD
@@ -1607,24 +1544,6 @@ Internet-Draft                Bundled media                    July 2015
    according to the following data:
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 29]
-
-Internet-Draft                Bundled media                    July 2015
-
-
           Attribute name:     bundle-only
           Type of attribute:  media
           Subject to charset: No
@@ -1641,6 +1560,14 @@ Internet-Draft                Bundled media                    July 2015
 
    [RFC EDITOR NOTE: Please replace RFCXXXX with the RFC number of this
    document.]
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 28]
+
+Internet-Draft                Bundled media                November 2015
+
 
    This document registers the following semantics with IANA in the
    "Semantics for the "group" SDP Attribute" subregistry (under the
@@ -1669,18 +1596,6 @@ Internet-Draft                Bundled media                    July 2015
    collision.  [RFC4568] describes how SSRC collision may weaken SRTP
    and SRTCP encryption in certain situations.
 
-
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 30]
-
-Internet-Draft                Bundled media                    July 2015
-
-
 17.  Examples
 
 17.1.  Example: Bundle Address Selection
@@ -1705,36 +1620,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 31]
+Holmberg, et al.           Expires May 8, 2016                 [Page 29]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    SDP Offer (1)
@@ -1788,9 +1676,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 32]
+Holmberg, et al.           Expires May 8, 2016                 [Page 30]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
 17.2.  Example: BUNDLE Extension Rejected
@@ -1844,9 +1732,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 33]
+Holmberg, et al.           Expires May 8, 2016                 [Page 31]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
    SDP Offer (1)
@@ -1900,9 +1788,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 34]
+Holmberg, et al.           Expires May 8, 2016                 [Page 32]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
       BUNDLE address to each of the other bundled "m=" lines within the
@@ -1956,9 +1844,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 35]
+Holmberg, et al.           Expires May 8, 2016                 [Page 33]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
        a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2012,9 +1900,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 36]
+Holmberg, et al.           Expires May 8, 2016                 [Page 34]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
        a=rtpmap:31 H261/90000
@@ -2068,9 +1956,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 37]
+Holmberg, et al.           Expires May 8, 2016                 [Page 35]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
       "m=" line, and assigns the answerer BUNDLE address to each of the
@@ -2124,9 +2012,9 @@ Internet-Draft                Bundled media                    July 2015
 
 
 
-Holmberg, et al.        Expires January 21, 2016               [Page 38]
+Holmberg, et al.           Expires May 8, 2016                 [Page 36]
 
-Internet-Draft                Bundled media                    July 2015
+Internet-Draft                Bundled media                November 2015
 
 
        m=video 0 RTP/AVP 66
@@ -2162,6 +2050,10 @@ Internet-Draft                Bundled media                    July 2015
 
    [RFC EDITOR NOTE: Please remove this section when publishing]
 
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-23
+
+   o  - RTCP-MUX mandatory for bundled RTP m- lines
+
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-22
 
    o  - Correction of Ari's family name
@@ -2173,17 +2065,17 @@ Internet-Draft                Bundled media                    July 2015
    o  -- http://www.ietf.org/mail-archive/web/mmusic/current/
       msg14861.html
 
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 37]
+
+Internet-Draft                Bundled media                November 2015
+
+
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-21
 
    o  - Correct based on comment from Paul Kyzivat
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 39]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    o  -- 'received packets' replaced with 'received data'
 
@@ -2230,16 +2122,16 @@ Internet-Draft                Bundled media                    July 2015
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-14
 
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 38]
+
+Internet-Draft                Bundled media                November 2015
+
+
    o  - Editorial changes.
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-13
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 40]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    o  Changes to allow a new suggested offerer BUNDLE address to be
       assigned to each bundled m- line.
@@ -2286,16 +2178,16 @@ Internet-Draft                Bundled media                    July 2015
 
    o  -- Clarify padding
 
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 39]
+
+Internet-Draft                Bundled media                November 2015
+
+
    o  Changes based on WGLC comments from Paul Kyzivat
 
    o  - Editorial changes:
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 41]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    o  Changes based on WGLC comments from Jonathan Lennox
 
@@ -2342,16 +2234,16 @@ Internet-Draft                Bundled media                    July 2015
 
    o  Editorial corrections.
 
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 40]
+
+Internet-Draft                Bundled media                November 2015
+
+
    o  - "of"->"if" (8.3.2.5).
 
    o  - "optional"->"OPTIONAL" (9.1).
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 42]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    o  - Syntax/ABNF for 'bundle-only' attribute added.
 
@@ -2398,16 +2290,16 @@ Internet-Draft                Bundled media                    July 2015
 
    o  Additional definitions added.
 
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 41]
+
+Internet-Draft                Bundled media                November 2015
+
+
    o  - Shared address.
 
    o  - Bundled "m=" line.
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 43]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    o  - Bundle-only "m=" line.
 
@@ -2453,17 +2345,17 @@ Internet-Draft                Bundled media                    July 2015
 
    o  Cullen Jennings added as co-author.
 
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 42]
+
+Internet-Draft                Bundled media                November 2015
+
+
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-01
 
    o  No changes.  New version due to expiration.
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 44]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-00
 
@@ -2508,18 +2400,19 @@ Internet-Draft                Bundled media                    July 2015
               DOI 10.17487/RFC5761, April 2010,
               <http://www.rfc-editor.org/info/rfc5761>.
 
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 43]
+
+Internet-Draft                Bundled media                November 2015
+
+
    [RFC5888]  Camarillo, G. and H. Schulzrinne, "The Session Description
               Protocol (SDP) Grouping Framework", RFC 5888,
               DOI 10.17487/RFC5888, June 2010,
               <http://www.rfc-editor.org/info/rfc5888>.
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 45]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    [I-D.mmusic-sdp-mux-attributes]
               Nandakumar, S., "A Framework for SDP Attributes when
@@ -2564,18 +2457,19 @@ Internet-Draft                Bundled media                    July 2015
               (SDP)", RFC 5576, DOI 10.17487/RFC5576, June 2009,
               <http://www.rfc-editor.org/info/rfc5576>.
 
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 44]
+
+Internet-Draft                Bundled media                November 2015
+
+
    [RFC5764]  McGrew, D. and E. Rescorla, "Datagram Transport Layer
               Security (DTLS) Extension to Establish Keys for the Secure
               Real-time Transport Protocol (SRTP)", RFC 5764,
               DOI 10.17487/RFC5764, May 2010,
               <http://www.rfc-editor.org/info/rfc5764>.
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 46]
-
-Internet-Draft                Bundled media                    July 2015
-
 
    [RFC6347]  Rescorla, E. and N. Modadugu, "Datagram Transport Layer
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
@@ -2619,19 +2513,16 @@ A.1.  General
    o  5) SDP Offer/Answer impacts, including usage of port number value
       zero.
 
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 45]
+
+Internet-Draft                Bundled media                November 2015
+
+
    NOTE: Before this document is published as an RFC, this
    Appendix might be removed.
-
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 47]
-
-Internet-Draft                Bundled media                    July 2015
-
 
 A.2.  UA Interoperability
 
@@ -2677,16 +2568,17 @@ A.2.  UA Interoperability
    implementations to use the fact that each "m=" line had a different
    port number to use that port number as an index to find the correct m
    line in the SDP.  As a result, some implementations that do support
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 46]
+
+Internet-Draft                Bundled media                November 2015
+
+
    symmetric RTP and ICE still use a SDP data structure where SDP with
    "m=" lines with the same port such as:
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 48]
-
-Internet-Draft                Bundled media                    July 2015
 
 
    SDP Offer
@@ -2732,17 +2624,17 @@ A.4.  B2BUA And Proxy Interoperability
    for the outgoing call leg.  Consider an B2BUA that did not understand
    the SDP "rtcp" attribute, defined in RFC 3605, yet acted this way.
    Further assume that the B2BUA was configured to tear down any call
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 47]
+
+Internet-Draft                Bundled media                November 2015
+
+
    where it did not see any RTCP for 5 minutes.  In this cases, if the
    B2BUA received an Offer like:
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 49]
-
-Internet-Draft                Bundled media                    July 2015
 
 
    SDP Offer
@@ -2787,20 +2679,22 @@ A.4.2.  Bandwidth Allocation
    bandwidth.  That may either simply lead to bad user experience, or to
    termination of the call.
 
+
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 48]
+
+Internet-Draft                Bundled media                November 2015
+
+
 A.5.  Candidate Gathering
 
    When using ICE, an candidate needs to be gathered for each port.
    This takes approximately 20 ms extra for each extra "m=" line due to
    the NAT pacing requirements.  All of this gather can be overlapped
    with other things while the page is loading to minimize the impact.
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 50]
-
-Internet-Draft                Bundled media                    July 2015
-
-
    If the client only wants to generate TURN or STUN ICE candidates for
    one of the "m=" lines and then use trickle ICE
    [I-D.ietf-mmusic-trickle-ice] to get the non host ICE candidates for
@@ -2846,10 +2740,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-Holmberg, et al.        Expires January 21, 2016               [Page 51]
+Holmberg, et al.           Expires May 8, 2016                 [Page 49]
