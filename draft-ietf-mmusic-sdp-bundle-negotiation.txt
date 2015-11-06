@@ -127,34 +127,34 @@ Internet-Draft                Bundled media                November 2015
        10.3.2.  SDP Offer/Answer Procedures  . . . . . . . . . . . .  20
    11. ICE Considerations  . . . . . . . . . . . . . . . . . . . . .  21
      11.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  21
-     11.2.  SDP Offer/Answer Procedures  . . . . . . . . . . . . . .  22
-       11.2.1.  General  . . . . . . . . . . . . . . . . . . . . . .  22
+     11.2.  SDP Offer/Answer Procedures  . . . . . . . . . . . . . .  21
+       11.2.1.  General  . . . . . . . . . . . . . . . . . . . . . .  21
        11.2.2.  Generating the Initial SDP Offer . . . . . . . . . .  22
        11.2.3.  Generating the SDP Answer  . . . . . . . . . . . . .  22
        11.2.4.  Offerer Processing of the SDP Answer . . . . . . . .  22
        11.2.5.  Modifying the Session  . . . . . . . . . . . . . . .  22
-   12. DTLS Considerations . . . . . . . . . . . . . . . . . . . . .  23
+   12. DTLS Considerations . . . . . . . . . . . . . . . . . . . . .  22
    13. Update to RFC 3264  . . . . . . . . . . . . . . . . . . . . .  23
      13.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  23
-     13.2.  Original text of section 5.1 (2nd paragraph) of RFC 3264  24
+     13.2.  Original text of section 5.1 (2nd paragraph) of RFC 3264  23
      13.3.  New text replacing section 5.1 (2nd paragraph) of RFC
             3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  24
      13.4.  Original text of section 8.2 (2nd paragraph) of RFC 3264  24
      13.5.  New text replacing section 8.2 (2nd paragraph) of RFC
             3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  24
-     13.6.  Original text of section 8.4 (6th paragraph) of RFC 3264  25
+     13.6.  Original text of section 8.4 (6th paragraph) of RFC 3264  24
      13.7.  New text replacing section 8.4 (6th paragraph) of RFC
             3264 . . . . . . . . . . . . . . . . . . . . . . . . . .  25
    14. RTP/RTCP extensions for identification-tag transport  . . . .  25
      14.1.  General  . . . . . . . . . . . . . . . . . . . . . . . .  25
      14.2.  RTCP MID SDES Item . . . . . . . . . . . . . . . . . . .  26
-     14.3.  RTP MID Header Extension . . . . . . . . . . . . . . . .  27
+     14.3.  RTP MID Header Extension . . . . . . . . . . . . . . . .  26
    15. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
      15.1.  New SDES item  . . . . . . . . . . . . . . . . . . . . .  27
-     15.2.  New RTP Header Extension URI . . . . . . . . . . . . . .  28
+     15.2.  New RTP Header Extension URI . . . . . . . . . . . . . .  27
      15.3.  New SDP Attribute  . . . . . . . . . . . . . . . . . . .  28
      15.4.  New SDP Group Semantics  . . . . . . . . . . . . . . . .  28
-   16. Security Considerations . . . . . . . . . . . . . . . . . . .  29
+   16. Security Considerations . . . . . . . . . . . . . . . . . . .  28
    17. Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .  29
      17.1.  Example: Bundle Address Selection  . . . . . . . . . . .  29
      17.2.  Example: BUNDLE Extension Rejected . . . . . . . . . . .  31
@@ -1121,13 +1121,6 @@ Holmberg, et al.           Expires May 8, 2016                 [Page 20]
 Internet-Draft                Bundled media                November 2015
 
 
-   TODO: See if this text is needed.  What if an m= line is moved out of
-   a BUNDLE group?  If the usage of RTP/RTCP multiplexing within a
-   BUNDLE group has not been negotiated in a previous offer/answer
-   transaction, and if the offerer indicates that it wants to use RTP/
-   RTCP multiplexing in a subsequent offer, the answerer either accepts
-   or rejects the usage, using the procedures above.
-
 10.3.2.4.  Offerer Processing of the SDP Answer
 
    When an offerer receives an answer, if the answerer has accepted the
@@ -1168,6 +1161,13 @@ Internet-Draft                Bundled media                November 2015
    Support and usage of ICE mechanism together with the BUNDLE extension
    is OPTIONAL.
 
+11.2.  SDP Offer/Answer Procedures
+
+11.2.1.  General
+
+   When an offerer assigns a unique address to a bundled "m=" line
+   (excluding any bundle-only "m=" line), it MUST also associate unique
+   ICE candidates [RFC5245] to the "m=" line.
 
 
 
@@ -1176,14 +1176,6 @@ Holmberg, et al.           Expires May 8, 2016                 [Page 21]
 
 Internet-Draft                Bundled media                November 2015
 
-
-11.2.  SDP Offer/Answer Procedures
-
-11.2.1.  General
-
-   When an offerer assigns a unique address to a bundled "m=" line
-   (excluding any bundle-only "m=" line), it MUST also associate unique
-   ICE candidates [RFC5245] to the "m=" line.
 
    An offerer MUST NOT assign ICE candidates to a bundle-only "m=" line
    with a zero port value.
@@ -1225,14 +1217,6 @@ Internet-Draft                Bundled media                November 2015
    shared ICE candidates to the bundled "m=" lines, according to
    (Section 11.1).
 
-
-
-
-Holmberg, et al.           Expires May 8, 2016                 [Page 22]
-
-Internet-Draft                Bundled media                November 2015
-
-
 12.  DTLS Considerations
 
    One or more media streams within a BUNDLE group might use the
@@ -1241,6 +1225,13 @@ Internet-Draft                Bundled media                November 2015
    encryption mechanism is used to encrypt media.
 
    When DTLS is used within a BUNDLE group, the following rules apply:
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 22]
+
+Internet-Draft                Bundled media                November 2015
+
 
    o  There can only be one DTLS association [RFC6347] associated with
       the BUNDLE group;
@@ -1277,18 +1268,6 @@ Internet-Draft                Bundled media                November 2015
 
    o  Section 8.4 (Putting a Unicast Media Stream on Hold).
 
-
-
-
-
-
-
-
-Holmberg, et al.           Expires May 8, 2016                 [Page 23]
-
-Internet-Draft                Bundled media                November 2015
-
-
 13.2.  Original text of section 5.1 (2nd paragraph) of RFC 3264
 
    For recvonly and sendrecv streams, the port number and address in the
@@ -1302,6 +1281,14 @@ Internet-Draft                Bundled media                November 2015
    the offerer.  A port number of zero in the offer indicates that the
    stream is offered but MUST NOT be used.  This has no useful semantics
    in an initial offer, but is allowed for reasons of completeness,
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 23]
+
+Internet-Draft                Bundled media                November 2015
+
+
    since the answer can contain a zero port indicating a rejected stream
    (Section 6).  Furthermore, existing streams can be terminated by
    setting the port to zero (Section 8).  In general, a port number of
@@ -1337,14 +1324,6 @@ Internet-Draft                Bundled media                November 2015
    marked with port zero in the answer, unless an extension mechanism,
    which specifies semantics for the usage of a non-zero port value, is
    used.  If the stream is marked with port zero in the answer, the
-
-
-
-Holmberg, et al.           Expires May 8, 2016                 [Page 24]
-
-Internet-Draft                Bundled media                November 2015
-
-
    answer MAY omit all attributes present previously, and MAY list just
    a single media format from amongst those in the offer."
 
@@ -1358,6 +1337,14 @@ Internet-Draft                Bundled media                November 2015
    initial offer when the offerer knows it wants to use a particular set
    of media streams and formats, but doesn't know the addresses and
    ports at the time of the offer.  Of course, when used, the port
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 24]
+
+Internet-Draft                Bundled media                November 2015
+
+
    number MUST NOT be zero, which would specify that the stream has been
    disabled.  An agent MUST be capable of receiving SDP with a
    connection address of 0.0.0.0, in which case it means that neither
@@ -1393,14 +1380,6 @@ Internet-Draft                Bundled media                November 2015
    section also defines a new RTP header extension [RFC5285], which is
    used to carry identification-tags in RTP packets.
 
-
-
-
-Holmberg, et al.           Expires May 8, 2016                 [Page 25]
-
-Internet-Draft                Bundled media                November 2015
-
-
    The SDES item and RTP header extension make it possible for a
    receiver to associate received RTCP- and RTP packets with a specific
    "m=" line, to which the receiver has assigned an identification-tag,
@@ -1414,6 +1393,13 @@ Internet-Draft                Bundled media                November 2015
    SDP Offers and Answers.  The usage of other signalling protocols for
    carrying identification-tags is not prevented, but the usage of such
    protocols is outside the scope of this document.
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 25]
+
+Internet-Draft                Bundled media                November 2015
+
 
    [RFC3550] defines general procedures regarding the RTCP transmission
    interval.  The RTCP MID SDES item SHOULD be sent in the first few
@@ -1450,13 +1436,6 @@ Internet-Draft                Bundled media                November 2015
 
    The identification-tag payload is UTF-8 encoded, as in SDP.
 
-
-
-Holmberg, et al.           Expires May 8, 2016                 [Page 26]
-
-Internet-Draft                Bundled media                November 2015
-
-
    The identification-tag is not zero terminated.
 
    [RFC EDITOR NOTE: Please replace TBD with the assigned SDES
@@ -1468,6 +1447,15 @@ Internet-Draft                Bundled media                November 2015
    extension element can be encoded using either the one-byte or two-
    byte header [RFC5285].  The identification-tag payload is UTF-8
    encoded, as in SDP.
+
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 26]
+
+Internet-Draft                Bundled media                November 2015
+
 
    The identification-tag is not zero terminated.  Note, that set of
    header extensions included in the packet needs to be padded to the
@@ -1502,17 +1490,6 @@ Internet-Draft                Bundled media                November 2015
    types" registry as follows:
 
 
-
-
-
-
-
-
-Holmberg, et al.           Expires May 8, 2016                 [Page 27]
-
-Internet-Draft                Bundled media                November 2015
-
-
            Value:          TBD
            Abbrev.:        MID
            Name:           Media Identification
@@ -1527,6 +1504,13 @@ Internet-Draft                Bundled media                November 2015
    This document defines a new extension URI in the RTP Compact Header
    Extensions subregistry of the Real-Time Transport Protocol (RTP)
    Parameters registry, according to the following data:
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 27]
+
+Internet-Draft                Bundled media                November 2015
 
 
        Extension URI: urn:ietf:params:rtp-hdrext:sdes:mid
@@ -1561,14 +1545,6 @@ Internet-Draft                Bundled media                November 2015
    [RFC EDITOR NOTE: Please replace RFCXXXX with the RFC number of this
    document.]
 
-
-
-
-Holmberg, et al.           Expires May 8, 2016                 [Page 28]
-
-Internet-Draft                Bundled media                November 2015
-
-
    This document registers the following semantics with IANA in the
    "Semantics for the "group" SDP Attribute" subregistry (under the
    "Session Description Protocol (SDP) Parameters" registry:
@@ -1584,6 +1560,15 @@ Internet-Draft                Bundled media                November 2015
    The security considerations defined in [RFC3264] and [RFC5888] apply
    to the BUNDLE extension.  Bundle does not change which information
    flows over the network but only changes which ports that information
+
+
+
+
+Holmberg, et al.           Expires May 8, 2016                 [Page 28]
+
+Internet-Draft                Bundled media                November 2015
+
+
    is flowing on and thus has very little impact on the security of the
    RTP sessions.
 
@@ -1609,6 +1594,21 @@ Internet-Draft                Bundled media                November 2015
       address, and in which selects its own BUNDLE address (the answerer
       BUNDLE address) and assigns it each bundled "m=" line within the
       BUNDLE group.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

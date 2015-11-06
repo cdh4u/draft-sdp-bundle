@@ -1083,13 +1083,6 @@
                         associate an SDP 'rtcp-mux' attribute with each bundled RTP-based "m=" line 
                         in the answer.
 					</t>
-					<t>
-                        TODO: See if this text is needed. What if an m= line is moved out of a BUNDLE group?
-						If the usage of RTP/RTCP multiplexing within a BUNDLE group has not been negotiated
-						in a previous offer/answer transaction, and if the offerer indicates that it
-						wants to use RTP/RTCP multiplexing in a subsequent offer, the answerer either
-						accepts or rejects the usage, using the procedures above.  
-					</t>
 				</section>
 				<section title="Offerer Processing of the SDP Answer" anchor="sec-rtprtcp-mux-oa-pra" toc="default">
 					<t>
