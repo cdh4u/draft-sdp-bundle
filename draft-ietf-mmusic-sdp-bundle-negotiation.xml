@@ -111,7 +111,7 @@
 			the BUNDLE extension to negotiate the BUNDLE addresses, one for the offerer (offerer BUNDLE
 			address) and one for the answerer (answerer BUNDLE address), to be used for receiving 
 			the bundled media associated with a BUNDLE group. Once the offerer and the answerer have 
-			negotiated a BUNDLE group, they assign their respective BUNDLE address to each "m=" line 
+			negotiated a BUNDLE group, they associate their respective BUNDLE address with each "m=" line 
 			in the BUNDLE group. The BUNDLE addresses are used to receive all media associated with 
 			the BUNDLE group.
 		</t>
@@ -150,7 +150,7 @@
 		<t>
 			The BUNDLE extension is backward compatible. Endpoints that do not support the extension
 			are expected to generate offers and answers without an SDP 'group:BUNDLE' attribute, and
-			are expected to assign a unique address to each "m=" line within an offer and answer, according 
+			are expected to associate a unique address with each "m=" line within an offer and answer, according 
 			to the procedures in <xref format="default" pageno="false" target="RFC4566"/> and 
 			<xref format="default" pageno="false" target="RFC3264"/>
 		</t>
@@ -167,11 +167,11 @@
 			destination address, destination port, and transport-layer protocol.
 		</t>
 		<t>
-			Unique address: An IP address and port combination that is assigned to 
+			Unique address: An IP address and port combination that is associated with 
 			only one "m=" line in an offer or answer.
 		</t>
 		<t>
-			Shared address: An IP address and port combination that is assigned to
+			Shared address: An IP address and port combination that is associated with
 			multiple "m=" lines within an offer or answer.
 		</t>
 		<t>
@@ -272,7 +272,7 @@
 		<t>
 			The BUNDLE extension is indicated using an SDP 'group' attribute
 			with a "BUNDLE" semantics value <xref format="default" pageno="false" 
-			target="RFC5888"/>. An identification-tag is assigned to each bundled
+			target="RFC5888"/>. An identification-tag is associated with each bundled
 			"m=" line, and each identification-tag is listed in the SDP 'group:BUNDLE' 
 			attribute identification-tag list. Each "m=" line whose identification-tag 
 			is listed in the identification-tag list is associated with a given 
@@ -291,7 +291,8 @@
 	<section anchor="sec-bundle-only" title="SDP 'bundle-only' Attribute" toc="default">
 			<t>
 				This section defines a new SDP media-level attribute <xref target="RFC4566" pageno="false" 
-				format="default"/>, 'bundle-only'.
+				format="default"/>, 'bundle-only'. 'bundle-only' is a property attribute 
+                <xref target="RFC4566" pageno="false" format="default"/>, and hence has no value.
 			</t>
 			<figure>
 				<preamble></preamble>
@@ -299,7 +300,7 @@
 					
    Name: bundle-only
 
-   Value: 
+   Value: N/A
 
    Usage Level: media
 
@@ -323,7 +324,7 @@
 			<t>
                 NOTE: Once the offerer BUNDLE address has been selected, the offerer does
                 not need to include the 'bundle-only' attribute in subsequent offers. By 
-                assigning the offerer BUNDLE address to an "m=" line of a subsequent offer, 
+                associating the offerer BUNDLE address with an "m=" line of a subsequent offer, 
                 the offerer will ensure that the answerer will either keep the "m=" line within 
                 the BUNDLE group, or the answerer will have to reject the "m=" line.
 			</t>
@@ -384,13 +385,13 @@
 				pageno="false" target="RFC3264"/> procedures for:
 				<list style="symbols">
 					<t>
-						Negotiating and creating of a BUNDLE group;
+						Negotiating and creating of a BUNDLE group; and
 					</t>
 					<t>
-						Selecting the BUNDLE addresses (offerer BUNDLE address and answerer BUNDLE address);
+						Selecting the BUNDLE addresses (offerer BUNDLE address and answerer BUNDLE address); and
 					</t>
 					<t>
-						Adding an "m=" line to a BUNDLE group;
+						Adding an "m=" line to a BUNDLE group; and
 					</t>
 					<t>
 						Moving an "m=" line out of a BUNDLE group; and
@@ -435,10 +436,10 @@
 							Assign a unique address to each "m=" line within the offer,
 							following the procedures in <xref target="RFC3264" pageno="false" 
 							format="default"/>, unless the media line is a 'bundle-only' 
-							"m=" line (see below);
+							"m=" line (see below); and
 						</t>
 						<t>
-							Add an SDP 'group:BUNDLE' attribute to the offer;
+							Add an SDP 'group:BUNDLE' attribute to the offer; and
 						</t>
 						<t>
 							Place the identification-tag of each bundled "m=" line in the 
@@ -476,10 +477,14 @@
 			</section>
 			<section title="Suggesting the offerer BUNDLE address" anchor="sec-sdp-oa-ino-req" toc="default">
 				<t>
-					In the offer, the address assigned to the "m=" line associated with the 
+					In the offer, the address associated with the "m=" line associated with the 
 					offerer BUNDLE-tag indicates the address that the offerer suggests as 
 					the offerer BUNDLE address.					
 				</t>
+                <t>
+                    The "m=" line associated with the offerer BUNDLE-tag MUST NOT contain a zero 
+                    port value or an SDP 'bundle-only' attribute.
+                </t>
 			</section>
 		</section>
 		
@@ -533,7 +538,7 @@
 				</t>
 				<t>
 					If the answerer keeps a bundle-only "m=" line within the BUNDLE group,
-					it follows the procedures (assigns the answerer BUNDLE address to the "m=" 
+					it follows the procedures (associates the answerer BUNDLE address with the "m=" 
 					line etc) for any other "m=" line kept within the BUNDLE group.
 				</t>
 				<t>
@@ -554,7 +559,7 @@
 					
 			<section title="Answerer Selection of Offerer Bundle Address" anchor="sec-sdp-oa-ans-off" toc="default">
 				<t>
-					In an offer, the address (unique or shared) assigned to the bundled "m=" line 
+					In an offer, the address (unique or shared) associated with the bundled "m=" line 
 					associated with the offerer BUNDLE-tag indicates the address that 
 					the offerer suggests as the offerer BUNDLE address 
 					[<xref target="sec-sdp-oa-ino-req" pageno="false" format="default"/>]. The answerer
@@ -562,7 +567,7 @@
 					<list style="symbols">
 						<t>
 							The answerer will not move the "m=" line out of the BUNDLE group
-							[<xref target="sec-sdp-oa-ans-mov" pageno="false" format="default"/>];
+							[<xref target="sec-sdp-oa-ans-mov" pageno="false" format="default"/>]; and
 						</t>
 						<t>
 							The answerer will not reject the "m=" line [<xref target="sec-sdp-oa-ans-rej" 
@@ -598,11 +603,11 @@
 			<section title="Answerer Selection of Answerer BUNDLE Address" anchor="sec-sdp-oa-ans-ans" toc="default">			
 				<t>
 					When the answerer selects a BUNDLE address for itself, referred to as the answerer
-					BUNDLE address, it MUST assign that address to each bundled "m=" line within the 
+					BUNDLE address, it MUST associate that address with each bundled "m=" line within the 
 					created BUNDLE group in the answer.
 				</t>
 				<t>
-					The answerer MUST NOT assign the answerer BUNDLE address to an "m=" line that is
+					The answerer MUST NOT associate the answerer BUNDLE address with an "m=" line that is
 					not within the BUNDLE group, or to an "m=" line that is within another BUNDLE group.
 				</t>
 				<t>
@@ -617,7 +622,7 @@
                     it MUST first check the following criteria: 
                     <list style="symbols">
                         <t>
-                            In the associated offer, the "m=" line contains a shared
+                            In the associated offer, the "m=" line is associated with a shared
                             address (e.g. a previously selected offerer BUNDLE address); or
                         </t>
                         <t>
@@ -632,8 +637,8 @@
                     [<xref target="sec-sdp-oa-ans-rej" pageno="false" format="default"/>].
                 </t>
                 <t>
-                    Otherwise, if in the associated offer the "m=" line contains
-                    a unique address, the answerer MUST assign a unique address to the
+                    Otherwise, if in the associated offer the "m=" line is associated with
+                    a unique address, the answerer MUST associate a unique address with the
                     "m=" line in the answer (the answerer does not reject the "m=" line).
                 </t>
                 <t>
@@ -646,8 +651,8 @@
 				
 			<section title="Rejecting A Media Description In A BUNDLE Group" anchor="sec-sdp-oa-ans-rej" toc="default">			
 				<t>
-					When an answerer rejects an "m=" line, it MUST assign an address with a zero port 
-					value to the "m=" line in the answer, according to the procedures in <xref 
+					When an answerer rejects an "m=" line, it MUST associate an address with a zero port 
+					value with the "m=" line in the answer, according to the procedures in <xref 
 					target="RFC4566" pageno="false" format="default"/>.
 				</t>
 				<t>
@@ -680,18 +685,18 @@
 		<section title="Modifying the Session" anchor="sec-sdp-oa-mod" toc="default">	
 			<section title="General" anchor="sec-sdp-oa-mod-gen" toc="default">	
 				<t>
-					When an offerer generates a subsequent offer, it MUST assign
+					When an offerer generates a subsequent offer, it MUST associate
 					the previously selected offerer BUNDLE address [<xref format="default" 
-					pageno="false" target="sec-sdp-oa-ans-off"/>], to each bundled "m=" line 
+					pageno="false" target="sec-sdp-oa-ans-off"/>] with each bundled "m=" line 
 					(including any bundle-only "m=" line), except if:
 					<list style="symbols">
 						<t>
 							The offerer suggests a new offerer BUNDLE address 
-							[<xref target="sec-sdp-oa-mod-req" pageno="false" format="default"/>];
+							[<xref target="sec-sdp-oa-mod-req" pageno="false" format="default"/>]; or
 						</t>
 						<t>
 							The offerer wants to add a bundled "m=" line to the BUNDLE group
-							[<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>];
+							[<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>]; or
 						</t>
 						<t>
 							The offerer wants to move a bundled "m=" line out of the BUNDLE group
@@ -730,8 +735,8 @@
 					target="sec-sdp-oa-ino-req"/>].
 				</t>
 				<t>
-					NOTE: Unless the offerer assigns the new suggested offerer BUNDLE address to each
-					bundled "m=" line, it can assign unique addresses to any number of bundled "m="
+					NOTE: Unless the offerer associates the new suggested offerer BUNDLE address with each
+					bundled "m=" line, it can associate unique addresses with any number of bundled "m="
 					lines (and the previously selected offerer BUNDLE address to any remaining bundled
 					"m=" line) if it wants to suggest multiple alternatives for the new offerer
 					BUNDLE address.
@@ -743,15 +748,15 @@
 					to a BUNDLE group, the offerer MUST:
 					<list style="symbols">
 					<t>
-						Assign a unique address to the "m=" line;
+						Assign a unique address to the added "m=" line; or
 					</t>
 					<t>
-						Assign the previously selected offerer BUNDLE address to the "m=" line; or
+						Assign the previously selected offerer BUNDLE address to the added "m=" line; or
 					</t>
 					<t>
-						If the offerer assigns a new (shared address) suggested offerer BUNDLE address to each
+						If the offerer associates a new (shared address) suggested offerer BUNDLE address with each
 						bundled "m=" line [<xref format="default" pageno="false" 
-						target="sec-sdp-oa-mod-req"/>], also assign that address to the 
+						target="sec-sdp-oa-mod-req"/>], also associate that address with the 
 						added "m=" line.
 					</t>
 					</list>
@@ -767,13 +772,13 @@
 					target="sec-sdp-oa-ans-mov"/>], without having to reject the "m=" line.
 				</t>
 				<t>
-					If the offerer assigns a unique address to the added "m=" line, and if the offerer 
+					If the offerer associates a unique address with the added "m=" line, and if the offerer 
 					suggests that address as the new offerer BUNDLE address [<xref format="default" 
 					pageno="false" target="sec-sdp-oa-mod-req"/>], the offerer BUNDLE-tag MUST represent 
 					the added "m=" line [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].	
 				</t>
 				<t>
-					If the offerer assigns a new suggested offerer BUNDLE address to each bundled "m=" line
+					If the offerer associates a new suggested offerer BUNDLE address with each bundled "m=" line
 					[<xref format="default" pageno="false" target="sec-sdp-oa-mod-req"/>], including the added 
 					"m=" line, the offerer BUNDLE-tag MAY represent the added "m=" line
 					[<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>]. 				
@@ -790,7 +795,7 @@
 					of a BUNDLE group it was added to in a previous offer/answer transaction, the offerer:
 					<list style="symbols">
 						<t>
-							MUST assign a unique address to the "m=" line; and
+							MUST associate a unique address with the "m=" line; and
 						</t>
 						<t>
 							MUST NOT place the identification-tag associated with the "m=" line in
@@ -821,7 +826,7 @@
 					to the BUNDLE group in a previous offer/answer transaction), the offerer:
 					<list style="symbols">
 						<t>
-							MUST assign an address with a zero port value to the "m=" line, 
+							MUST associate an address with a zero port value with the "m=" line, 
 							following the procedures in <xref target="RFC4566" pageno="false" 
 							format="default"/>; and
 						</t>
@@ -944,7 +949,7 @@
 						proper sequence this causes RTP Timestamp rate switching issues
 						<xref format="default" pageno="false" target="RFC7160"/>. However, 
 						once an SSRC has left the RTP session (by sending an RTCP BYE packet), 
-						that SSRC value can later be reused by another source(possible associated 
+						that SSRC value can later be reused by another source(possibly associated 
 						with a different bundled "m=" line.
 					</t>
 			</section>
@@ -1142,12 +1147,12 @@
 		
 			<section title="General" anchor="sec-ice-oa-gen" toc="default">
 				<t>
-					When an offerer assigns a unique address to a bundled "m=" line (excluding
+					When an offerer associates a unique address with a bundled "m=" line (excluding
 					any bundle-only "m=" line), it MUST also associate unique ICE candidates <xref format="default" 
 					pageno="false" target="RFC5245"/> to the "m=" line.
 				</t>
 				<t>
-					An offerer MUST NOT assign ICE candidates to a bundle-only "m=" line 
+					An offerer MUST NOT associate ICE candidates with a bundle-only "m=" line 
 					with a zero port value.
 				</t>
 				<t>
@@ -1156,24 +1161,24 @@
 					that does not support BUNDLE would not accept a bundle-only "m=" line.
 				</t>
 				<t>
-					When an offerer or answerer assigns a shared address (i.e. a previously selected BUNDLE
-					address) to one or more bundled "m=" lines, it MUST associate identical ICE candidates 
-					(referred to as shared ICE candidates) to each of those "m=" lines.
+					When an offerer or answerer associates a shared address (i.e. a previously selected BUNDLE
+					address) with one or more bundled "m=" lines, it MUST associate identical ICE candidates 
+					(referred to as shared ICE candidates) with each of those "m=" lines.
 				</t>
 			</section>
 
 			<section title="Generating the Initial SDP Offer" anchor="sec-ice-oa-ino" toc="default">
 				<t>
-					When an offerer generates an initial offer, it assigns unique or shared ICE candidates 
-					to the bundled "m=" lines, according to <xref format="default" pageno="false" 
-					target="sec-ice-gen"/>.
+					When an offerer generates an initial offer, it associates unique ICE candidates 
+					with the bundled "m=" lines, according to <xref format="default" pageno="false" 
+					target="sec-ice-oa-gen"/>.
 				</t>
 			</section>
 			
 			<section title="Generating the SDP Answer" anchor="sec-ice-oa-ans" toc="default">
 				<t>
 					When an answerer generates an answer that contains a BUNDLE group, 
-					the answerer MUST assign shared ICE candidates to each bundled "m=" line 
+					the answerer MUST associate shared ICE candidates with each bundled "m=" line 
 					(including "m=" lines that were indicated as bundle-only in the associated offer)
 					in the answer.
 				</t>
@@ -1182,17 +1187,17 @@
 			<section title="Offerer Processing of the SDP Answer" anchor="sec-ice-oa-pra" toc="default">
 				<t>
 					When an offerer receives an answer, if the answerer supports and uses the ICE
-					mechanism and the BUNDLE extension, the offerer MUST assign the same ICE candidates, 
+					mechanism and the BUNDLE extension, the offerer MUST associate the same ICE candidates, 
 					associated with the "m=" line representing the offerer BUNDLE address (selected by the 
-					answerer), to each bundled "m=" line.
+					answerer), with each bundled "m=" line.
 				</t>
 			</section>
 			
 			<section title="Modifying the Session" anchor="sec-ice-oa-mod" toc="default">
 				<t>
-					When an offerer generates a subsequent offer, it assigns unique or shared ICE 
-					candidates to the bundled "m=" lines, according to (<xref format="default" pageno="false" 
-					target="sec-ice-gen"/>).
+					When an offerer generates a subsequent offer, it associates unique or shared ICE 
+					candidates with the bundled "m=" lines, according to (<xref format="default" pageno="false" 
+					target="sec-ice-oa-gen"/>).
 				</t>
 			</section>		
 		</section>
@@ -1213,13 +1218,13 @@
 				<t>
 					There can only be one DTLS association
                     <xref format="default" pageno="false" target="RFC6347"/>
-                    associated with the BUNDLE group;
+                    associated with the BUNDLE group; and
 				</t>
 				<t>
                     Each usage of the DTLS association within the BUNDLE
                     group MUST use the same mechanism for determining
                     which endpoints (the offerer or answerer) becomes
-                    DTLS client and DTLS server;
+                    DTLS client and DTLS server; and
                 </t>
                 <t>
                     Each usage of the DTLS association within the Bundle
@@ -1372,8 +1377,8 @@
 			</t>
 			<t>
 				The SDES item and RTP header extension make it possible for a receiver to associate 
-				received RTCP- and RTP packets with a specific "m=" line, to which the receiver has 
-				assigned an identification-tag, even if those "m=" lines are part of the same RTP session. 
+				received RTCP- and RTP packets with a specific "m=" line, with which the receiver has 
+				associated an identification-tag, even if those "m=" lines are part of the same RTP session. 
                 A media recipient informs the media sender about the identification-tag
                 associated with an "m=" line through the use of an 'mid' attribute
                 <xref format="default" pageno="false" target="RFC5888"/>. The media sender then 
@@ -1447,7 +1452,7 @@
 					extension, or both, there should be some consideration about the packet expansion 
 					caused by the identification-tag. To avoid Maximum Transmission Unit (MTU) issues 
 					for the RTP packets, the header extension's size needs to be taken into account when 
-					the encoding media.				
+					encoding the media.				
 				</t>
 				<t>
 					It is recommended that the identification-tag is kept short. Due to the properties of 
@@ -1560,8 +1565,8 @@
 			pageno="false" target="RFC3264"/> and <xref format="default" 
 			pageno="false" target="RFC5888"/> apply to the BUNDLE
             extension. Bundle does not change which information
-            flows over the network but only changes which ports that
-            information is flowing on and thus has very little
+            flows over the network but only changes which addresses and 
+            ports that information is flowing on and thus has very little
             impact on the security of the RTP sessions. 
 		</t>
 		<t>
@@ -1582,9 +1587,9 @@
 			<t>
 				The example below shows:
 				<list style="symbols">
-					<t>1. An offer, in which the offerer assigns a unique address to each bundled "m=" line within the BUNDLE group.</t>
-					<t>2. An answer, in which the answerer selects the offerer BUNDLE address, and in which selects its own BUNDLE 
-					address (the answerer BUNDLE address) and assigns it each bundled "m=" line within the BUNDLE group.</t>
+					<t>An offer, in which the offerer associates a unique address with each bundled "m=" line within the BUNDLE group.</t>
+					<t>An answer, in which the answerer selects the offerer BUNDLE address, and in which selects its own BUNDLE 
+					address (the answerer BUNDLE address) and associates it with each bundled "m=" line within the BUNDLE group.</t>
 				</list>				
 			</t>
           <figure>
@@ -1642,9 +1647,9 @@ SDP Answer (2)
 			<t>
 				The example below shows:
 				<list style="symbols">
-					<t>1. An offer, in which the offerer assigns a unique address to each bundled "m=" line within the BUNDLE group.</t>
-					<t>2. An answer, in which the answerer rejects the offered BUNDLE group, and assigns a unique addresses 
-					to each "m=" line (following normal RFC 3264 procedures).</t>					
+					<t>An offer, in which the offerer associates a unique address with each bundled "m=" line within the BUNDLE group.</t>
+					<t>An answer, in which the answerer rejects the offered BUNDLE group, and associates a unique address 
+					with each "m=" line (following normal RFC 3264 procedures).</t>					
 				</list>				
 			</t>
           <figure>
@@ -1698,12 +1703,12 @@ SDP Answer (2)
 			<t>
 				The example below shows:
 				<list style="symbols">
-					<t>1. A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer 
+					<t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer 
 					transaction), in which the offerer adds a new "m=" line, represented by the "zen" 
-					identification-tag, to a previously negotiated BUNDLE group, assigns a unique address 
-					to the added "m=" line, and assigns the previously selected offerer BUNDLE address to 
+					identification-tag, to a previously negotiated BUNDLE group, associates a unique address 
+					with the added "m=" line, and associates the previously selected offerer BUNDLE address with 
 					each of the other bundled "m=" lines within the BUNDLE group.</t>
-					<t>2. An answer, in which the answerer assigns the answerer BUNDLE address to each 
+					<t>An answer, in which the answerer associates the answerer BUNDLE address with each 
 					bundled "m=" line (including the newly added "m=" line) within the BUNDLE group.</t>
 				</list>				
 			</t>
@@ -1772,11 +1777,11 @@ SDP Answer (2)
 			<t>
 				The example below shows:
 				<list style="symbols">
-					<t>1. A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer 
-					transaction), in which the offerer moves a bundled "m=" line out of a BUNDLE group, assigns a unique address to 
-					the moved "m=" line, and assigns the offerer BUNDLE address to each other bundled "m=" line within the BUNDLE group.</t>
-					<t>2. An answer, in which the answerer moves the "m=" line out of the BUNDLE group, assigns unique address to 
-					the moved "m=" line, and assigns the answerer BUNDLE address to each of the remaining bundled "m=" line within the BUNDLE group.</t>					
+					<t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer 
+					transaction), in which the offerer moves a bundled "m=" line out of a BUNDLE group, associates a unique address with 
+					the moved "m=" line, and associates the offerer BUNDLE address with each other bundled "m=" line within the BUNDLE group.</t>
+					<t>An answer, in which the answerer moves the "m=" line out of the BUNDLE group, associates unique address with 
+					the moved "m=" line, and associates the answerer BUNDLE address with each of the remaining bundled "m=" line within the BUNDLE group.</t>					
 				</list>				
 			</t>
           <figure>
@@ -1842,12 +1847,12 @@ SDP Answer (2)
 			<t>
 				The example below shows:
 				<list style="symbols">
-					<t>1. A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer 
+					<t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer 
 					transaction), in which the offerer disables a bundled "m=" line within BUNDLE group, assigns a zero port number  
-					to the disabled "m=" line, and assigns the offerer BUNDLE address to each of the other bundled
+					to the disabled "m=" line, and associates the offerer BUNDLE address with each of the other bundled
 					"m=" lines within the BUNDLE group.</t>
-					<t>2. An answer, in which the answerer moves the disabled "m=" line out of the BUNDLE group, assigns a zero port value 
-					to the disabled "m=" line, and assigns the answerer BUNDLE address to each of the remaining bundled "m=" line within 
+					<t>An answer, in which the answerer moves the disabled "m=" line out of the BUNDLE group, assigns a zero port value 
+					to the disabled "m=" line, and associates the answerer BUNDLE address with each of the remaining bundled "m=" line within 
 					the BUNDLE group.</t>					
 				</list>				
 			</t>
@@ -1943,6 +1948,7 @@ SDP Answer (2)
 		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-23
 			<list style="symbols">
                 <t>- RTCP-MUX mandatory for bundled RTP m- lines</t>
+                <t>- Editorial fixes based on comments from Flemming Andreasen</t>
 			</list>
 		</t>		
 		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-22
@@ -2157,10 +2163,16 @@ SDP Answer (2)
     <references title="Normative References">
 		<?rfc include="reference.RFC.2119"?>		
 		<?rfc include="reference.RFC.3264"?>
+		<?rfc include="reference.RFC.3550"?>
+		<?rfc include="reference.RFC.3605"?>
 		<?rfc include="reference.RFC.4566"?>		
-		<?rfc include="reference.RFC.5285"?>
-		<?rfc include="reference.RFC.5761"?>
-		<?rfc include="reference.RFC.5888"?>
+        <?rfc include="reference.RFC.4961"?>
+		<?rfc include="reference.RFC.5245"?>
+        <?rfc include="reference.RFC.5285"?>        
+        <?rfc include="reference.RFC.5761"?>
+		<?rfc include="reference.RFC.5764"?>
+        <?rfc include="reference.RFC.5888"?>
+        <?rfc include="reference.RFC.6347"?>	
 		<reference anchor="I-D.mmusic-sdp-mux-attributes">
             <front>
                 <title abbrev="SDP Attribute Multiplexing">
@@ -2179,14 +2191,8 @@ SDP Answer (2)
 
     <references title="Informative References">				
 		<?rfc include="reference.RFC.3261"?>
-		<?rfc include="reference.RFC.3550"?>
-		<?rfc include="reference.RFC.3605"?>
 		<?rfc include="reference.RFC.4568"?>
-        <?rfc include="reference.RFC.4961"?>
-		<?rfc include="reference.RFC.5245"?>		
-		<?rfc include="reference.RFC.5576"?>
-		<?rfc include="reference.RFC.5764"?>
-        <?rfc include="reference.RFC.6347"?>	
+        <?rfc include="reference.RFC.5576"?>
 		<?rfc include="reference.RFC.7160"?>	
 		<reference anchor="I-D.ietf-mmusic-trickle-ice">
             <front>
