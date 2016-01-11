@@ -5,9 +5,9 @@ MMUSIC Working Group                                         C. Holmberg
 Internet-Draft                                                  Ericsson
 Updates: 3264 (if approved)                                H. Alvestrand
 Intended status: Standards Track                                  Google
-Expires: May 17, 2016                                        C. Jennings
+Expires: July 14, 2016                                       C. Jennings
                                                                    Cisco
-                                                       November 14, 2015
+                                                        January 11, 2016
 
 
  Negotiating Media Multiplexing Using the Session Description Protocol
@@ -52,16 +52,16 @@ Status of This Memo
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 1]
+Holmberg, et al.          Expires July 14, 2016                 [Page 1]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
-   This Internet-Draft will expire on May 17, 2016.
+   This Internet-Draft will expire on July 14, 2016.
 
 Copyright Notice
 
-   Copyright (c) 2015 IETF Trust and the persons identified as the
+   Copyright (c) 2016 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -108,9 +108,9 @@ Table of Contents
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 2]
+Holmberg, et al.          Expires July 14, 2016                 [Page 2]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    9.  Protocol Identification . . . . . . . . . . . . . . . . . . .  16
@@ -164,9 +164,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 3]
+Holmberg, et al.          Expires July 14, 2016                 [Page 3]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
             BUNDLE Group . . . . . . . . . . . . . . . . . . . . . .  34
@@ -220,9 +220,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 4]
+Holmberg, et al.          Expires July 14, 2016                 [Page 4]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    As defined in RFC 4566 [RFC4566], the semantics of assigning the same
@@ -276,9 +276,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 5]
+Holmberg, et al.          Expires July 14, 2016                 [Page 5]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    Answerer BUNDLE-tag: The first identification-tag in a given SDP
@@ -332,9 +332,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 6]
+Holmberg, et al.          Expires July 14, 2016                 [Page 6]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 4.  Applicability Statement
@@ -388,9 +388,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 7]
+Holmberg, et al.          Expires July 14, 2016                 [Page 7]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
       Name: bundle-only
@@ -444,9 +444,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 8]
+Holmberg, et al.          Expires July 14, 2016                 [Page 8]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 7.2.  Connection Data (c=)
@@ -500,9 +500,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                  [Page 9]
+Holmberg, et al.          Expires July 14, 2016                 [Page 9]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    wants to create a BUNDLE group, and the answerer rejects the offer,
@@ -556,9 +556,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 10]
+Holmberg, et al.          Expires July 14, 2016                [Page 10]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    [Section 17.1] shows an example of an initial offer.
@@ -612,9 +612,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 11]
+Holmberg, et al.          Expires July 14, 2016                [Page 11]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    If the answerer does not want to keep a bundle-only "m=" line within
@@ -668,9 +668,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 12]
+Holmberg, et al.          Expires July 14, 2016                [Page 12]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 8.3.3.  Answerer Selection of Answerer BUNDLE Address
@@ -724,9 +724,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 13]
+Holmberg, et al.          Expires July 14, 2016                [Page 13]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 8.4.  Offerer Processing of the SDP Answer
@@ -780,9 +780,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 14]
+Holmberg, et al.          Expires July 14, 2016                [Page 14]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  Assign the address (unique address) to one bundled "m=" line.
@@ -836,9 +836,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 15]
+Holmberg, et al.          Expires July 14, 2016                [Page 15]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 8.5.4.  Moving A Media Description Out Of A BUNDLE Group
@@ -892,9 +892,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 16]
+Holmberg, et al.          Expires July 14, 2016                [Page 16]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    particular protocol combination, how to associate received data with
@@ -948,9 +948,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 17]
+Holmberg, et al.          Expires July 14, 2016                [Page 17]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 10.1.1.  General
@@ -1004,9 +1004,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 18]
+Holmberg, et al.          Expires July 14, 2016                [Page 18]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 10.2.  Associating RTP/RTCP Packets With Correct SDP Media Description
@@ -1060,9 +1060,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 19]
+Holmberg, et al.          Expires July 14, 2016                [Page 19]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    When RTP/RTCP multiplexing is enabled, the same address:port
@@ -1116,9 +1116,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 20]
+Holmberg, et al.          Expires July 14, 2016                [Page 20]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    offerer BUNDLE address for sending RTP and RTCP packets associated
@@ -1172,9 +1172,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 21]
+Holmberg, et al.          Expires July 14, 2016                [Page 21]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 11.2.  SDP Offer/Answer Procedures
@@ -1228,9 +1228,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 22]
+Holmberg, et al.          Expires July 14, 2016                [Page 22]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 12.  DTLS Considerations
@@ -1284,9 +1284,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 23]
+Holmberg, et al.          Expires July 14, 2016                [Page 23]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 13.2.  Original text of section 5.1 (2nd paragraph) of RFC 3264
@@ -1340,9 +1340,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 24]
+Holmberg, et al.          Expires July 14, 2016                [Page 24]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    answer MAY omit all attributes present previously, and MAY list just
@@ -1396,9 +1396,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 25]
+Holmberg, et al.          Expires July 14, 2016                [Page 25]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    The SDES item and RTP header extension make it possible for a
@@ -1452,9 +1452,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 26]
+Holmberg, et al.          Expires July 14, 2016                [Page 26]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    The identification-tag is not zero terminated.
@@ -1508,9 +1508,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 27]
+Holmberg, et al.          Expires July 14, 2016                [Page 27]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
            Value:          TBD
@@ -1564,9 +1564,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 28]
+Holmberg, et al.          Expires July 14, 2016                [Page 28]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    This document registers the following semantics with IANA in the
@@ -1620,9 +1620,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 29]
+Holmberg, et al.          Expires July 14, 2016                [Page 29]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    SDP Offer (1)
@@ -1676,9 +1676,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 30]
+Holmberg, et al.          Expires July 14, 2016                [Page 30]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 17.2.  Example: BUNDLE Extension Rejected
@@ -1732,9 +1732,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 31]
+Holmberg, et al.          Expires July 14, 2016                [Page 31]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    SDP Offer (1)
@@ -1788,9 +1788,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 32]
+Holmberg, et al.          Expires July 14, 2016                [Page 32]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
       offerer BUNDLE address with each of the other bundled "m=" lines
@@ -1844,9 +1844,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 33]
+Holmberg, et al.          Expires July 14, 2016                [Page 33]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
        a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -1900,9 +1900,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 34]
+Holmberg, et al.          Expires July 14, 2016                [Page 34]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
        a=mid:bar
@@ -1956,9 +1956,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 35]
+Holmberg, et al.          Expires July 14, 2016                [Page 35]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  An answer, in which the answerer moves the disabled "m=" line out
@@ -2012,9 +2012,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 36]
+Holmberg, et al.          Expires July 14, 2016                [Page 36]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
        a=rtpmap:32 MPV/90000
@@ -2068,9 +2068,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 37]
+Holmberg, et al.          Expires July 14, 2016                [Page 37]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  -- http://www.ietf.org/mail-archive/web/mmusic/current/
@@ -2124,9 +2124,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 38]
+Holmberg, et al.          Expires July 14, 2016                [Page 38]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  - Editorial fix.
@@ -2180,9 +2180,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 39]
+Holmberg, et al.          Expires July 14, 2016                [Page 39]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  -- Clarify that mid value is not zero terminated
@@ -2236,9 +2236,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 40]
+Holmberg, et al.          Expires July 14, 2016                [Page 40]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-08
@@ -2292,9 +2292,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 41]
+Holmberg, et al.          Expires July 14, 2016                [Page 41]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  Major re-structure of SDP Offer/Answer sections, to align with RFC
@@ -2348,9 +2348,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 42]
+Holmberg, et al.          Expires July 14, 2016                [Page 42]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  Mechanism modified, to be based on usage of SDP Offers with both
@@ -2404,9 +2404,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 43]
+Holmberg, et al.          Expires July 14, 2016                [Page 43]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    [RFC3605]  Huitema, C., "Real Time Control Protocol (RTCP) attribute
@@ -2460,9 +2460,9 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 44]
+Holmberg, et al.          Expires July 14, 2016                [Page 44]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 20.2.  Informative References
@@ -2516,9 +2516,9 @@ A.1.  General
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 45]
+Holmberg, et al.          Expires July 14, 2016                [Page 45]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    o  3) Time to gather, and the number of, ICE candidates.
@@ -2572,9 +2572,9 @@ A.2.  UA Interoperability
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 46]
+Holmberg, et al.          Expires July 14, 2016                [Page 46]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    ephemeral port.  When Bob's endpoint receives an RTP packet, the only
@@ -2628,9 +2628,9 @@ A.3.  Usage of port number value zero
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 47]
+Holmberg, et al.          Expires July 14, 2016                [Page 47]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
 A.4.  B2BUA And Proxy Interoperability
@@ -2684,9 +2684,9 @@ A.4.2.  Bandwidth Allocation
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 48]
+Holmberg, et al.          Expires July 14, 2016                [Page 48]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    in order to control bandwidth allocation functions.  The bandwidth
@@ -2740,9 +2740,9 @@ Authors' Addresses
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 49]
+Holmberg, et al.          Expires July 14, 2016                [Page 49]
 
-Internet-Draft                Bundled media                November 2015
+Internet-Draft                Bundled media                 January 2016
 
 
    Cullen Jennings
@@ -2796,4 +2796,4 @@ Internet-Draft                Bundled media                November 2015
 
 
 
-Holmberg, et al.          Expires May 17, 2016                 [Page 50]
+Holmberg, et al.          Expires July 14, 2016                [Page 50]
