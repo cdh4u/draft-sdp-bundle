@@ -1048,6 +1048,15 @@
 						each bundled RTP-based "m=" line (including any bundle-only "m="
 						line) in the offer.  
 					</t>
+                    <t>
+                        If an offerer wants to indicate exclusive support of RTP/RTCP
+                        multiplexing for one or more "m=" lines (excluding any 
+                        bundle-only "m=" line) within the BUNDLE group, the offerer 
+                        MUST associate an SDP 'rtcp' attribute <xref format="default" 
+                        pageno="false" target="RFC3605"/> with those "m=" lines, as 
+                        described in <xref format="default" pageno="false" 
+                        target="I-D.mmusic-mux-exclusive"/>.
+                    </t>
 					<t>
                         NOTE: The offerer might also associate an SDP 'rtcp' attribute
                         <xref format="default" pageno="false" target="RFC3605"/> with
@@ -1072,6 +1081,12 @@
                         If an SDP "rtcp-mux" attribute was not associated with a bundled "m=" 
                         line in the associated offer, the answerer MUST NOT included that 
                         "m=" line in the BUNDLE group.
+                    </t>
+                    <t>
+                        If the offerer indicated exclusive support of RTP/RTCP multiplexing
+                        for one or more bundled "m=" lines within the offer, and if the answerer
+                        does not accept the usage of RTP/RTCP multiplexing within the bundle
+                        group, the answerer MUST reject those "m=" lines.
                     </t>
 					<t>
 						When the answerer accepts the usage of RTP/RTCP multiplexing within the
@@ -1101,13 +1116,13 @@
 					</t>
                     <t>
                         NOTE: If is considered a protocol error if the answerer has not
-                        accpeted the usage of RTP/RTCP multiplexing for RTP-based "m=" lines
+                        accepted the usage of RTP/RTCP multiplexing for RTP-based "m=" lines
                         that the answerer included in the BUNDLE group.
                     </t>
 				</section>				
 				<section title="Modifying the Session" anchor="sec-rtprtcp-mux-oa-mod" toc="default">
 					<t>
-                        When an offerer generatees a subsequent offer, it MUST associate an 
+                        When an offerer generates a subsequent offer, it MUST associate an 
                         SDP 'rtcp-mux' attribute with each RTP-based bundled "m=" line 
 						(including any bundled "m=" line that the offerer wants to add to the BUNDLE 
 						group), unless the offerer wants to disable or remove the "m=" line from the 
@@ -1948,6 +1963,7 @@ SDP Answer (2)
 		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-23
 			<list style="symbols">
                 <t>- RTCP-MUX mandatory for bundled RTP m- lines</t>
+                <t>- Reference and procedures associated with exclusive RTP/RTCP mux added</t>
                 <t>- Editorial fixes based on comments from Flemming Andreasen</t>
 			</list>
 		</t>		
@@ -2183,9 +2199,23 @@ SDP Answer (2)
                     <address>
                     </address>
                     </author>
-                <date day="20" month="January" year="2015" />
+                <date day="14" month="January" year="2016" />
             </front>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-mmusic-sdp-mux-attributes-08" />
+            <seriesInfo name="Internet-Draft" value="draft-ietf-mmusic-sdp-mux-attributes-12" />
+        </reference>
+		<reference anchor="I-D.mmusic-mux-exclusive">
+            <front>
+                <title abbrev="Exclusive RTP/RTCP Mux">
+                    Indicating Exclusive Support of RTP/RTCP Multiplexing using SDP
+				</title>
+                <author fullname="Christer Holmberg" initials="C.H" surname="Holmberg">
+                    <organization>Ericsson</organization>
+                    <address>
+                    </address>
+                    </author>
+                <date day="12" month="January" year="2016" />
+            </front>
+            <seriesInfo name="Internet-Draft" value="draft-ietf-mmusic-mux-exclusive-00" />
         </reference>
     </references>
 
