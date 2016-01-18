@@ -12,7 +12,7 @@ Expires: July 21, 2016                                       C. Jennings
 
  Negotiating Media Multiplexing Using the Session Description Protocol
                                  (SDP)
-            draft-ietf-mmusic-sdp-bundle-negotiation-24.txt
+            draft-ietf-mmusic-sdp-bundle-negotiation-25.txt
 
 Abstract
 
@@ -2108,18 +2108,18 @@ Internet-Draft                Bundled media                 January 2016
 
    [RFC EDITOR NOTE: Please remove this section when publishing]
 
-   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-23
-
-   o  - RTCP-MUX mandatory for bundled RTP m- lines
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-24
 
    o  - Reference and procedures associated with exclusive RTP/RTCP mux
       added
 
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-23
+
+   o  - RTCP-MUX mandatory for bundled RTP m- lines
+
    o  - Editorial fixes based on comments from Flemming Andreasen
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-22
-
-   o  - Correction of Ari's family name
 
 
 
@@ -2128,6 +2128,8 @@ Holmberg, et al.          Expires July 21, 2016                [Page 38]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   o  - Correction of Ari's family name
 
    o  - Editorial fixes based on comments from Thomas Stach
 
@@ -2174,8 +2176,6 @@ Internet-Draft                Bundled media                 January 2016
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-16
 
-   o  - Modification of RTP/RTCP multiplexing section, based on comments
-      from Magnus Westerlund.
 
 
 
@@ -2184,6 +2184,9 @@ Holmberg, et al.          Expires July 21, 2016                [Page 39]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   o  - Modification of RTP/RTCP multiplexing section, based on comments
+      from Magnus Westerlund.
 
    o  - Reference updates.
 
@@ -2230,9 +2233,6 @@ Internet-Draft                Bundled media                 January 2016
 
    o  -- "SHOULD NOT" -> "MUST NOT"
 
-   o  -- Additional text added to the Note
-
-   o  - Change to section 13.2:
 
 
 
@@ -2240,6 +2240,10 @@ Holmberg, et al.          Expires July 21, 2016                [Page 40]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   o  -- Additional text added to the Note
+
+   o  - Change to section 13.2:
 
    o  -- Clarify that mid value is not zero terminated
 
@@ -2285,10 +2289,6 @@ Internet-Draft                Bundled media                 January 2016
 
    o  Reference corrections.
 
-   o  Editorial corrections.
-
-   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-09
-
 
 
 
@@ -2296,6 +2296,10 @@ Holmberg, et al.          Expires July 21, 2016                [Page 41]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   o  Editorial corrections.
+
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-09
 
    o  Terminology change: "bundle-only attribute assigned to m= line" to
       "bundle-only attribute associated with m= line".
@@ -2341,10 +2345,6 @@ Internet-Draft                Bundled media                 January 2016
       (http://www.ietf.org/mail-archive/web/mmusic/current/
       msg13314.html).
 
-   o  Editorial fixed based on comments from Colin Perkins
-      (http://www.ietf.org/mail-archive/web/mmusic/current/
-      msg13318.html).
-
 
 
 
@@ -2352,6 +2352,10 @@ Holmberg, et al.          Expires July 21, 2016                [Page 42]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   o  Editorial fixed based on comments from Colin Perkins
+      (http://www.ietf.org/mail-archive/web/mmusic/current/
+      msg13318.html).
 
    o  - Removed text about extending BUNDLE to allow multiple RTP
       sessions within a BUNDLE group.
@@ -2396,10 +2400,6 @@ Internet-Draft                Bundled media                 January 2016
    o  Updated Offerer procedures (http://www.ietf.org/mail-
       archive/web/mmusic/current/msg12293.html).
 
-   o  Updated Answerer procedures (http://www.ietf.org/mail-
-      archive/web/mmusic/current/msg12333.html).
-
-   o  Usage of SDP 'bundle-only' attribute added.
 
 
 
@@ -2408,6 +2408,11 @@ Holmberg, et al.          Expires July 21, 2016                [Page 43]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   o  Updated Answerer procedures (http://www.ietf.org/mail-
+      archive/web/mmusic/current/msg12333.html).
+
+   o  Usage of SDP 'bundle-only' attribute added.
 
    o  Reference to Trickle ICE document added.
 
@@ -2453,17 +2458,17 @@ Internet-Draft                Bundled media                 January 2016
               DOI 10.17487/RFC3264, June 2002,
               <http://www.rfc-editor.org/info/rfc3264>.
 
-   [RFC3550]  Schulzrinne, H., Casner, S., Frederick, R., and V.
-              Jacobson, "RTP: A Transport Protocol for Real-Time
-              Applications", STD 64, RFC 3550, DOI 10.17487/RFC3550,
-              July 2003, <http://www.rfc-editor.org/info/rfc3550>.
-
 
 
 Holmberg, et al.          Expires July 21, 2016                [Page 44]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   [RFC3550]  Schulzrinne, H., Casner, S., Frederick, R., and V.
+              Jacobson, "RTP: A Transport Protocol for Real-Time
+              Applications", STD 64, RFC 3550, DOI 10.17487/RFC3550,
+              July 2003, <http://www.rfc-editor.org/info/rfc3550>.
 
    [RFC3605]  Huitema, C., "Real Time Control Protocol (RTCP) attribute
               in Session Description Protocol (SDP)", RFC 3605,
@@ -2508,11 +2513,6 @@ Internet-Draft                Bundled media                 January 2016
               Security Version 1.2", RFC 6347, DOI 10.17487/RFC6347,
               January 2012, <http://www.rfc-editor.org/info/rfc6347>.
 
-   [I-D.mmusic-sdp-mux-attributes]
-              Nandakumar, S., "A Framework for SDP Attributes when
-              Multiplexing", draft-ietf-mmusic-sdp-mux-attributes-12
-              (work in progress), January 2016.
-
 
 
 
@@ -2520,6 +2520,11 @@ Holmberg, et al.          Expires July 21, 2016                [Page 45]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   [I-D.mmusic-sdp-mux-attributes]
+              Nandakumar, S., "A Framework for SDP Attributes when
+              Multiplexing", draft-ietf-mmusic-sdp-mux-attributes-12
+              (work in progress), January 2016.
 
    [I-D.mmusic-mux-exclusive]
               Holmberg, C., "Indicating Exclusive Support of RTP/RTCP
@@ -2564,11 +2569,6 @@ A.1.  General
    should be inserted in "m=" lines associated with a BUNDLE group, as
    the purpose of the extension is to negotiate the usage of a single
    address:port combination for media associated with the "m=" lines.
-   Issues with both approaches, discussed in the Appendix have been
-   raised.  The outcome was to specify a mechanism which uses SDP Offers
-   with both different and identical port values.
-
-
 
 
 
@@ -2576,6 +2576,10 @@ Holmberg, et al.          Expires July 21, 2016                [Page 46]
 
 Internet-Draft                Bundled media                 January 2016
 
+
+   Issues with both approaches, discussed in the Appendix have been
+   raised.  The outcome was to specify a mechanism which uses SDP Offers
+   with both different and identical port values.
 
    Below are the primary issues that have been considered when defining
    the "BUNDLE" grouping extension:
@@ -2611,10 +2615,6 @@ A.2.  UA Interoperability
        a=rtpmap:97 iLBC/8000
        m=video 10002 RTP/AVP 97
        a=rtpmap:97 H261/90000
-
-
-
-
 
 
 
