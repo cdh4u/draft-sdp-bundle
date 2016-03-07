@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-26.txt" updates="3264" submissionType="IETF" xml:lang="en">
+<rfc ipr="trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-28.txt" updates="3264" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
 		Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -71,7 +71,7 @@
 			extension, 'BUNDLE'. The extension can be used with the
 			SDP Offer/Answer mechanism to negotiate the usage of a 
 			single address:port combination (BUNDLE address) for receiving media, 
-			referred to as bundled media, associated with multiple 
+			referred to as bundled media, specified by multiple 
 			SDP media descriptions ("m=" lines). 
 		</t>
 		<t>
@@ -97,27 +97,27 @@
     <section title="Introduction" toc="default">
 		<t>
 			This specification defines a way to use a single address:port combination (BUNDLE address) for 
-			receiving media associated with multiple SDP media descriptions ("m=" lines). 
+			receiving media specified by multiple SDP media descriptions ("m=" lines). 
 		</t>
 		<t>
 			This specification defines a new SDP Grouping Framework <xref format="default" pageno="false" 
 			target="RFC5888"/> extension called 'BUNDLE'. The extension can be used with the Session Description 
 			Protocol (SDP) Offer/Answer mechanism <xref format="default" pageno="false" target="RFC3264"/> 
 			to negotiate the usage of a BUNDLE group. Within the BUNDLE group, a BUNDLE address is used
-			for receiving media associated with multiple "m=" lines. This is referred to as bundled media.
+			for receiving media specified by multiple "m=" lines. This is referred to as bundled media.
 		</t>
 		<t>
 			The offerer and answerer <xref format="default" pageno="false" target="RFC3264"/> use
 			the BUNDLE extension to negotiate the BUNDLE addresses, one for the offerer (offerer BUNDLE
 			address) and one for the answerer (answerer BUNDLE address), to be used for receiving 
-			the bundled media associated with a BUNDLE group. Once the offerer and the answerer have 
+			the bundled media specified by a BUNDLE group. Once the offerer and the answerer have 
 			negotiated a BUNDLE group, they associate their respective BUNDLE address with each "m=" line 
-			in the BUNDLE group. The BUNDLE addresses are used to receive all media associated with 
+			in the BUNDLE group. The BUNDLE addresses are used to receive all media specified by 
 			the BUNDLE group.
 		</t>
 		<t>
 			The use of a BUNDLE group and a BUNDLE address also allows the usage of a single set of 
-			Interactive Connectivity Establishment (ICE) <xref format="default" pageno="false" target="RFC5245"/> 
+			Interactive Connectivity Establishment (ICE) <xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/> 
 			candidates for multiple "m=" lines. 
 		</t>
 		<t>
@@ -144,7 +144,7 @@
 		<t>
 			SDP bodies can contain multiple BUNDLE groups. A given BUNDLE address MUST only be associated
 			with a single BUNDLE group. The procedures in this specification apply independently to a given 
-			BUNDLE group. All RTP based media flows associated with a single BUNDLE group belong to a single 
+			BUNDLE group. All RTP based media flows described by a single BUNDLE group belong to a single 
 			RTP session <xref format="default" pageno="false" target="RFC3550"/>.
 		</t>
 		<t>
@@ -184,13 +184,13 @@
 		</t>
 		<t>
 			Offerer BUNDLE address: Within a given BUNDLE group, an IP address and 
-			port combination used by an offerer to receive all media associated 
-			with each "m=" line within the BUNDLE group.
+			port combination used by an offerer to receive all media specified 
+			by each "m=" line within the BUNDLE group.
 		</t>
 		<t>
 			Answerer BUNDLE address: Within a given BUNDLE group, an IP address and 
-			port combination used by an answerer to receive all media associated 
-			with each "m=" line within the BUNDLE group.
+			port combination used by an answerer to receive all media specified 
+			by each "m=" line within the BUNDLE group.
 		</t>
 		<t>
 			BUNDLE group: A set of "m=" lines, created using an SDP Offer/Answer
@@ -206,7 +206,7 @@
 			SDP 'bundle-only' attribute.
 		</t>
 		<t>
-			Bundled media: All media associated with a given BUNDLE group.
+			Bundled media: All media specified by a given BUNDLE group.
 		</t>
 		<t>
 			Initial offer: The first offer, within an SDP session (e.g. a SIP dialog
@@ -265,7 +265,7 @@
 			target="RFC4961"/> is used.
 		</t>
 		<t>
-			All media associated with a BUNDLE group share a single 5-tuple, i.e. in addition
+			All media specified by a BUNDLE group share a single 5-tuple, i.e. in addition
 			to using a single address:port combination all bundled media MUST be transported using the same 
 			transport-layer protocol (e.g. UDP or TCP).
 		</t>			
@@ -365,14 +365,14 @@
 		<section title="Bandwidth (b=)" anchor="sec-sdp-cons-b" toc="default">
 		    <t> 
 				An offerer and answerer MUST use the rules and restrictions defined
-				in <xref target="I-D.mmusic-sdp-mux-attributes" /> for when
+				in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for when
 				associating the SDP bandwidth (b=) line with bundled "m=" lines.
 			</t>
 		</section>						
 		<section title="Attributes (a=)" anchor="sec-sdp-cons-a" toc="default">
 		    <t> 
 				An offerer and answerer MUST use the rules and restrictions defined
-				in <xref target="I-D.mmusic-sdp-mux-attributes" /> for when
+				in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for when
 				associating SDP attributes with bundled "m=" lines.
 			</t>
 		</section>
@@ -419,7 +419,7 @@
 				additional considerations for the usage of the SDP 'bundle-only' attribute. 
 				<xref format="default" pageno="false" target="sec-ice"/> defines additional 
 				considerations for the usage of Interactive Connectivity Establishment (ICE) 
-				<xref format="default" pageno="false" target="RFC5245"/> mechanism .
+				<xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/> mechanism .
 			</t>
 			<t>
 				SDP offers and answers can contain multiple BUNDLE groups. The procedures in this 
@@ -497,12 +497,12 @@
 					<list style="symbols">
 						<t>
 							The answerer MUST NOT include a BUNDLE group in the answer, unless the 
-							offerer requested the BUNDLE group to be created in the associated offer; and
+							offerer requested the BUNDLE group to be created in the corresponding offer; and
 						</t>
 						<t>
 							The answerer MUST NOT include an "m=" line within a BUNDLE group, unless
 							the offerer requested the "m=" line to be within that BUNDLE group in the 
-							associated offer.
+							corresponding offer.
 						</t>
 					</list>
 				</t>
@@ -622,11 +622,11 @@
                     it MUST first check the following criteria: 
                     <list style="symbols">
                         <t>
-                            In the associated offer, the "m=" line is associated with a shared
+                            In the corresponding offer, the "m=" line is associated with a shared
                             address (e.g. a previously selected offerer BUNDLE address); or
                         </t>
                         <t>
-                            In the associated offer, if an SDP 'bundle-only' attribute is
+                            In the corresponding offer, if an SDP 'bundle-only' attribute is
                             associated with the "m=" line, and if the "m=" line contains a
                             zero port value.
                         </t>
@@ -637,7 +637,7 @@
                     [<xref target="sec-sdp-oa-ans-rej" pageno="false" format="default"/>].
                 </t>
                 <t>
-                    Otherwise, if in the associated offer the "m=" line is associated with
+                    Otherwise, if in the corresponding offer the "m=" line is associated with
                     a unique address, the answerer MUST associate a unique address with the
                     "m=" line in the answer (the answerer does not reject the "m=" line).
                 </t>
@@ -667,7 +667,7 @@
 			<t>
 				When an offerer receives an answer, if the answer contains a BUNDLE group, the offerer
 				MUST check that any bundled "m=" line in the answer was indicated as bundled in the
-				associated offer. If there is no mismatch, the offerer MUST use the offerer BUNDLE address, 
+				corresponding offer. If there is no mismatch, the offerer MUST use the offerer BUNDLE address, 
 				selected by the answerer [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>],
 				as the address for each bundled "m=" line.
 			</t>
@@ -956,13 +956,13 @@
 			<section anchor="sec-rtp-sessions-pt" title="Payload Type (PT) Value Reuse" toc="default">
 					<t>
 						Multiple bundled "m=" lines might represent RTP based media. As all RTP based 
-						media associated with a BUNDLE group belong to the same RTP session, in order 
+						media specified by a BUNDLE group belong to the same RTP session, in order 
 						for a given payload type value to be used inside more than one bundled "m=" line, 
 						all codecs associated with the payload type number MUST share an identical codec 
 						configuration. This means that the codecs MUST share the same media type, 
 						encoding name, clock rate and any parameter that can affect the codec configuration 
 						and packetization. <xref format="default" pageno="false" 
-						target="I-D.mmusic-sdp-mux-attributes"/> lists SDP attributes, whose attribute 
+						target="I-D.ietf-mmusic-sdp-mux-attributes"/> lists SDP attributes, whose attribute 
 						values must be identical for all codecs that use the same payload type value.
 					</t>
 			</section>
@@ -1016,7 +1016,7 @@
                 <t>
                     Within a BUNDLE group, the offerer and answerer MUST enable
                     RTP/RTCP multiplexing <xref format="default" pageno="false" 
-                    target="RFC5761"/> for the RTP-based media associated with 
+                    target="RFC5761"/> for the RTP-based media specified by 
                     the BUNDLE group.
                 </t>
                 <t>
@@ -1034,7 +1034,7 @@
 						This section describes how an offerer and answerer use the 
                         SDP 'rtcp-mux' attribute <xref format="default" pageno="false" 
                         target="RFC5761"/> to negotiate usage of RTP/RTCP multiplexing 
-                        for RTP-based media associated with a BUNDLE group.
+                        for RTP-based media specified by a BUNDLE group.
 					</t>
                     <t>
                         The procedures in this section only apply to RTP-based "m=" lines.
@@ -1050,7 +1050,7 @@
 					</t>
                     <t>
                         If an offerer wants to indicate exclusive support of RTP/RTCP
-                        multiplexing <xref format="default" pageno="false" target="I-D.mmusic-mux-exclusive"/>
+                        multiplexing <xref format="default" pageno="false" target="I-D.ietf-mmusic-mux-exclusive"/>
                         for one or more "m=" lines within the BUNDLE group, the offerer MUST 
                         associate an SDP 'rtcp-mux-exclusive' attribute with those "m=" lines.
                     </t>
@@ -1074,17 +1074,17 @@
 						When an answerer generates an answer, if the answerer accepts an RTP-based 
                         "m=" line within a BUNDLE group, the answerer MUST enable usage of RTP/RTCP
                         multiplexing. The answerer MUST associate an SDP "rtcp-mux" attribute with
-                        the "m=" line in the answer. In addition, if the "m=" line in the associated offer
+                        the "m=" line in the answer. In addition, if the "m=" line in the corresponding offer
                         contained an SDP "rtcp-mux-exclusive" attribute, the answerer MUST
                         associate an SDP "rtcp-mux-exclusive" attribute with the "m=" line in the answer.
                     </t>
                     <t>
-                        If an RTP-based "m=" line in the associated offer did not contain an
+                        If an RTP-based "m=" line in the corresponding offer did not contain an
                         SDP "rtcp-mux" attribute, the answerer MUST NOT accept the "m=" line within
                         a BUNDLE group in the answer.
                     </t>
                     <t>
-                        If an RTP-based "m=" line in the associated offer contained an
+                        If an RTP-based "m=" line in the corresponding offer contained an
                         SDP "rtcp-mux-exclusive" attribute, and if the answerer moves the "m=" line out of
                         the BUNDLE group in the answer <xref format="default" pageno="false" target="sec-sdp-oa-ans-mov"/>, 
                         the answerer MUST still either enable RTP/RTCP multiplexing, or reject the "m=" line
@@ -1094,7 +1094,7 @@
 						When the answerer accepts the usage of RTP/RTCP multiplexing within the
 						BUNDLE group, it MUST associate an SDP 'rtcp-mux' attribute with each
 						bundled RTP-based "m=" line in the answer. In addition, if the "m=" line
-                        in the associated offer contained an SDP 'rtcp-mux-exclusive' attribute, the
+                        in the corresponding offer contained an SDP 'rtcp-mux-exclusive' attribute, the
                         answerer MUST associated an SDP 'rtcp-mux-exclusive' attribute with the
                         corresponding "m=" line in the answer, as described in. 
                     </t>
@@ -1145,11 +1145,12 @@
 			<t>
 				This section describes how to use the BUNDLE grouping extension together
 				with the Interactive Connectivity Establishment (ICE) mechanism <xref 
-				format="default" pageno="false" target="RFC5245"/>.
-			</t>
-			<t>
-				The procedures defined in <xref format="default" pageno="false" target="RFC5245"/> also apply 
-				to usage of ICE with BUNDLE, with the following exception:
+				format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/>.
+            </t>
+            <t>
+                The generic procedures for negotiating usage of ICE using SDP, defined 
+                in <xref target="I-D.ietf-mmusic-ice-sip-sdp"/>, also apply to usage of ICE
+                with BUNDLE, with the following exceptions:
 			</t>
 			<t>
 				<list style="symbols">
@@ -1158,6 +1159,16 @@
 						connectivity checks and keep-alives only need to be performed for the whole BUNDLE group,
 						instead of per bundled "m=" line.
 					</t>
+                    <t>
+                        Among bundled "m=" lines with which the offerer has associated a shared address, the 
+                        offerer only associates ICE-related media-level SDP attributes with the "m=" line 
+                        associated with the offerer BUNDLE-tag.
+                    </t>    
+                    <t>
+                        Among bundled "m=" lines with which the answerer has associated a shared address, the 
+                        answerer only associates ICE-related media-level SDP attributes with the "m=" line 
+                        associated with the answerer BUNDLE-tag.
+                    </t>    
 				</list>				
 			</t>		
 			<t>
@@ -1170,56 +1181,69 @@
 			<section title="General" anchor="sec-ice-oa-gen" toc="default">
 				<t>
 					When an offerer associates a unique address with a bundled "m=" line (excluding
-					any bundle-only "m=" line), it MUST also associate unique ICE candidates <xref format="default" 
-					pageno="false" target="RFC5245"/> to the "m=" line.
+					any bundle-only "m=" line), the offerer MUST associate SDP 'candidate' attributes (and
+                    other applicable ICE-related media-level SDP attributes), containing unique ICE properties 
+                    (candidates etc), with the "m=" line, according to the procedures in <xref target="I-D.ietf-mmusic-ice-sip-sdp" />.
 				</t>
 				<t>
-					An offerer MUST NOT associate ICE candidates with a bundle-only "m=" line 
-					with a zero port value.
-				</t>
+                    When an offerer associates a shared address with a bundled "m=" line, if the 
+                    "m=" line is associated with the offerer BUNDLE-tag, the offerer MUST associate
+                    SDP 'candidate' attributes (and other applicable ICE-related media-level SDP attributes),
+                    containing shared ICE properties, with the "m=" line. If the "m=" line is not
+                    associated with the offerer BUNDLE-tag, the offerer MUST NOT associate
+                    ICE-related SDP attributes with the "m=" line.
+                </t>
 				<t>
-					NOTE: The bundle-only "m=" line, if accepted by the answerer, will inherit 
-					the candidates associated with the selected offerer BUNDLE address. An answerer 
-					that does not support BUNDLE would not accept a bundle-only "m=" line.
-				</t>
-				<t>
-					When an offerer or answerer associates a shared address (i.e. a previously selected BUNDLE
-					address) with one or more bundled "m=" lines, it MUST associate identical ICE candidates 
-					(referred to as shared ICE candidates) with each of those "m=" lines.
-				</t>
+                    When an answerer associates a shared address with a bundled "m=" line, if the 
+                    "m=" line is associated with the answerer BUNDLE-tag, the answerer MUST associate
+                    SDP 'candidate' attributes (and other applicable ICE-related media-level SDP attributes),
+                    containing shared ICE properties, with the "m=" line. If the "m=" line is not
+                    associated with the answerer BUNDLE-tag, the answerer MUST NOT associate
+                    ICE-related SDP attributes with the "m=" line.
+                </t>
+                <t>
+                    NOTE: As bundled "m=" lines associated with a shared address will share the same ICE properties,
+                    there is no need to associated ICE-related media-level SDP attributes with each "m=" line.
+                </t>
+                <t>
+                    NOTE: The following ICE-related media-level SDP attributes are defined in 
+                    <xref target="I-D.ietf-mmusic-ice-sip-sdp" />: 'candidiate', 'remote-candidates', 'ice-mismatch', 
+                    'ice-ufrag', 'ice-pwd', and 'ice-pacing'. 
+                </t>
 			</section>
 
 			<section title="Generating the Initial SDP Offer" anchor="sec-ice-oa-ino" toc="default">
 				<t>
-					When an offerer generates an initial offer, it associates unique ICE candidates 
-					with the bundled "m=" lines, according to <xref format="default" pageno="false" 
-					target="sec-ice-oa-gen"/>.
+                    When an offerer generates an initial offer, the offerer MUST associate ICE-related media-level
+                    SDP attributes with each bundled "m=" line, according to [<xref format="default" pageno="false" 
+					target="sec-ice-oa-gen"/>]. 
 				</t>
 			</section>
 			
 			<section title="Generating the SDP Answer" anchor="sec-ice-oa-ans" toc="default">
 				<t>
-					When an answerer generates an answer that contains a BUNDLE group, 
-					the answerer MUST associate shared ICE candidates with each bundled "m=" line 
-					(including "m=" lines that were indicated as bundle-only in the associated offer)
-					in the answer.
+                    When an answerer generates an answer that contains a BUNDLE group,
+                    the answerer MUST associated ICE-related SDP attributes with the 
+                    "m=" line associated with the answerer BUNDLE-tag, according to 
+                    [<xref format="default" pageno="false" target="sec-ice-oa-gen"/>].                   
 				</t>
 			</section>
 			
 			<section title="Offerer Processing of the SDP Answer" anchor="sec-ice-oa-pra" toc="default">
 				<t>
 					When an offerer receives an answer, if the answerer supports and uses the ICE
-					mechanism and the BUNDLE extension, the offerer MUST associate the same ICE candidates, 
-					associated with the "m=" line representing the offerer BUNDLE address (selected by the 
-					answerer), with each bundled "m=" line.
-				</t>
+					mechanism and the BUNDLE extension, the offerer MUST associate the ICE properties 
+                    associated with the offerer BUNDLE address, selected by the 
+                    answerer [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>],
+                    with each bundled "m=" line.
+                </t>
 			</section>
 			
 			<section title="Modifying the Session" anchor="sec-ice-oa-mod" toc="default">
 				<t>
-					When an offerer generates a subsequent offer, it associates unique or shared ICE 
-					candidates with the bundled "m=" lines, according to (<xref format="default" pageno="false" 
-					target="sec-ice-oa-gen"/>).
+                    When an offerer generates a subsequent offer, it MUST associated 
+                    unique or shared ICE properties to one or more bundled "m=" lines, 
+                    according to [<xref format="default" pageno="false" target="sec-ice-oa-gen"/>].
 				</t>
 			</section>		
 		</section>
@@ -1593,7 +1617,7 @@
 		</t>
 		<t>
 			When the BUNDLE extension is used, a single set of security credentials
-			might be used for all media streams associated with a BUNDLE group. 
+			might be used for all media streams specified by a BUNDLE group. 
 		</t>
 		<t>
 			When the BUNDLE extension is used, the number of SSRC values within 
@@ -1967,6 +1991,19 @@ SDP Answer (2)
 
     <section title="Change Log">
 		<t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-27
+			<list style="symbols">
+                <t>- Yet another terminology change.</t>
+			</list>
+		</t>		
+		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-26
+			<list style="symbols">
+                <t>- ICE considerations modified: ICE-related SDP attributes only added
+                to the bundled m- line representing the selected BUNDLE address.</t>
+                <t>- Reference to draft-ietf-mmusic-ice-sip-sdp added.</t>
+                <t>- Reference to RFC 5245 replaced with reference to draft-ietf-ice-rfc5245bis.</t>
+			</list>
+		</t>		
 		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-25
 			<list style="symbols">
                 <t>- RTP/RTCP mux procedures updated with exclusive RTP/RTCP mux considerations.</t>
@@ -2204,35 +2241,11 @@ SDP Answer (2)
         <?rfc include="reference.RFC.5761"?>
 		<?rfc include="reference.RFC.5764"?>
         <?rfc include="reference.RFC.5888"?>
-        <?rfc include="reference.RFC.6347"?>	
-		<reference anchor="I-D.mmusic-sdp-mux-attributes">
-            <front>
-                <title abbrev="SDP Attribute Multiplexing">
-					A Framework for SDP Attributes when Multiplexing
-				</title>
-                <author fullname="Suhas Nandakumar" initials="S.N" surname="Nandakumar">
-                    <organization>Cisco</organization>
-                    <address>
-                    </address>
-                    </author>
-                <date day="14" month="January" year="2016" />
-            </front>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-mmusic-sdp-mux-attributes-12" />
-        </reference>
-		<reference anchor="I-D.mmusic-mux-exclusive">
-            <front>
-                <title abbrev="Exclusive RTP/RTCP Mux">
-                    Indicating Exclusive Support of RTP/RTCP Multiplexing using SDP
-				</title>
-                <author fullname="Christer Holmberg" initials="C.H" surname="Holmberg">
-                    <organization>Ericsson</organization>
-                    <address>
-                    </address>
-                    </author>
-                <date day="5" month="February" year="2016" />
-            </front>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-mmusic-mux-exclusive-01" />
-        </reference>
+        <?rfc include="reference.RFC.6347"?>
+        <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-01"?>
+        <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-12"?>
+        <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-03"?>
+        <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-07"?>
     </references>
 
     <references title="Informative References">				
@@ -2240,25 +2253,7 @@ SDP Answer (2)
 		<?rfc include="reference.RFC.4568"?>
         <?rfc include="reference.RFC.5576"?>
 		<?rfc include="reference.RFC.7160"?>	
-		<reference anchor="I-D.ietf-mmusic-trickle-ice">
-            <front>
-                <title abbrev="Trickle ICE">
-					Trickle ICE: Incremental Provisioning of Candidates 
-					for the Interactive Connectivity Establishment (ICE) Protocol
-				</title>
-                <author fullname="Emil Ivov" initials="E.I" surname="Ivov">
-                    <organization>Jitsi</organization>
-                </author>
-                <author fullname="Eric Rescorla" initials="E.R" surname="Rescorla">
-					<organization>RTFM, Inc</organization>
-                </author>
-                <author fullname="Justin Uberti" initials="J.U" surname="Uberti">
-					<organization>Google</organization>
-                </author>				
-                <date day="15" month="January" year="2015" />
-            </front>
-            <seriesInfo name="Internet-Draft" value="draft-ietf-mmusic-trickle-ice-02" />
-        </reference>		
+        <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-02"?>
     </references>
 	
 	<section  title="Design Considerations" toc="default">
@@ -2267,7 +2262,7 @@ SDP Answer (2)
 				One of the main issues regarding the BUNDLE grouping extensions has been whether,
 				in SDP Offers and SDP Answers, the same port value should be inserted in "m=" 
 				lines associated with a BUNDLE group, as the purpose of the extension is to negotiate
-				the usage of a single address:port combination for media associated with the 
+				the usage of a single address:port combination for media specified by the 
 				"m=" lines. Issues with both approaches, discussed in the Appendix have been 
 				raised. The outcome was to specify a mechanism which uses SDP Offers with both 
 				different and identical port values.
@@ -2369,7 +2364,7 @@ SDP Offer
 		
 		<section  title="Usage of port number value zero" toc="default">
 			<t>
-				In an SDP Offer or SDP Answer, the media associated with an "m=" line can be 
+				In an SDP Offer or SDP Answer, the media specified by an "m=" line can be 
 				disabled/rejected by setting the port number value to zero. This is different 
 				from e.g. using the SDP direction attributes, where RTCP traffic will 
 				continue even if the SDP "inactive" attribute is indicated for the 
@@ -2444,7 +2439,7 @@ SDP Offer
 					Still, however, they may use SDP information (e.g. codecs and 
 					media types) in order to control bandwidth allocation functions. 
 					The bandwidth allocation is done per "m=" line, which means that
-					it might not be enough if media associated with all "m=" lines
+					it might not be enough if media specified by all "m=" lines
 					try to use that bandwidth. That may either simply lead to bad
 					user experience, or to termination of the call.
 				</t>
