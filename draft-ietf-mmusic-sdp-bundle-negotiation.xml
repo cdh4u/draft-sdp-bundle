@@ -419,12 +419,32 @@
 				additional considerations for the usage of the SDP 'bundle-only' attribute. 
 				<xref format="default" pageno="false" target="sec-ice"/> defines additional 
 				considerations for the usage of Interactive Connectivity Establishment (ICE) 
-				<xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/> mechanism .
+				<xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/> mechanism.
 			</t>
 			<t>
 				SDP offers and answers can contain multiple BUNDLE groups. The procedures in this 
 				section apply independently to a given BUNDLE group.		
-			</t>
+			</t>            
+        </section>
+        <section anchor="sec-sdp-oa-cat" title="Mux Category Considerations" toc="default">
+		    <t>
+                When an offerer associates a shared address with a bundled "m=" line, the offerer
+                shall associate IDENTICAL and TRANSPORT mux category SDP attributes 
+                <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> with the "m=" line only if 
+                the "m=" line is associated with the offerer BUNDLE-tag. Otherwise
+                the offerer MUST NOT associate such SDP attributes with the "m=" line.
+            </t>
+            <t>
+                When an answerer associates a shared address with a bundled "m=" line, the answerer
+                shall associate IDENTICAL and TRANSPORT category SDP attributes
+                with the "m=" line only if the "m=" line is associated with the answerer BUNDLE-tag. Otherwise
+                the answerer MUST NOT associate such SDP attributes with the "m=" line.
+            </t>
+            <t>
+                NOTE: As bundled "m=" lines associated with a shared address will share the same IDENTICAL
+                and TRANSPORT mux category SDP attributes, and attribute values, there is no need to associate 
+                such SDP attributes with each "m=" line.
+            </t>
 		</section>
 		<section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
 			<section anchor="sec-sdp-oa-ino-gen" title="General" toc="default">
@@ -1202,8 +1222,11 @@
                     ICE-related SDP attributes with the "m=" line.
                 </t>
                 <t>
-                    NOTE: As bundled "m=" lines associated with a shared address will share the same ICE properties,
-                    there is no need to associated ICE-related media-level SDP attributes with each "m=" line.
+                    NOTE: As most ICE-related media-level SDP attributes belong to the TRANSPORT mux category
+                    <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />, the offerer and answerer follow the 
+                    rules in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>. However, in the 
+                    case of ICE-related media-level attributes, the rules apply to all attributes (see note below), 
+                    even if they belong to a different mux category.
                 </t>
                 <t>
                     NOTE: The following ICE-related media-level SDP attributes are defined in 
@@ -1994,6 +2017,7 @@ SDP Answer (2)
 		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-27
 			<list style="symbols">
                 <t>- Yet another terminology change.</t>
+                <t>- Mux category considerations added.</t>
 			</list>
 		</t>		
 		<t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-26
