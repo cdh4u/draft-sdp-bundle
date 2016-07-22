@@ -380,7 +380,6 @@
 	</section>
 
 	<section title="SDP Offer/Answer Procedures" anchor="sec-sdp-oa" toc="default">
-		<section anchor="sec-sdp-oa-gen" title="General" toc="default">
 			<t>
 				This section describes the SDP Offer/Answer <xref format="default"
 				pageno="false" target="RFC3264"/> procedures for:
@@ -426,7 +425,6 @@
 				SDP offers and answers can contain multiple BUNDLE groups. The procedures in this
 				section apply independently to a given BUNDLE group.
 			</t>
-        </section>
         <section anchor="sec-sdp-oa-cat" title="Mux Category Considerations" toc="default">
 		    <t>
                 When an offerer associates a shared address with a bundled "m=" line, the offerer
