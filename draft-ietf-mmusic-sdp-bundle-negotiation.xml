@@ -342,14 +342,12 @@
 	</section>
 
 	<section title="SDP Information Considerations" anchor="sec-sdp-cons" toc="default">
-		<section title="General" anchor="sec-sdp-cons-gen" toc="default">
 			<t>
 				This section describes restrictions associated with the usage of
 				SDP parameters within a BUNDLE group. It also describes, when parameter
 				and attribute values have been associated with each bundled "m=" line, how to
 				calculate a value for the whole BUNDLE group.
 			</t>
-		</section>
 		<section title="Connection Data (c=)" anchor="sec-sdp-cons-c" toc="default">
 			<t>
 				The "c=" line nettype value <xref format="default" pageno="false"
