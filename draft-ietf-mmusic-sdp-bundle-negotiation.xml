@@ -446,7 +446,6 @@
             </t>
 		</section>
 		<section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
-			<section anchor="sec-sdp-oa-ino-gen" title="General" toc="default">
 				<t>
 					When an offerer generates an initial offer, in order to create a
 					BUNDLE group, it MUST:
@@ -493,7 +492,6 @@
 					[<xref target="sec-example-add" pageno="false" format="default"/>] shows
 					an example of an initial offer.
 				</t>
-			</section>
 			<section title="Suggesting the offerer BUNDLE address" anchor="sec-sdp-oa-ino-req" toc="default">
 				<t>
 					In the offer, the address associated with the "m=" line associated with the
@@ -508,7 +506,6 @@
 		</section>
 
 		<section anchor="sec-sdp-oa-ans" title="Generating the SDP Answer" toc="default">
-			<section title="General" anchor="sec-sdp-oa-ans-gen" toc="default">
 				<t>
 					When an answerer generates an answer that contains a BUNDLE group, the following general
 					SDP grouping framework restrictions, defined in <xref target="RFC5888" pageno="false"
@@ -574,7 +571,6 @@
 					an SDP 'bundle-only' attribute, it is an indication that the offerer wants to disable the "m="
 					line [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
 				</t>
-			</section>
 
 			<section title="Answerer Selection of Offerer Bundle Address" anchor="sec-sdp-oa-ans-off" toc="default">
 				<t>
@@ -702,7 +698,6 @@
 		</section>
 
 		<section title="Modifying the Session" anchor="sec-sdp-oa-mod" toc="default">
-			<section title="General" anchor="sec-sdp-oa-mod-gen" toc="default">
 				<t>
 					When an offerer generates a subsequent offer, it MUST associate
 					the previously selected offerer BUNDLE address [<xref format="default"
@@ -733,7 +728,6 @@
 					associated with the previously selected offerer BUNDLE address, unless
 					the offerer suggests a new offerer BUNDLE address.
 				</t>
-			</section>
 			<section title="Suggesting a new offerer BUNDLE address" anchor="sec-sdp-oa-mod-req" toc="default">
 				<t>
 					When an offerer generates an offer, in which it suggests a new
@@ -866,7 +860,6 @@
 	</section>
 
 	<section title="Protocol Identification" anchor="sec-protocol-id" toc="default">
-		<section title="General" anchor="sec-protocol-id-gen" toc="default">
             <t>
                 Each "m=" line within a BUNDLE group MUST use the same transport-
                 layer protocol. If bundled "m=" lines use different protocols on top
@@ -891,7 +884,6 @@
                 how to multiplex multiple protocols on a given transport-layer protocols,
                 and how to associate received data with the correct protocols.
             </t>
-		</section>
 		<section anchor="sec-packets-id-sds" title="STUN, DTLS, SRTP" toc="default">
 			<t>
 				Section 5.1.2 of <xref format="default" pageno="false" target="RFC5764"/> describes a
@@ -920,7 +912,6 @@
 
 	<section anchor="sec-rtp" title="RTP Considerations" toc="default">
 		<section anchor="sec-rtp-sessions" title="Single RTP Session" toc="default">
-			<section anchor="sec-rtp-sessions-gen" title="General" toc="default">
 					<t>
 						All RTP-based media within a single BUNDLE group belong to a
 						single RTP session <xref format="default" pageno="false"
@@ -973,7 +964,6 @@
             (the delay is to ensure the SSRC has timed out, in case the RTCP BYE
             packet was lost <xref format="default" pageno="false" target="RFC3550"/>).
 					</t>
-			</section>
 			<section anchor="sec-rtp-sessions-pt" title="Payload Type (PT) Value Reuse" toc="default">
 					<t>
 						Multiple bundled "m=" lines might represent RTP based media. As all RTP based
@@ -1033,7 +1023,6 @@
 		</section>
 
 		<section title="RTP/RTCP Multiplexing" anchor="sec-rtprtcp-mux" toc="default">
-			<section title="General" anchor="sec-rtprtcp-mux-gen" toc="default">
                 <t>
                     Within a BUNDLE group, the offerer and answerer MUST enable
                     RTP/RTCP multiplexing <xref format="default" pageno="false"
@@ -1048,9 +1037,7 @@
                     endpoint. The same address:port combination MAY be used
                     for receiving RTP packets and RTCP packets.
                 </t>
-			</section>
 			<section title="SDP Offer/Answer Procedures" anchor="sec-rtprtcp-mux-oa" toc="default">
-				<section title="General" anchor="sec-rtprtcp-mux-oa-gen" toc="default">
 					<t>
 						This section describes how an offerer and answerer use the
                         SDP 'rtcp-mux' attribute <xref format="default" pageno="false"
@@ -1062,7 +1049,6 @@
                     <t>
                         The procedures in this section only apply to RTP-based "m=" lines.
                     </t>
-				</section>
 				<section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
 					<t>
 						When an offerer generates an initial offer, the
@@ -1161,7 +1147,6 @@
 	</section>
 
 	<section title="ICE Considerations" anchor="sec-ice" toc="default">
-		<section title="General" anchor="sec-ice-gen" toc="default">
 			<t>
 				This section describes how to use the BUNDLE grouping extension together
 				with the Interactive Connectivity Establishment (ICE) mechanism <xref
@@ -1194,11 +1179,8 @@
 			<t>
 				Support and usage of ICE mechanism together with the BUNDLE extension is OPTIONAL.
 			</t>
-		</section>
 
 		<section title="SDP Offer/Answer Procedures" anchor="sec-ice-oa" toc="default">
-
-			<section title="General" anchor="sec-ice-oa-gen" toc="default">
 				<t>
 					When an offerer associates a unique address with a bundled "m=" line (excluding
 					any bundle-only "m=" line), the offerer MUST associate SDP 'candidate' attributes (and
@@ -1233,7 +1215,6 @@
                     <xref target="I-D.ietf-mmusic-ice-sip-sdp" />: 'candidiate', 'remote-candidates', 'ice-mismatch',
                     'ice-ufrag', 'ice-pwd', and 'ice-pacing'.
                 </t>
-			</section>
 
 			<section title="Generating the Initial SDP Offer" anchor="sec-ice-oa-ino" toc="default">
 				<t>
@@ -1325,7 +1306,6 @@
     </section>
 
 	<section anchor="sec-3264" title="Update to RFC 3264" toc="default">
-		<section anchor="sec-3264-gen" title="General" toc="default">
 			<t>
 				This section replaces the text of the following sections
 				of RFC 3264:
@@ -1337,7 +1317,6 @@
 					<t>Section 8.4 (Putting a Unicast Media Stream on Hold).</t>
 				</list>
 			</t>
-		</section>
 		<section anchor="sec-3264-old-5_1" title="Original text of section 5.1 (2nd paragraph) of RFC 3264" toc="default">
 			<t>
 				For recvonly and sendrecv streams, the port number and address in the
@@ -1430,7 +1409,6 @@
 
 
     <section title="RTP/RTCP extensions for identification-tag transport" anchor="sec-receiver-id" toc="default">
-		<section title="General" anchor="sec-receiver-id-gen" toc="default">
 			<t>
 				SDP Offerers and Answerers <xref format="default" pageno="false" target="RFC3264"/>
 				can associate identification-tags with "m=" lines within SDP Offers
@@ -1480,7 +1458,6 @@
 				reception of the identification-tag is delayed, and SHOULD NOT terminate sessions
 				in such cases, as the identification-tag is likely to arrive soon.
 			</t>
-		</section>
 		<section title="RTCP MID SDES Item" anchor="sec-receiver-id-sdes-item" toc="default">
 				<figure>
 					<artwork align="left"><![CDATA[
@@ -2310,7 +2287,6 @@ SDP Answer (2)
     </references>
 
 	<section  title="Design Considerations" toc="default">
-		<section  title="General" toc="default">
 			<t>
 				One of the main issues regarding the BUNDLE grouping extensions has been whether,
 				in SDP Offers and SDP Answers, the same port value should be inserted in "m="
@@ -2334,7 +2310,6 @@ SDP Answer (2)
 			<t>
 				NOTE: Before this document is published as an RFC, this Appendix might be removed.
 			</t>
-		</section>
 
 		<section  title="UA Interoperability" toc="default">
 			<t>
