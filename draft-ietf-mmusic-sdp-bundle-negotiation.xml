@@ -1220,7 +1220,7 @@
 				<t>
                     When an offerer generates an initial offer, the offerer MUST associate ICE-related media-level
                     SDP attributes with each bundled "m=" line, according to [<xref format="default" pageno="false"
-					target="sec-ice-oa-gen"/>].
+					target="sec-ice-oa"/>].
 				</t>
 			</section>
 
@@ -1229,7 +1229,7 @@
                     When an answerer generates an answer that contains a BUNDLE group,
                     the answerer MUST associated ICE-related SDP attributes with the
                     "m=" line associated with the answerer BUNDLE-tag, according to
-                    [<xref format="default" pageno="false" target="sec-ice-oa-gen"/>].
+                    [<xref format="default" pageno="false" target="sec-ice-oa"/>].
 				</t>
 			</section>
 
@@ -1247,7 +1247,7 @@
 				<t>
                     When an offerer generates a subsequent offer, it MUST associated
                     unique or shared ICE properties to one or more bundled "m=" lines,
-                    according to [<xref format="default" pageno="false" target="sec-ice-oa-gen"/>].
+                    according to [<xref format="default" pageno="false" target="sec-ice-oa"/>].
 				</t>
 			</section>
 		</section>
