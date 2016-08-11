@@ -159,7 +159,7 @@ Internet-Draft                Bundled media                  August 2016
      15.2.  New RTP SDES Header Extension URI  . . . . . . . . . . .  29
      15.3.  New SDP Attribute  . . . . . . . . . . . . . . . . . . .  30
      15.4.  New SDP Group Semantics  . . . . . . . . . . . . . . . .  30
-   16. Security Considerations . . . . . . . . . . . . . . . . . . .  30
+   16. Security Considerations . . . . . . . . . . . . . . . . . . .  31
    17. Examples  . . . . . . . . . . . . . . . . . . . . . . . . . .  31
      17.1.  Example: Bundle Address Selection  . . . . . . . . . . .  31
 
@@ -324,8 +324,8 @@ Internet-Draft                Bundled media                  August 2016
    "m=" line, carries an unique identification-tag.  The session-level
    SDP 'group' attribute [RFC5888] carries a list of identification-
    tags, identifying the "m=" lines associated with that particular
-   'group' attribute.  The identification-tag value MUST be chosen so
-   that it does not reveal user or application information.
+   'group' attribute.
+
 
 
 
@@ -1571,7 +1571,10 @@ Internet-Draft                Bundled media                  August 2016
 
 
    do take into account that some single characters when UTF-8 encoded
-   will result in multiple octets.
+   will result in multiple octets.  The identification-tag MUST NOT
+   contain any user information, and applications SHALL avoid generating
+   the identification-tag using a pattern that enables application
+   identification.
 
 15.  IANA Considerations
 
@@ -1603,6 +1606,26 @@ Internet-Draft                Bundled media                  August 2016
    registry sub-registry, according to the following data:
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Holmberg, et al.        Expires February 12, 2017              [Page 29]
+
+Internet-Draft                Bundled media                  August 2016
+
+
      Extension URI: urn:ietf:params:rtp-hdrext:sdes:mid
      Description:   Media identification
      Contact:       christer.holmberg@ericsson.com
@@ -1615,15 +1638,6 @@ Internet-Draft                Bundled media                  August 2016
      The purpose of the extension is for the offerer to be able to
      associate received multiplexed RTP-based media before the offerer
      receives the associated SDP answer.
-
-
-
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 29]
-
-Internet-Draft                Bundled media                  August 2016
 
 
 15.3.  New SDP Attribute
@@ -1658,6 +1672,16 @@ Internet-Draft                Bundled media                  August 2016
    "Session Description Protocol (SDP) Parameters" registry:
 
 
+
+
+
+
+
+Holmberg, et al.        Expires February 12, 2017              [Page 30]
+
+Internet-Draft                Bundled media                  August 2016
+
+
        Semantics                              Token   Reference
        -------------------------------------  ------  ---------
        Media bundling                         BUNDLE  [RFCXXXX]
@@ -1674,13 +1698,6 @@ Internet-Draft                Bundled media                  August 2016
    When the BUNDLE extension is used, a single set of security
    credentials might be used for all media streams specified by a BUNDLE
    group.
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 30]
-
-Internet-Draft                Bundled media                  August 2016
-
 
    When the BUNDLE extension is used, the number of SSRC values within a
    single RTP session increases, which increases the risk of SSRC
@@ -1700,23 +1717,6 @@ Internet-Draft                Bundled media                  August 2016
       address, and then selects its own BUNDLE address (the answerer
       BUNDLE address) and associates it with each bundled "m=" line
       within the BUNDLE group.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

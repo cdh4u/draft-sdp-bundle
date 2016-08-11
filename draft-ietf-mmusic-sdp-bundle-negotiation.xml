@@ -229,8 +229,7 @@
 			an unique identification-tag. The session-level SDP 'group' attribute
 			<xref format="default" pageno="false" target="RFC5888" /> carries a list
 			of identification-tags, identifying the "m=" lines associated with that
-			particular 'group' attribute. The identification-tag value MUST be chosen
-      so that it does not reveal user or application information.
+			particular 'group' attribute.
 		</t>
 	</section>
 
@@ -1513,6 +1512,9 @@
 					will result in a minimal number of 32-bit words used for the RTP SDES header extension,
 					in case no other header extensions are included at the same time. Note, do take into
 					account that some single characters when UTF-8 encoded will result in multiple octets.
+          The identification-tag MUST NOT contain any user information, and applications SHALL
+          avoid generating the identification-tag using a pattern that enables application
+          identification.
 				</t>
 		</section>
 	</section>
