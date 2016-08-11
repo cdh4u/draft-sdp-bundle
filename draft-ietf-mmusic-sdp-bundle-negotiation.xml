@@ -229,7 +229,8 @@
 			an unique identification-tag. The session-level SDP 'group' attribute
 			<xref format="default" pageno="false" target="RFC5888" /> carries a list
 			of identification-tags, identifying the "m=" lines associated with that
-			particular 'group' attribute.
+			particular 'group' attribute. The identification-tag value MUST be chosen
+      so that it does not reveal user or application information.
 		</t>
 	</section>
 
@@ -1419,14 +1420,19 @@
 			<t>
 				This section defines a new RTCP SDES item <xref format="default" pageno="false"
 				target="RFC3550"/>, 'MID', which is used to carry identification-tags within RTCP
-				SDES packets. This section also defines a new RTP header extension
-				<xref format="default" pageno="false" target="RFC5285"/>, which is used to carry
-				identification-tags in RTP packets.
+				SDES packets. This section also defines a new RTP SDES header extension
+				<xref format="default" pageno="false" target="I-D.ietf-avtext-sdes-hdr-ext"/>, which
+        is used to carry the 'MID' RTCP SDES item in RTP packets.
 			</t>
 			<t>
-				The SDES item and RTP header extension make it possible for a receiver to associate
+				The SDES item and RTP SDES header extension make it possible for a receiver to associate
 				received RTCP- and RTP packets with a specific "m=" line, with which the receiver has
 				associated an identification-tag, even if those "m=" lines are part of the same RTP session.
+        The RTP SDES header extension also ensures that the media recipient gets the identification-tag
+        upon receipt of the first decodable media and is able to associate the media with the
+        correct application.
+      </t>
+      <t>
         A media recipient informs the media sender about the identification-tag
         associated with an "m=" line through the use of an 'mid' attribute
         <xref format="default" pageno="false" target="RFC5888"/>. The media sender then
@@ -1446,9 +1452,9 @@
 				rate, the RTCP reporting interval, and the allowable overhead.
 			</t>
 			<t>
-				The RTP MID header extension SHOULD be included in some RTP packets at the start of
-				the session and whenever the SSRC changes. It might also be useful to include the
-				header extension in RTP packets that comprise access points in the media
+				The RTP SDES header extension for carrying the 'MID' RTCP SDES SHOULD be included
+        in some RTP packets at the start of the session and whenever the SSRC changes. It might
+        also be useful to include the header extension in RTP packets that comprise access points in the media
 				(e.g., with video I-frames). The exact number of RTP packets in which this header
 				extension is sent is intentionally not specified here, as it will depend on expected
 				packet loss rate and loss patterns, the overhead the application can tolerate, and
@@ -1482,11 +1488,11 @@
 					identifier value.]
 				</t>
 		</section>
-		<section title="RTP MID Header Extension" anchor="sec-receiver-id-rtp-he" toc="default">
+		<section title="RTP SDES Header Extension For MID" anchor="sec-receiver-id-rtp-he" toc="default">
 				<t>
-					The payload, containing the identification-tag, of the RTP MID header extension element
+					The payload, containing the identification-tag, of the RTP SDES header extension element
 					can be encoded using either the one-byte or two-byte header <xref format="default"
-					pageno="false" target="RFC5285"/>. The identification-tag payload is UTF-8
+					pageno="false" target="I-D.ietf-avtext-sdes-hdr-ext"/>. The identification-tag payload is UTF-8
 					encoded, as in SDP.
 				</t>
 				<t>
@@ -1495,7 +1501,7 @@
 					bytes <xref format="default" pageno="false" target="RFC5285"/>.
 				</t>
 				<t>
-					As the identification-tag is included in either an RTCP SDES item or an RTP header
+					As the identification-tag is included in either an RTCP SDES item or an RTP SDES header
 					extension, or both, there should be some consideration about the packet expansion
 					caused by the identification-tag. To avoid Maximum Transmission Unit (MTU) issues
 					for the RTP packets, the header extension's size needs to be taken into account when
@@ -1504,7 +1510,7 @@
 				<t>
 					It is recommended that the identification-tag is kept short. Due to the properties of
 					the RTP header extension mechanism, when using the one-byte header, a tag that is 1-3 bytes
-					will result in a minimal number of 32-bit words used for the RTP header extension,
+					will result in a minimal number of 32-bit words used for the RTP SDES header extension,
 					in case no other header extensions are included at the same time. Note, do take into
 					account that some single characters when UTF-8 encoded will result in multiple octets.
 				</t>
@@ -1535,7 +1541,7 @@
 				]]></artwork>
 			</figure>
 		</section>
-		<section title="New RTP Header Extension URI" anchor="sec-receiver-id-iana-rtp-uri" toc="default">
+		<section title="New RTP SDES Header Extension URI" anchor="sec-receiver-id-iana-rtp-uri" toc="default">
 			<t>
 				[RFC EDITOR NOTE: Please replace RFCXXXX with the RFC number
 				of this document.]
@@ -2313,14 +2319,15 @@ SDP Answer (2)
     <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-12"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-07"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-08"?>
+    <?rfc include="reference.I-D.draft-ietf-avtext-sdes-hdr-ext-07"?>
     </references>
 
     <references title="Informative References">
 		<?rfc include="reference.RFC.3261"?>
 		<?rfc include="reference.RFC.4568"?>
-        <?rfc include="reference.RFC.5576"?>
+    <?rfc include="reference.RFC.5576"?>
 		<?rfc include="reference.RFC.7160"?>
-        <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-02"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-02"?>
     </references>
 
 	<section  title="Design Considerations" toc="default">
