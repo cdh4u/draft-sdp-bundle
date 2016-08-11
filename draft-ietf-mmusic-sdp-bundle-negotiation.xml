@@ -368,14 +368,14 @@
 		<section title="Bandwidth (b=)" anchor="sec-sdp-cons-b" toc="default">
 		    <t>
 				An offerer and answerer MUST use the rules and restrictions defined
-				in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for when
+				in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for
 				associating the SDP bandwidth (b=) line with bundled "m=" lines.
 			</t>
 		</section>
 		<section title="Attributes (a=)" anchor="sec-sdp-cons-a" toc="default">
 		    <t>
 				An offerer and answerer MUST use the rules and restrictions defined
-				in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for when
+				in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for
 				associating SDP attributes with bundled "m=" lines.
 			</t>
 		</section>
