@@ -2344,9 +2344,6 @@ SDP Answer (2)
 					<t>5) SDP Offer/Answer impacts, including usage of port number value zero.</t>
 				</list>
 			</t>
-			<t>
-				NOTE: Before this document is published as an RFC, this Appendix might be removed.
-			</t>
 
 		<section  title="UA Interoperability" toc="default">
 			<t>
