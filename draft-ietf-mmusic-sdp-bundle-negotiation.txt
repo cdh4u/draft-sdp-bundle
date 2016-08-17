@@ -411,7 +411,7 @@ Internet-Draft                Bundled media                  August 2016
 
       Example:
 
-         a=bundle-only
+        a=bundle-only
 
 
    In order to ensure that an answerer that does not support the BUNDLE
@@ -523,23 +523,25 @@ Internet-Draft                Bundled media                  August 2016
 
 8.1.  Mux Category Considerations
 
-   When an offerer associates a shared address with a bundled "m=" line,
-   the offerer shall associate IDENTICAL and TRANSPORT mux category SDP
-   attributes [I-D.ietf-mmusic-sdp-mux-attributes] with the "m=" line
-   only if the "m=" line is associated with the offerer BUNDLE-tag.
-   Otherwise the offerer MUST NOT associate such SDP attributes with the
-   "m=" line.
+   When an offerer associates SDP attributes with a bundled "m=" line
+   associated with a shared address, IDENTICAL and TRANSPORT mux
+   category SDP attributes [I-D.ietf-mmusic-sdp-mux-attributes] are
+   associated with the "m=" line only if the "m=" line is also
+   associated with the offerer BUNDLE-tag.  Otherwise the offerer MUST
+   NOT associate such SDP attributes with the "m=" line.
 
-   When an answerer associates a shared address with a bundled "m="
-   line, the answerer shall associate IDENTICAL and TRANSPORT category
-   SDP attributes with the "m=" line only if the "m=" line is associated
-   with the answerer BUNDLE-tag.  Otherwise the answerer MUST NOT
-   associate such SDP attributes with the "m=" line.
+   When an answerer associates SDP attributes with a bundled "m=" line,
+   IDENTICAL and TRANSPORT mux category SDP attributes are associated
+   with the "m=" line only if the "m=" line is also associated with the
+   answerer BUNDLE-tag.  Otherwise the answerer MUST NOT associated such
+   SDP attributes with the "m=" line.
 
    NOTE: As bundled "m=" lines associated with a shared address will
    share the same IDENTICAL and TRANSPORT mux category SDP attributes,
    and attribute values, there is no need to associate such SDP
-   attributes with each "m=" line.
+   attributes with each "m=" line.  The attributes and attribute values
+   are implicitly applied to each "m=" line associated with the shared
+   address.
 
 8.2.  Generating the Initial SDP Offer
 
@@ -552,8 +554,6 @@ Internet-Draft                Bundled media                  August 2016
 
    o  Add an SDP 'group:BUNDLE' attribute to the offer; and
 
-   o  Place the identification-tag of each bundled "m=" line in the SDP
-      'group:BUNDLE' attribute identification-tag list; and
 
 
 
@@ -561,6 +561,9 @@ Holmberg, et al.        Expires February 18, 2017              [Page 10]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  Place the identification-tag of each bundled "m=" line in the SDP
+      'group:BUNDLE' attribute identification-tag list; and
 
    o  Indicate which unique address the offerer suggests as the offerer
       BUNDLE address [Section 8.2.1].
@@ -608,15 +611,14 @@ Internet-Draft                Bundled media                  August 2016
 
    o  Select an Offerer BUNDLE Address [Section 8.3.1]; and
 
-   o  Select an Answerer BUNDLE Address [Section 8.3.2];
-
-
 
 
 Holmberg, et al.        Expires February 18, 2017              [Page 11]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  Select an Answerer BUNDLE Address [Section 8.3.2];
 
    The answerer is allowed to select a new Answerer BUNDLE address each
    time it generates an answer to an offer.
@@ -664,8 +666,6 @@ Internet-Draft                Bundled media                  August 2016
    address.  In the answer, the answerer BUNDLE-tag represents the "m="
    line, and the address associated with the "m=" line in the offer
    becomes the offerer BUNDLE address.
-
-
 
 
 
@@ -1590,10 +1590,10 @@ Internet-Draft                Bundled media                  August 2016
    types" registry as follows:
 
 
-           Value:          TBD
-           Abbrev.:        MID
-           Name:           Media Identification
-           Reference:      RFCXXXX
+     Value:                TBD
+     Abbrev.:      MID
+     Name:         Media Identification
+     Reference:    RFCXXXX
 
 
 15.2.  New RTP SDES Header Extension URI
@@ -1649,17 +1649,17 @@ Internet-Draft                Bundled media                  August 2016
    according to the following data:
 
 
-          Attribute name:     bundle-only
-          Type of attribute:  media
-          Subject to charset: No
-          Purpose:            Request a media description to be accepted
-                        in the answer only if kept within a BUNDLE
-                        group by the answerer.
-          Appropriate values: N/A
-          Contact name:       Christer Holmberg
-          Contact e-mail:     christer.holmberg@ericsson.com
-          Reference:          RFCXXXX
-    Mux category:       NORMAL
+     Attribute name:     bundle-only
+     Type of attribute:  media
+     Subject to charset: No
+     Purpose:            Request a media description to be accepted
+                         in the answer only if kept within a BUNDLE
+                         group by the answerer.
+     Appropriate values: N/A
+     Contact name:       Christer Holmberg
+     Contact e-mail:     christer.holmberg@ericsson.com
+     Reference:          RFCXXXX
+     Mux category:       NORMAL
 
 
 15.4.  New SDP Group Semantics
@@ -2206,6 +2206,8 @@ Internet-Draft                Bundled media                  August 2016
 
    o  - Mux category for SDP bundle-only attribute added.
 
+   o  - Mux category considerations editorial clarification.
+
    o  - Editorial changes.
 
    o  RTP SDES extension according to draft-ietf-avtext-sdes-hdr-ext.
@@ -2232,8 +2234,6 @@ Internet-Draft                Bundled media                  August 2016
 
    o  - Additional IANA registration information added.
 
-   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-28
-
 
 
 
@@ -2241,6 +2241,8 @@ Holmberg, et al.        Expires February 18, 2017              [Page 40]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-28
 
    o  - Alignment with exclusive mux procedures.
 
@@ -2288,8 +2290,6 @@ Internet-Draft                Bundled media                  August 2016
    o  -- http://www.ietf.org/mail-archive/web/mmusic/current/
       msg14861.html
 
-   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-21
-
 
 
 
@@ -2297,6 +2297,8 @@ Holmberg, et al.        Expires February 18, 2017              [Page 41]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-21
 
    o  - Correct based on comment from Paul Kyzivat
 
@@ -2345,14 +2347,14 @@ Internet-Draft                Bundled media                  August 2016
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-14
 
-   o  - Editorial changes.
-
 
 
 Holmberg, et al.        Expires February 18, 2017              [Page 42]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  - Editorial changes.
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-13
 
@@ -2401,14 +2403,14 @@ Internet-Draft                Bundled media                  August 2016
 
    o  -- Clarify padding
 
-   o  Changes based on WGLC comments from Paul Kyzivat
-
 
 
 Holmberg, et al.        Expires February 18, 2017              [Page 43]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  Changes based on WGLC comments from Paul Kyzivat
 
    o  - Editorial changes:
 
@@ -2457,14 +2459,14 @@ Internet-Draft                Bundled media                  August 2016
 
    o  Editorial corrections.
 
-   o  - "of"->"if" (8.3.2.5).
-
 
 
 Holmberg, et al.        Expires February 18, 2017              [Page 44]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  - "of"->"if" (8.3.2.5).
 
    o  - "optional"->"OPTIONAL" (9.1).
 
@@ -2513,14 +2515,14 @@ Internet-Draft                Bundled media                  August 2016
 
    o  Additional definitions added.
 
-   o  - Shared address.
-
 
 
 Holmberg, et al.        Expires February 18, 2017              [Page 45]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  - Shared address.
 
    o  - Bundled "m=" line.
 
@@ -2568,8 +2570,6 @@ Internet-Draft                Bundled media                  August 2016
 
    o  Cullen Jennings added as co-author.
 
-   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-01
-
 
 
 
@@ -2577,6 +2577,8 @@ Holmberg, et al.        Expires February 18, 2017              [Page 46]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-01
 
    o  No changes.  New version due to expiration.
 
@@ -2627,8 +2629,6 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-
-
 Holmberg, et al.        Expires February 18, 2017              [Page 47]
 
 Internet-Draft                Bundled media                  August 2016
@@ -2669,16 +2669,16 @@ Internet-Draft                Bundled media                  August 2016
               January 2012, <http://www.rfc-editor.org/info/rfc6347>.
 
    [I-D.ietf-ice-rfc5245bis]
-              Ker&#258;[currency units]nen, A., Holmberg, C., and J.
-              Rosenberg, "Interactive Connectivity Establishment (ICE):
-              A Protocol for Network Address Translator (NAT)
-              Traversal", draft-ietf-ice-rfc5245bis-02 (work in
-              progress), June 2016.
+              Keranen, A., Holmberg, C., and J. Rosenberg, "Interactive
+              Connectivity Establishment (ICE): A Protocol for Network
+              Address Translator (NAT) Traversal", draft-ietf-ice-
+              rfc5245bis-04 (work in progress), June 2016.
 
    [I-D.ietf-mmusic-sdp-mux-attributes]
               Nandakumar, S., "A Framework for SDP Attributes when
-              Multiplexing", draft-ietf-mmusic-sdp-mux-attributes-12
-              (work in progress), January 2016.
+              Multiplexing", draft-ietf-mmusic-sdp-mux-attributes-13
+              (work in progress), June 2016.
+
 
 
 
@@ -2693,14 +2693,14 @@ Internet-Draft                Bundled media                  August 2016
    [I-D.ietf-mmusic-mux-exclusive]
               Holmberg, C., "Indicating Exclusive Support of RTP/RTCP
               Multiplexing using SDP", draft-ietf-mmusic-mux-
-              exclusive-07 (work in progress), June 2016.
+              exclusive-10 (work in progress), August 2016.
 
    [I-D.ietf-mmusic-ice-sip-sdp]
               Petit-Huguenin, M., Keranen, A., and S. Nandakumar, "Using
               Interactive Connectivity Establishment (ICE) with Session
               Description Protocol (SDP) offer/answer and Session
               Initiation Protocol (SIP)", draft-ietf-mmusic-ice-sip-
-              sdp-08 (work in progress), March 2016.
+              sdp-10 (work in progress), July 2016.
 
    [I-D.ietf-avtext-sdes-hdr-ext]
               Westerlund, M., Burman, B., Even, R., and M. Zanaty, "RTP

@@ -312,7 +312,7 @@
 
    Example:
 
-      a=bundle-only
+     a=bundle-only
 
 				]]></artwork>
 			</figure>
@@ -326,11 +326,11 @@
 				extension, and if the answerer keeps the "m=" line within the associated BUNDLE group.
 			</t>
 			<t>
-                NOTE: Once the offerer BUNDLE address has been selected, the offerer does
-                not need to include the 'bundle-only' attribute in subsequent offers. By
-                associating the offerer BUNDLE address with an "m=" line of a subsequent offer,
-                the offerer will ensure that the answerer will either keep the "m=" line within
-                the BUNDLE group, or the answerer will have to reject the "m=" line.
+        NOTE: Once the offerer BUNDLE address has been selected, the offerer does
+        not need to include the 'bundle-only' attribute in subsequent offers. By
+        associating the offerer BUNDLE address with an "m=" line of a subsequent offer,
+        the offerer will ensure that the answerer will either keep the "m=" line within
+        the BUNDLE group, or the answerer will have to reject the "m=" line.
 			</t>
 			<t>
 				The usage of the 'bundle-only' attribute is only defined for a bundled "m=" line with
@@ -433,19 +433,19 @@
                 <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> are associated with the
                 "m=" line only if the "m=" line is also associated with the offerer BUNDLE-tag.
                 Otherwise the offerer MUST NOT associate such SDP attributes with the "m=" line.
-            </t>
-            <t>
+        </t>
+        <t>
                 When an answerer associates SDP attributes with a bundled "m=" line,
                 IDENTICAL and TRANSPORT mux category SDP attributes are associated with the
                 "m=" line only if the "m=" line is also associated with the answerer BUNDLE-tag.
                 Otherwise the answerer MUST NOT associated such SDP attributes with the "m=" line.
-            </t>
-            <t>
+        </t>
+        <t>
                 NOTE: As bundled "m=" lines associated with a shared address will share the same IDENTICAL
                 and TRANSPORT mux category SDP attributes, and attribute values, there is no need to
                 associate such SDP attributes with each "m=" line. The attributes and attribute
                 values are implicitly applied to each "m=" line associated with the shared address.
-            </t>
+        </t>
 		</section>
 		<section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
 				<t>
@@ -500,10 +500,10 @@
 					offerer BUNDLE-tag indicates the address that the offerer suggests as
 					the offerer BUNDLE address.
 				</t>
-                <t>
-                    The "m=" line associated with the offerer BUNDLE-tag MUST NOT contain a zero
-                    port value or an SDP 'bundle-only' attribute.
-                </t>
+        <t>
+          The "m=" line associated with the offerer BUNDLE-tag MUST NOT contain a zero
+          port value or an SDP 'bundle-only' attribute.
+        </t>
 			</section>
 		</section>
 
@@ -1536,10 +1536,10 @@
 			<figure>
 				<artwork align="left"><![CDATA[
 
-	Value:		TBD
-	Abbrev.:	MID
-	Name:		Media Identification
-	Reference:	RFCXXXX
+  Value:		TBD
+  Abbrev.:	MID
+  Name:		Media Identification
+  Reference:	RFCXXXX
 
 				]]></artwork>
 			</figure>
@@ -1585,16 +1585,16 @@
       <figure>
         <artwork align="left"><![CDATA[
 
-	Attribute name:     bundle-only
-	Type of attribute:  media
-	Subject to charset: No
-	Purpose:            Request a media description to be accepted
+  Attribute name:     bundle-only
+  Type of attribute:  media
+  Subject to charset: No
+  Purpose:            Request a media description to be accepted
                       in the answer only if kept within a BUNDLE
                       group by the answerer.
-	Appropriate values: N/A
-	Contact name:       Christer Holmberg
-	Contact e-mail:     christer.holmberg@ericsson.com
-	Reference:          RFCXXXX
+  Appropriate values: N/A
+  Contact name:       Christer Holmberg
+  Contact e-mail:     christer.holmberg@ericsson.com
+  Reference:          RFCXXXX
   Mux category:       NORMAL
 
         ]]></artwork>
@@ -2321,10 +2321,10 @@ SDP Answer (2)
 		<?rfc include="reference.RFC.5764"?>
     <?rfc include="reference.RFC.5888"?>
     <?rfc include="reference.RFC.6347"?>
-    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-02"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-12"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-07"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-08"?>
+    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-04"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-13"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-10"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-10"?>
     <?rfc include="reference.I-D.draft-ietf-avtext-sdes-hdr-ext-07"?>
     </references>
 
