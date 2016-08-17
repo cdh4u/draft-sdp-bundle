@@ -6,9 +6,9 @@ MMUSIC Working Group                                         C. Holmberg
 Internet-Draft                                                  Ericsson
 Updates: 3264 (if approved)                                H. Alvestrand
 Intended status: Standards Track                                  Google
-Expires: February 12, 2017                                   C. Jennings
+Expires: February 18, 2017                                   C. Jennings
                                                                    Cisco
-                                                         August 11, 2016
+                                                         August 17, 2016
 
 
  Negotiating Media Multiplexing Using the Session Description Protocol
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 1]
+Holmberg, et al.        Expires February 18, 2017               [Page 1]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -61,7 +61,7 @@ Internet-Draft                Bundled media                  August 2016
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on February 12, 2017.
+   This Internet-Draft will expire on February 18, 2017.
 
 Copyright Notice
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 2]
+Holmberg, et al.        Expires February 18, 2017               [Page 2]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -165,7 +165,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 3]
+Holmberg, et al.        Expires February 18, 2017               [Page 3]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -182,7 +182,7 @@ Internet-Draft                Bundled media                  August 2016
    20. References  . . . . . . . . . . . . . . . . . . . . . . . . .  47
      20.1.  Normative References . . . . . . . . . . . . . . . . . .  47
      20.2.  Informative References . . . . . . . . . . . . . . . . .  49
-   Appendix A.  Design Considerations  . . . . . . . . . . . . . . .  49
+   Appendix A.  Design Considerations  . . . . . . . . . . . . . . .  50
      A.1.  UA Interoperability . . . . . . . . . . . . . . . . . . .  50
      A.2.  Usage of port number value zero . . . . . . . . . . . . .  52
      A.3.  B2BUA And Proxy Interoperability  . . . . . . . . . . . .  52
@@ -221,7 +221,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 4]
+Holmberg, et al.        Expires February 18, 2017               [Page 4]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -277,7 +277,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 5]
+Holmberg, et al.        Expires February 18, 2017               [Page 5]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -333,7 +333,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 6]
+Holmberg, et al.        Expires February 18, 2017               [Page 6]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -389,7 +389,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 7]
+Holmberg, et al.        Expires February 18, 2017               [Page 7]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -445,7 +445,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 8]
+Holmberg, et al.        Expires February 18, 2017               [Page 8]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -501,7 +501,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017               [Page 9]
+Holmberg, et al.        Expires February 18, 2017               [Page 9]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -557,7 +557,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 10]
+Holmberg, et al.        Expires February 18, 2017              [Page 10]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -613,7 +613,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 11]
+Holmberg, et al.        Expires February 18, 2017              [Page 11]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -669,7 +669,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 12]
+Holmberg, et al.        Expires February 18, 2017              [Page 12]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -725,7 +725,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 13]
+Holmberg, et al.        Expires February 18, 2017              [Page 13]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -781,7 +781,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 14]
+Holmberg, et al.        Expires February 18, 2017              [Page 14]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -837,7 +837,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 15]
+Holmberg, et al.        Expires February 18, 2017              [Page 15]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -893,7 +893,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 16]
+Holmberg, et al.        Expires February 18, 2017              [Page 16]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -949,7 +949,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 17]
+Holmberg, et al.        Expires February 18, 2017              [Page 17]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1005,7 +1005,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 18]
+Holmberg, et al.        Expires February 18, 2017              [Page 18]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1061,7 +1061,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 19]
+Holmberg, et al.        Expires February 18, 2017              [Page 19]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1117,7 +1117,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 20]
+Holmberg, et al.        Expires February 18, 2017              [Page 20]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1173,7 +1173,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 21]
+Holmberg, et al.        Expires February 18, 2017              [Page 21]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1229,7 +1229,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 22]
+Holmberg, et al.        Expires February 18, 2017              [Page 22]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1285,7 +1285,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 23]
+Holmberg, et al.        Expires February 18, 2017              [Page 23]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1341,7 +1341,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 24]
+Holmberg, et al.        Expires February 18, 2017              [Page 24]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1397,7 +1397,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 25]
+Holmberg, et al.        Expires February 18, 2017              [Page 25]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1453,7 +1453,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 26]
+Holmberg, et al.        Expires February 18, 2017              [Page 26]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1509,7 +1509,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 27]
+Holmberg, et al.        Expires February 18, 2017              [Page 27]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1565,7 +1565,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 28]
+Holmberg, et al.        Expires February 18, 2017              [Page 28]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1621,7 +1621,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 29]
+Holmberg, et al.        Expires February 18, 2017              [Page 29]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1677,7 +1677,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 30]
+Holmberg, et al.        Expires February 18, 2017              [Page 30]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1733,7 +1733,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 31]
+Holmberg, et al.        Expires February 18, 2017              [Page 31]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1789,7 +1789,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 32]
+Holmberg, et al.        Expires February 18, 2017              [Page 32]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1845,7 +1845,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 33]
+Holmberg, et al.        Expires February 18, 2017              [Page 33]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1901,7 +1901,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 34]
+Holmberg, et al.        Expires February 18, 2017              [Page 34]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -1957,7 +1957,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 35]
+Holmberg, et al.        Expires February 18, 2017              [Page 35]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2013,7 +2013,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 36]
+Holmberg, et al.        Expires February 18, 2017              [Page 36]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2069,7 +2069,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 37]
+Holmberg, et al.        Expires February 18, 2017              [Page 37]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2125,7 +2125,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 38]
+Holmberg, et al.        Expires February 18, 2017              [Page 38]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2181,7 +2181,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 39]
+Holmberg, et al.        Expires February 18, 2017              [Page 39]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2208,6 +2208,12 @@ Internet-Draft                Bundled media                  August 2016
 
    o  - Editorial changes.
 
+   o  RTP SDES extension according to draft-ietf-avtext-sdes-hdr-ext.
+
+   o  Note whether Design Considerations appendix is to be kept removed:
+
+   o  - Appendix is kept within document.
+
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-30
 
    o  Indicating in the Abstract and Introduction that the document
@@ -2228,19 +2234,19 @@ Internet-Draft                Bundled media                  August 2016
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-28
 
+
+
+
+Holmberg, et al.        Expires February 18, 2017              [Page 40]
+
+Internet-Draft                Bundled media                  August 2016
+
+
    o  - Alignment with exclusive mux procedures.
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-27
 
    o  - Yet another terminology change.
-
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 40]
-
-Internet-Draft                Bundled media                  August 2016
-
 
    o  - Mux category considerations added.
 
@@ -2284,19 +2290,19 @@ Internet-Draft                Bundled media                  August 2016
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-21
 
+
+
+
+Holmberg, et al.        Expires February 18, 2017              [Page 41]
+
+Internet-Draft                Bundled media                  August 2016
+
+
    o  - Correct based on comment from Paul Kyzivat
 
    o  -- 'received packets' replaced with 'received data'
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-20
-
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 41]
-
-Internet-Draft                Bundled media                  August 2016
-
 
    o  - Clarification based on comment from James Guballa
 
@@ -2341,18 +2347,17 @@ Internet-Draft                Bundled media                  August 2016
 
    o  - Editorial changes.
 
+
+
+Holmberg, et al.        Expires February 18, 2017              [Page 42]
+
+Internet-Draft                Bundled media                  August 2016
+
+
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-13
 
    o  Changes to allow a new suggested offerer BUNDLE address to be
       assigned to each bundled m- line.
-
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 42]
-
-Internet-Draft                Bundled media                  August 2016
-
 
    o  Changes based on WGLC comments from Paul Kyzivat
 
@@ -2398,17 +2403,16 @@ Internet-Draft                Bundled media                  August 2016
 
    o  Changes based on WGLC comments from Paul Kyzivat
 
-   o  - Editorial changes:
-
-   o  Changes based on WGLC comments from Jonathan Lennox
 
 
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 43]
+Holmberg, et al.        Expires February 18, 2017              [Page 43]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  - Editorial changes:
+
+   o  Changes based on WGLC comments from Jonathan Lennox
 
    o  - Editorial changes:
 
@@ -2455,16 +2459,16 @@ Internet-Draft                Bundled media                  August 2016
 
    o  - "of"->"if" (8.3.2.5).
 
-   o  - "optional"->"OPTIONAL" (9.1).
-
-   o  - Syntax/ABNF for 'bundle-only' attribute added.
 
 
-
-Holmberg, et al.        Expires February 12, 2017              [Page 44]
+Holmberg, et al.        Expires February 18, 2017              [Page 44]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  - "optional"->"OPTIONAL" (9.1).
+
+   o  - Syntax/ABNF for 'bundle-only' attribute added.
 
    o  - SDP Offer/Answer sections merged.
 
@@ -2511,16 +2515,16 @@ Internet-Draft                Bundled media                  August 2016
 
    o  - Shared address.
 
-   o  - Bundled "m=" line.
-
-   o  - Bundle-only "m=" line.
 
 
-
-Holmberg, et al.        Expires February 12, 2017              [Page 45]
+Holmberg, et al.        Expires February 18, 2017              [Page 45]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  - Bundled "m=" line.
+
+   o  - Bundle-only "m=" line.
 
    o  - Offerer suggested BUNDLE mid.
 
@@ -2566,17 +2570,17 @@ Internet-Draft                Bundled media                  August 2016
 
    Changes from draft-ietf-mmusic-sdp-bundle-negotiation-01
 
-   o  No changes.  New version due to expiration.
-
-   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-00
 
 
 
-
-Holmberg, et al.        Expires February 12, 2017              [Page 46]
+Holmberg, et al.        Expires February 18, 2017              [Page 46]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   o  No changes.  New version due to expiration.
+
+   Changes from draft-ietf-mmusic-sdp-bundle-negotiation-00
 
    o  No changes.  New version due to expiration.
 
@@ -2620,19 +2624,19 @@ Internet-Draft                Bundled media                  August 2016
               Description Protocol", RFC 4566, DOI 10.17487/RFC4566,
               July 2006, <http://www.rfc-editor.org/info/rfc4566>.
 
-   [RFC4961]  Wing, D., "Symmetric RTP / RTP Control Protocol (RTCP)",
-              BCP 131, RFC 4961, DOI 10.17487/RFC4961, July 2007,
-              <http://www.rfc-editor.org/info/rfc4961>.
 
 
 
 
 
-
-Holmberg, et al.        Expires February 12, 2017              [Page 47]
+Holmberg, et al.        Expires February 18, 2017              [Page 47]
 
 Internet-Draft                Bundled media                  August 2016
 
+
+   [RFC4961]  Wing, D., "Symmetric RTP / RTP Control Protocol (RTCP)",
+              BCP 131, RFC 4961, DOI 10.17487/RFC4961, July 2007,
+              <http://www.rfc-editor.org/info/rfc4961>.
 
    [RFC5245]  Rosenberg, J., "Interactive Connectivity Establishment
               (ICE): A Protocol for Network Address Translator (NAT)
@@ -2676,19 +2680,20 @@ Internet-Draft                Bundled media                  August 2016
               Multiplexing", draft-ietf-mmusic-sdp-mux-attributes-12
               (work in progress), January 2016.
 
+
+
+
+
+
+Holmberg, et al.        Expires February 18, 2017              [Page 48]
+
+Internet-Draft                Bundled media                  August 2016
+
+
    [I-D.ietf-mmusic-mux-exclusive]
               Holmberg, C., "Indicating Exclusive Support of RTP/RTCP
               Multiplexing using SDP", draft-ietf-mmusic-mux-
               exclusive-07 (work in progress), June 2016.
-
-
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 48]
-
-Internet-Draft                Bundled media                  August 2016
-
 
    [I-D.ietf-mmusic-ice-sip-sdp]
               Petit-Huguenin, M., Keranen, A., and S. Nandakumar, "Using
@@ -2732,20 +2737,21 @@ Internet-Draft                Bundled media                  August 2016
               Connectivity Establishment (ICE) Protocol", draft-ietf-
               mmusic-trickle-ice-02 (work in progress), January 2015.
 
+
+
+
+
+Holmberg, et al.        Expires February 18, 2017              [Page 49]
+
+Internet-Draft                Bundled media                  August 2016
+
+
 Appendix A.  Design Considerations
 
    One of the main issues regarding the BUNDLE grouping extensions has
    been whether, in SDP Offers and SDP Answers, the same port value
    should be inserted in "m=" lines associated with a BUNDLE group, as
    the purpose of the extension is to negotiate the usage of a single
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 49]
-
-Internet-Draft                Bundled media                  August 2016
-
-
    address:port combination for media specified by the "m=" lines.
    Issues with both approaches, discussed in the Appendix have been
    raised.  The outcome was to specify a mechanism which uses SDP Offers
@@ -2764,9 +2770,6 @@ Internet-Draft                Bundled media                  August 2016
 
    o  5) SDP Offer/Answer impacts, including usage of port number value
       zero.
-
-   NOTE: Before this document is published as an RFC, this
-   Appendix might be removed.
 
 A.1.  UA Interoperability
 
@@ -2794,10 +2797,7 @@ A.1.  UA Interoperability
 
 
 
-
-
-
-Holmberg, et al.        Expires February 12, 2017              [Page 50]
+Holmberg, et al.        Expires February 18, 2017              [Page 50]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2853,7 +2853,7 @@ Internet-Draft                Bundled media                  August 2016
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 51]
+Holmberg, et al.        Expires February 18, 2017              [Page 51]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2909,7 +2909,7 @@ A.3.  B2BUA And Proxy Interoperability
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 52]
+Holmberg, et al.        Expires February 18, 2017              [Page 52]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -2965,7 +2965,7 @@ A.4.  Candidate Gathering
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 53]
+Holmberg, et al.        Expires February 18, 2017              [Page 53]
 
 Internet-Draft                Bundled media                  August 2016
 
@@ -3021,4 +3021,4 @@ Authors' Addresses
 
 
 
-Holmberg, et al.        Expires February 12, 2017              [Page 54]
+Holmberg, et al.        Expires February 18, 2017              [Page 54]
