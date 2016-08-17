@@ -2042,6 +2042,9 @@ SDP Answer (2)
         <t>Changes based on comments from Flemming Andreasen (21st June 2016):</t>
         <t>- Mux category for SDP bundle-only attribute added.</t>
         <t>- Editorial changes.</t>
+        <t>RTP SDES extension according to draft-ietf-avtext-sdes-hdr-ext.</t>
+        <t>Note whether Design Considerations appendix is to be kept removed:</t>
+        <t>- Appendix is kept within document.</t>
 			</list>
 		</t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-30
@@ -2352,9 +2355,6 @@ SDP Answer (2)
 					<t>4) Different error scenarios, and when they occur.</t>
 					<t>5) SDP Offer/Answer impacts, including usage of port number value zero.</t>
 				</list>
-			</t>
-			<t>
-				NOTE: Before this document is published as an RFC, this Appendix might be removed.
 			</t>
 
 		<section  title="UA Interoperability" toc="default">
