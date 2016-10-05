@@ -97,6 +97,12 @@
 
 <middle>
   <section title="Introduction" toc="default">
+   <t>
+     When multimedia communications are established, each 5-tuple reserved for an individual media stream
+     consume additional resources (especially when Interactive Connectivity Establishment (ICE)
+     <xref format="default" pageno="false" target="RFC5245"/> is used). For this reason, it is
+     attractive to use a 5-tuple for multiple media streams.
+  </t>
   <t>
     This specification defines a way to use a single address:port combination (BUNDLE address) for
     receiving media specified by multiple SDP media descriptions ("m=" lines).
@@ -167,9 +173,10 @@
       description is identified by an SDP "m=" line.
 		</t>
     <t>
-			5-tuple: A collection of the following values: source address, source port,
-			destination address, destination port, and transport-layer protocol.
-		</t>
+      5-tuple: A collection of the following values: source address, source
+      port, destination address, destination port, and transport-layer
+      protocol.
+    </t>
 		<t>
 			Unique address: An IP address and port combination that is associated with
 			only one "m=" line in an offer or answer.
@@ -269,9 +276,8 @@
 			target="RFC4961"/> is used.
 		</t>
 		<t>
-			All media specified by a BUNDLE group share a single 5-tuple, i.e. in addition
-			to using a single address:port combination all bundled media MUST be transported using the same
-			transport-layer protocol (e.g. UDP or TCP).
+      All media associated with a BUNDLE group MUST be transport using the same
+      transport-layer protocol (e.g., UDP or TCP).
 		</t>
 		<t>
 			The BUNDLE extension is indicated using an SDP 'group' attribute
@@ -286,6 +292,11 @@
 			SDP bodies can contain multiple BUNDLE groups. Any given bundled "m="
 			line MUST NOT be associated with more than one BUNDLE group.
 		</t>
+    <t>
+      NOTE: The order of the "m=" lines listed in the SDP 'group:BUNDLE' attribute
+      identification-tag list does not have to be the same as the order in which
+      the "m=" lines occur in the SDP.
+    </t>
 		<t>
 			<xref target="sec-sdp-oa" pageno="false" format="default"/> defines the
 			detailed SDP Offer/Answer procedures for the BUNDLE extension.
@@ -505,6 +516,45 @@
           port value or an SDP 'bundle-only' attribute.
         </t>
 			</section>
+      <section anchor="sec-sdp-oa-ino-ex" title="Example: Initial SDP Offer">
+        <t>
+          The example shows an initial SDP offer. The offer includes two
+          "m=" lines in the SDP, and suggests that both are included in
+          a BUNDLE group. The audio "m=" line is associated with the
+          offerer BUNDLE-tag (placed first in the SDP group:BUNDLE
+          attribute identificatoin-id list).
+        </t>
+        <figure>
+        <artwork align="left" alt="" height="" name="" type="" width=""
+                 xml:space="preserve"><![CDATA[
+
+SDP Offer
+
+  v=0
+  o=alice 2890844526 2890844526 IN IP4 atlanta.example.com
+  s=
+  c=IN IP4 atlanta.example.com
+  t=0 0
+  a=group:BUNDLE foo bar
+  m=audio 10000 RTP/AVP 0 8 97
+  b=AS:200
+  a=mid:foo
+  a=rtcp-mux
+  a=rtpmap:0 PCMU/8000
+  a=rtpmap:8 PCMA/8000
+  a=rtpmap:97 iLBC/8000
+  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+  m=video 10002 RTP/AVP 31 32
+  b=AS:1000
+  a=mid:bar
+  a=rtcp-mux
+  a=rtpmap:31 H261/90000
+  a=rtpmap:32 MPV/90000
+  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+
+]]></artwork>
+      </figure>
+      </section>
 		</section>
 
 		<section anchor="sec-sdp-oa-ans" title="Generating the SDP Answer" toc="default">
@@ -678,6 +728,41 @@
 					associated with the BUNDLE group.
 				</t>
 			</section>
+      <section title="Example: SDP Answer">
+        <t>
+          The example shows an SDP answer, based on the SDP offer in
+          [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>].
+          The answers acceppts both "m=" lines in the BUNDLE group.
+        </t>
+        <figure>
+        <artwork align="left" alt="" height="" name="" type="" width=""
+                 xml:space="preserve"><![CDATA[
+
+SDP Answer
+
+  v=0
+  o=bob 2808844564 2808844564 IN IP4 biloxi.example.com
+  s=
+  c=IN IP4 biloxi.example.com
+  t=0 0
+  a=group:BUNDLE foo bar
+  m=audio 20000 RTP/AVP 0
+  b=AS:200
+  a=mid:foo
+  a=rtcp-mux
+  a=rtpmap:0 PCMU/8000
+  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+  m=video 20000 RTP/AVP 32
+  b=AS:1000
+  a=mid:bar
+  a=rtcp-mux
+  a=rtpmap:32 MPV/90000
+  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+
+
+]]></artwork>
+      </figure>
+      </section>
 		</section>
 
 		<section anchor="sec-sdp-oa-off-ans" title="Offerer Processing of the SDP Answer" toc="default">
@@ -777,9 +862,9 @@
 					</list>
 				</t>
 				<t>
-					In addition, the offerer MUST extend the SDP 'group:BUNDLE' attribute identification-tag list with the
-					BUNDLE group [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>]
-					by adding the identification-tag associated with the added "m=" line to the list.
+          In addition, the offerer MUST add the identification-tag associated with the added
+          "m=" line to the SDP 'group:BUNDLE' attribute identification-tag list with the
+					BUNDLE group [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].
 				</t>
 				<t>
 					NOTE: Assigning a unique address to the "m=" line allows the answerer
@@ -934,7 +1019,7 @@
 						<list style="symbols">
 							<t>
 								A specific payload type value can be used in multiple bundled "m=" lines
-								if each codec associated with the payload type number shares an identical
+								only if each codec associated with the payload type number shares an identical
 								codec configuration [<xref format="default" pageno="false"
 								target="sec-rtp-sessions-pt"/>].
 							</t>
@@ -2033,6 +2118,15 @@ SDP Answer (2)
 
     <section title="Change Log">
 		<t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+    <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-32
+			<list style="symbols">
+        <t>Editorial changes based on comments from Eric Rescorla:</t>
+        <t>- Justification for mechanism added to Introduction.</t>
+        <t>- Clarify that the order of m- lines in the group:BUNDLE
+          attribute does not have to be the same as the order in which
+          the m- lines are listed in the SDP.</t>
+			</list>
+		</t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-31
 			<list style="symbols">
         <t>Editorial changes based on GitHub Pull requests by Martin Thomson:</t>
