@@ -147,7 +147,7 @@
   </t>
   <t>
     This specification also defines a new Real-time Transport Protocol (RTP) <xref format="default"
-    pageno="false" target="RFC3550"/> source description (SDES) item, 'MID', and a new RTP SDES header 
+    pageno="false" target="RFC3550"/> source description (SDES) item, 'MID', and a new RTP SDES header
     extension that can be used to carry a value that associates RTP/RTCP packets with a specific media
     description. This can be used to correlate a RTP packet with the correct media.
   </t>
@@ -1506,7 +1506,7 @@ SDP Answer
 				This section defines a new RTCP SDES item <xref format="default" pageno="false"
 				target="RFC3550"/>, 'MID', which is used to carry identification-tags within RTCP
 				SDES packets. This section also defines a new RTP SDES header extension
-				<xref format="default" pageno="false" target="I-D.ietf-avtext-sdes-hdr-ext"/>, which
+				<xref format="default" pageno="false" target="RFC7914"/>, which
         is used to carry the 'MID' RTCP SDES item in RTP packets.
 			</t>
 			<t>
@@ -1577,7 +1577,7 @@ SDP Answer
 				<t>
 					The payload, containing the identification-tag, of the RTP SDES header extension element
 					can be encoded using either the one-byte or two-byte header <xref format="default"
-					pageno="false" target="I-D.ietf-avtext-sdes-hdr-ext"/>. The identification-tag payload is UTF-8
+					pageno="false" target="RFC7914"/>. The identification-tag payload is UTF-8
 					encoded, as in SDP.
 				</t>
 				<t>
@@ -2415,11 +2415,11 @@ SDP Answer (2)
 		<?rfc include="reference.RFC.5764"?>
     <?rfc include="reference.RFC.5888"?>
     <?rfc include="reference.RFC.6347"?>
+    <?rfc include="reference.RFC.7914"?>
     <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-04"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-13"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-14"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-10"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-10"?>
-    <?rfc include="reference.I-D.draft-ietf-avtext-sdes-hdr-ext-07"?>
     </references>
 
     <references title="Informative References">
