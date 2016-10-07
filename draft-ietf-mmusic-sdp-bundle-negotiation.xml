@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-32.txt" updates="3264" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-33.txt" updates="3264" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
 		Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -147,8 +147,8 @@
   </t>
   <t>
     This specification also defines a new Real-time Transport Protocol (RTP) <xref format="default"
-    pageno="false" target="RFC3550"/> source description (SDES) item and a new RTP header extension that
-    can be used to carry a value that associates RTP/RTCP packets with a specific media
+    pageno="false" target="RFC3550"/> source description (SDES) item, 'MID', and a new RTP SDES header 
+    extension that can be used to carry a value that associates RTP/RTCP packets with a specific media
     description. This can be used to correlate a RTP packet with the correct media.
   </t>
   <t>
@@ -2120,7 +2120,7 @@ SDP Answer (2)
 		<t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-32
 			<list style="symbols">
-        <t>Editorial changes based on comments from Eric Rescorla:</t>
+        <t>Editorial changes based on comments from Eric Rescorla and Cullen Jennings:</t>
         <t>- Justification for mechanism added to Introduction.</t>
         <t>- Clarify that the order of m- lines in the group:BUNDLE
           attribute does not have to be the same as the order in which
