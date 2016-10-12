@@ -1729,6 +1729,35 @@ SDP Answer
 			describes how SSRC collision may weaken SRTP and SRTCP encryption
 			in certain situations.
 		</t>
+    <t>
+      The identfication-tag, when included in the RTP MID SDES item,
+      independent of transport, RTCP SDES packet or RTP header extension,
+      can expose the value to parties beyond the signaling chain.
+      Therefore, the identification-tag MUST NOT contain any user related
+      information. However, the implementation's method for generating
+      identfication-tags combined with hardware configuration can enable
+      fingerprinting of the endpoint device and thus its user. As the
+      identification-tag is also used to route the media stream to the
+      right application functionality it is also important that the value
+      received is the one intended by the sender, thus integrity and the
+      authenticity of the source are important to prevent denial of
+      service on the application. At least to prevent third parties from
+      modifying the identification-tag value.
+    </t>
+    <t>
+      Due to the security risks associated with the MID values in RTP and
+      RTCP it is strongly RECOMMENDED that the MID SDES item is both
+      confidentiality protected as well as source authenticated when
+      transported in either RTCP or RTP header extensions. The security
+      mechanisms used SHALL provide corresponding levels of security for
+      both RTP header extensions and RTCP. Confidentiality mechanisms for
+      RTP/RTCP are discussed in Options for Securing RTP Sessions
+      <xref format="default" pageno="false" target="RFC7201"/>, for example
+      SRTP <xref format="default" pageno="false" target="RFC3711"/> with
+      SRTCP encryption enabled combined with <xref format="default"
+      pageno="false" target="RFC6904"/> can provide the necessary security
+      functions.
+    </t>
     </section>
 
 	<section title="Examples" anchor="sec-example-alt1" toc="default">
@@ -2424,9 +2453,12 @@ SDP Answer (2)
 
     <references title="Informative References">
 		<?rfc include="reference.RFC.3261"?>
+    <?rfc include="reference.RFC.3711"?>
 		<?rfc include="reference.RFC.4568"?>
     <?rfc include="reference.RFC.5576"?>
+    <?rfc include="reference.RFC.6904"?>
 		<?rfc include="reference.RFC.7160"?>
+    <?rfc include="reference.RFC.7201"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-02"?>
     </references>
 
