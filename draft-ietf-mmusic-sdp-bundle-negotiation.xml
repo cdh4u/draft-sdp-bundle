@@ -1097,7 +1097,8 @@ SDP Answer
                     answerer will use until it has received the answer providing that information.
                     Due to this, before the offerer has received the answer, the offerer will not be
                     able to associate received RTP/RTCP packets with the correct "m=" line using the
-                    SSRC values.
+                    SSRC values. In addition, the SSRC value can change during the session, and
+                    values that were not provided using the SDP 'ssrc' attribute may be used.
 				</t>
 				<t>
 					In order for an offerer and answerer to always be able to associate received
@@ -1107,6 +1108,23 @@ SDP Answer
 					identification-tag associated with an "m=" line in RTP and RTCP packets
 					associated with that "m=" line.
 				</t>
+        <t>
+          Once an offerer or answerer receives an RTP/RTCP packet carrying an identification-tag,
+          it associates the packet with the correct "m=" line using the identification-tag. In
+          addition, the offerer and answerer associates the SSRC value carried in the packet with
+          the same "m=" line. Note that multiple SSRC values may end up being associated with the
+          same "m=" line. The SSRC values may also be provided using the SDP 'ssrc' attribute. Then,
+          when an RTP/RTCP packet not carrying an identification-tag are received, the packet can
+          be associated with the correct "m=" line using the SSRC value.
+        </t>
+        <t>
+          If an offerer or answerer is not able to associate an RTP/RTCP packet with the correct
+          "m=" line using the SSRC value, the offerer or answerer can check whether the association
+          can be done using the payload type value (in case the payload type value is unique for a
+          given "m=" line), or using other appropriate mechanisms. After all appropriate mechanisms
+          supported by the offerer or answerer have been tried, if it is not possible to associate
+          a packet with the correct "m=" line, the packet MUST be dropped.
+        </t>
 		</section>
 
 		<section title="RTP/RTCP Multiplexing" anchor="sec-rtprtcp-mux" toc="default">
