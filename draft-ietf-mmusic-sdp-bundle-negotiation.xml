@@ -1111,7 +1111,7 @@ SDP Answer
         <t>
           Once an offerer or answerer recieves an RTP/RTCP packet carrying an identification-tag
           and an SSRC value, it associates the SSRC value with the "m=" line associated with the
-          identification-tag. Later, when an offerer or answerer receives an RTP packet
+          identification-tag. Later, when an offerer or answerer receives an RTP or RTCP packet
           that does not carry the identification-tag, it can associate the packet with the
           correct "m=" line using the SSRC value. Note that multiple SSRC values may end up
           being associated with the same "m=" line.
@@ -1122,7 +1122,8 @@ SDP Answer
           can be done using the payload type value (in case the payload type value is unique for a
           given "m=" line within the BUNDLE group), or using other appropriate mechanisms. After
           all appropriate mechanisms supported by the offerer or answerer have been tried, if it is
-          not possible to associate a packet with the correct "m=" line, the packet SHOULD be dropped.
+          not possible to associate a packet with the correct "m=" line, the packet SHOULD be dropped
+          after having been processed as received by the RTCP layer.
         </t>
 		</section>
 
