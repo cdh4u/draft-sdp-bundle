@@ -1096,17 +1096,35 @@ SDP Answer
                     the correct "m=" line. However, an offerer will not know which SSRC values the
                     answerer will use until it has received the answer providing that information.
                     Due to this, before the offerer has received the answer, the offerer will not be
-                    able to associate received RTP/RTCP packets with the correct "m=" line using the
-                    SSRC values.
+                    able to associate received RTP packets with the correct "m=" line using the
+                    SSRC values. In addition, the SSRC value can change during the session, and
+                    values that were not provided using the SDP 'ssrc' attribute may be used.
 				</t>
 				<t>
 					In order for an offerer and answerer to always be able to associate received
-					RTP and RTCP packets with the correct "m=" line, an offerer and answerer using
+					RTP packets with the correct "m=" line, an offerer and answerer using
 					the BUNDLE extension MUST support the mechanism defined in <xref format="default"
 					pageno="false" target="sec-receiver-id"/>, where the remote endpoint inserts the
 					identification-tag associated with an "m=" line in RTP and RTCP packets
 					associated with that "m=" line.
 				</t>
+        <t>
+          Once an offerer or answerer recieves an RTP/RTCP packet carrying an identification-tag
+          and an SSRC value, it associates the SSRC value with the "m=" line associated with the
+          identification-tag. Later, when an offerer or answerer receives an RTP or RTCP packet
+          that does not carry the identification-tag, it can associate the packet with the
+          correct "m=" line using the SSRC value. Note that multiple SSRC values may end up
+          being associated with the same "m=" line.
+        </t>
+        <t>
+          If an offerer or answerer is not able to associate an RTP packet with the correct
+          "m=" line using the SSRC value, the offerer or answerer can check whether the association
+          can be done using the payload type value (in case the payload type value is unique for a
+          given "m=" line within the BUNDLE group), or using other appropriate mechanisms. After
+          all appropriate mechanisms supported by the offerer or answerer have been tried, if it is
+          not possible to associate a packet with the correct "m=" line, the packet SHOULD be dropped
+          after having been processed as received by the RTCP layer.
+        </t>
 		</section>
 
 		<section title="RTP/RTCP Multiplexing" anchor="sec-rtprtcp-mux" toc="default">
