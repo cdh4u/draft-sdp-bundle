@@ -947,30 +947,30 @@ SDP Answer
 	</section>
 
 	<section title="Protocol Identification" anchor="sec-protocol-id" toc="default">
-            <t>
-                Each "m=" line within a BUNDLE group MUST use the same transport-
-                layer protocol. If bundled "m=" lines use different protocols on top
-                of the transport-layer protocol, there MUST exist a publicly
-                available specification which describes a mechanism, for this
-                particular protocol combination, how to associate received data
-                with the correct protocol.
-			</t>
-            <t>
-                In addition, if received data can be associated with more than
-                one bundled "m=" line, there MUST exist a publicly available
-                specification which describes a mechanism for associating the
-                received data with the correct "m=" line.
-			</t>
-            <t>
-                This document describes a mechanism to identify the
-                protocol of received data among the STUN, DTLS and SRTP protocols
-                (in any combination), when UDP is used as transport-layer protocol,
-                but does not describe how to identify different protocols transported on
-                DTLS. While the mechanism is generally applicable to other protocols and
-                transport-layer protocols, any such use requires further specification around
-                how to multiplex multiple protocols on a given transport-layer protocol,
-                and how to associate received data with the correct protocols.
-            </t>
+    <t>
+      Each "m=" line within a BUNDLE group MUST use the same transport-
+      layer protocol. If bundled "m=" lines use different protocols on top
+      of the transport-layer protocol, there MUST exist a publicly
+      available specification which describes a mechanism, for this
+      particular protocol combination, how to associate received data
+      with the correct protocol.
+    </t>
+    <t>
+      In addition, if received data can be associated with more than
+      one bundled "m=" line, there MUST exist a publicly available
+      specification which describes a mechanism for associating the
+      received data with the correct "m=" line.
+    </t>
+    <t>
+      This document describes a mechanism to identify the
+      protocol of received data among the STUN, DTLS and SRTP protocols
+      (in any combination), when UDP is used as transport-layer protocol,
+      but does not describe how to identify different protocols transported on
+      DTLS. While the mechanism is generally applicable to other protocols and
+      transport-layer protocols, any such use requires further specification around
+      how to multiplex multiple protocols on a given transport-layer protocol,
+      and how to associate received data with the correct protocols.
+    </t>
 		<section anchor="sec-packets-id-sds" title="STUN, DTLS, SRTP" toc="default">
 			<t>
 				Section 5.1.2 of <xref format="default" pageno="false" target="RFC5764"/> describes a
@@ -1118,10 +1118,11 @@ SDP Answer
         </t>
         <t>
           If an offerer and answerer is not able to associate an RTP stream with an "m=" line (using
-          the mechanisms described in this section, or using other appropriate mechanism), it
-          SHOULD drop the RTP/RTCP packets associated with the RTP stream, once non-stream specific
-          processing (e.g., related to congestion control) of the packets have occurred.
-          Note that RTCP packets might be associated with multiple RTP streams.
+          the mechanisms described in this section, or using other appropriate mechanism, e.g, based
+          on the payload type value if it is unique to a single “m=” line), it MUST either drop the
+          RTP/RTCP packets associated with the RTP stream, or process them in an application specific
+          manner, once non-stream specific processing (e.g., related to congestion control) of the packets
+          have occurred. Note that RTCP packets might be associated with multiple RTP streams.
         </t>
 		</section>
 
@@ -1734,10 +1735,10 @@ SDP Answer
 			The security considerations defined in <xref format="default"
 			pageno="false" target="RFC3264"/> and <xref format="default"
 			pageno="false" target="RFC5888"/> apply to the BUNDLE
-            extension. Bundle does not change which information
-            flows over the network but only changes which addresses and
-            ports that information is flowing on and thus has very little
-            impact on the security of the RTP sessions.
+      extension. Bundle does not change which information
+      flows over the network but only changes which addresses and
+      ports that information is flowing on and thus has very little
+      impact on the security of the RTP sessions.
 		</t>
 		<t>
 			When the BUNDLE extension is used, a single set of security credentials
