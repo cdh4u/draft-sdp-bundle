@@ -1130,7 +1130,7 @@ SDP Answer
         <t>
           If an offerer and answerer is not able to associate an RTP stream with an "m=" line (using
           the mechanisms described in this section, or using other appropriate mechanism, e.g, based
-          on the payload type value if it is unique to a single “m=” line), it MUST either drop the
+          on the payload type value if it is unique to a single "m=" line), it MUST either drop the
           RTP/RTCP packets associated with the RTP stream, or process them in an application specific
           manner, once non-stream specific processing (e.g., related to congestion control) of the packets
           have occurred. Note that RTCP packets can report on multiple RTP streams.
