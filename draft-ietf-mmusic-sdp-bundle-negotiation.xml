@@ -698,7 +698,7 @@ SDP Offer
               Generate the answerer BUNDLE-section according to normal procedures.
             </t>
             <t>
-              Generate each other "m=" section using the same IP/port combination as the
+              Generate each other "m=" section using the same address/port combination as the
               answerer BUNDLE-section, omitting IDENTICAL and TRANSPORT category attributes
               as described in <xref target="sec-sdp-oa-cat" pageno="false" format="default"/>.
             </t>
@@ -724,7 +724,7 @@ SDP Offer
           [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>].
           The answers accepts both "m=" sections in the BUNDLE group. Note that
           the "rtcp-mux" attribute, being in the IDENTICAL category, is ommitted for
-          the "video" "m=" section, since it's not the answerer BUNDLE-section.
+          the video "m=" section, since it's not the answerer BUNDLE-section.
         </t>
         <figure>
         <artwork align="left" alt="" height="" name="" type="" width=""
@@ -761,8 +761,7 @@ SDP Answer
         When an offerer receives an answer, if the answer contains a BUNDLE group, the offerer
         MUST check that any bundled "m=" section in the answer was indicated as bundled in the
         corresponding offer. If there is no mismatch, the offerer MUST use the BUNDLE transport,
-
-        defined by the offerer/answerer BUNDLE-section
+        defined by the offerer/answerer BUNDLE-sections
         selected by the answerer [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>],
         for each bundled "m=" section.
       </t>
@@ -820,7 +819,7 @@ SDP Answer
             NOTE: Combining the above two MAYs, the offerer can place fallback transport
             parameters in any number of bundled "m="
             sections (and place the previously selected transport parameters in any remaining bundled
-            "m=" section) if it wants to suggest multiple alternatives for the new BUNDLE
+            "m=" sections) if it wants to suggest multiple alternatives for the new BUNDLE
             transport.
           </t>
           <t>
@@ -844,7 +843,7 @@ SDP Answer
           </t>
           <t>
             NOTE: If a removed "m=" section was the previously selected offerer BUNDLE-section,
-            the offerer needs to suggest a new BUNDLE-section
+            the offerer needs to suggest a new offerer BUNDLE-section
             [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].
           </t>
           <t>
@@ -947,9 +946,9 @@ SDP Answer
                 (e.g. RTP/AVPF).
               </t>
               <t>
-                The RTP MID header extension MUST be enabled, by associating
+                The RTP MID header extension MUST be enabled, by including
                 an SDP 'extmap' attribute <xref format="default" pageno="false" target="RFC5285"/>,
-                with a 'urn:ietf:params:rtp- hdrext:sdes:mid' URI value, with each
+                with an 'urn:ietf:params:rtp- hdrext:sdes:mid' URI value, in each
                 bundled RTP-based "m=" section in every offer and answer.
               </t>
               <t>
@@ -997,12 +996,12 @@ SDP Answer
         <t>
           In order to be able to process received RTP/RTCP packets correctly it must be possible
           to associate an RTP stream with the correct "m=" section, as the "m=" section and SDP attributes
-          associated with the "m=" section contain information needed to process the packets.
+          in the "m=" section contain information needed to process the packets.
         </t>
         <t>
           As all RTP streams associated with a BUNDLE group are using the same
           transport for sending and receiving RTP/RTCP packets, the
-          local transport cannot be used to associate an RTP stream
+          transport cannot be used to associate an RTP stream
           with the correct "m=" section. In addition, multiple RTP streams might be
           associated with the same "m=" section.
         </t>
@@ -1040,7 +1039,8 @@ SDP Answer
           from SSRC to identification-tag is received. Note that the mapping
           from SSRC to identification-tag can change at any time during an RTP
           session.
-
+        </t>
+        <t>
           Once an offerer or answerer recieve an RTP/RTCP packet carrying an identification-tag
           and an SSRC value (an RTCP packet might carry multiple identification-tags and SSRC values), it creates a
           mapping between the SSRC value and the identification-tag, in order to associate the RTP stream
@@ -1054,7 +1054,7 @@ SDP Answer
           on the payload type value if it is unique to a single "m=" section), it MUST either drop the
           RTP/RTCP packets associated with the RTP stream, or process them in an application specific
           manner, once non-stream specific processing (e.g., related to congestion control) of the packets
-          have occurred. Note that RTCP packets can report on multiple RTP streams.
+          has occurred. Note that RTCP packets can report on multiple RTP streams.
         </t>
     </section>
 
@@ -1113,7 +1113,7 @@ SDP Answer
             "m=" section from the BUNDLE group.
           </t>
           <t>
-            In the initial offer, a fallback for non-multiplexed RTCP
+            In the offer that creates a BUNDLE group, a fallback for non-multiplexed RTCP
             MUST be provided for each bundled RTP-based "m=" section (excluding
             bundle-only "m=" sections).
           </t>
@@ -1325,7 +1325,7 @@ SDP Answer
         which specifies semantics for the usage of a non-zero port value, is
         used. If the stream is marked with port zero in the answer, the answer
         MAY omit all attributes present previously, and MAY list
-        just a single media format from amongst those in the offer."
+        just a single media format from amongst those in the offer.
       </t>
     </section>
     <section anchor="sec-3264-old-8_4" title="Original text of section 8.4 (6th paragraph) of RFC 3264" toc="default">
@@ -1387,7 +1387,7 @@ SDP Answer
       </t>
       <t>
         A media recipient informs the media sender about the identification-tag
-        associated with an "m=" section through the use of an 'mid' attribute
+        that identifies an "m=" section through the use of an 'mid' attribute
         <xref format="default" pageno="false" target="RFC5888"/>. The media sender then
         inserts the identification-tag in RTCP and RTP packets sent to the media recipient.
       </t>
@@ -1414,7 +1414,7 @@ SDP Answer
         the importance of immediate receipt of the identification-tag.
       </t>
       <t>
-        For robustness purpose, endpoints need to be prepared for situations where the
+        For robustness purposes, endpoints need to be prepared for situations where the
         reception of the identification-tag is delayed, and SHOULD NOT terminate sessions
         in such cases, as the identification-tag is likely to arrive soon.
       </t>
@@ -1517,7 +1517,7 @@ SDP Answer
 
   The SDES item does not reveal privacy information about the users.
   It is simply used to associate RTP-based media with the correct SDP
-  media description (m- line) in the SDP used to negotiate the media.
+  media description ("m=" section) in the SDP used to negotiate the media.
 
   The purpose of the extension is for the offerer to be able to
   associate received multiplexed RTP-based media before the offerer
@@ -1581,9 +1581,9 @@ SDP Answer
       The security considerations defined in <xref format="default"
       pageno="false" target="RFC3264"/> and <xref format="default"
       pageno="false" target="RFC5888"/> apply to the BUNDLE
-      extension. Bundle does not change which information
-      flows over the network but only changes which addresses and
-      ports that information is flowing on and thus has very little
+      extension. Bundling does not change which information
+      flows over the network but only changes which transports
+      that information is flowing on and thus has very little
       impact on the security of the RTP sessions.
     </t>
     <t>
@@ -1604,9 +1604,9 @@ SDP Answer
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An offer, in which the offerer associates a unique address with each bundled "m=" section within the BUNDLE group.</t>
+          <t>An offer, in which the offerer places a unique address/port combination in each bundled "m=" section within the BUNDLE group.</t>
           <t>An answer, in which the answerer selects the offerer BUNDLE address, and then selects its own BUNDLE
-          address (the answerer BUNDLE address) and associates it with each bundled "m=" section within the BUNDLE group.</t>
+          transport address/port and places it in each bundled "m=" section within the BUNDLE group.</t>
         </list>
       </t>
           <figure>
@@ -1668,9 +1668,9 @@ SDP Answer (2)
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An offer, in which the offerer associates a unique address with each bundled "m=" section within the BUNDLE group.</t>
-          <t>An answer, in which the answerer rejects the offered BUNDLE group, and associates a unique address
-          with each "m=" section (following normal RFC 3264 procedures).</t>
+          <t>An offer, in which the offerer places a unique address/port combination in each bundled "m=" section within the BUNDLE group.</t>
+          <t>An answer, in which the answerer rejects the offered BUNDLE group, and places a unique address/port
+          in each "m=" section (following normal RFC 3264 procedures).</t>
         </list>
       </t>
       <figure>
@@ -1728,11 +1728,11 @@ SDP Answer (2)
         The example below shows:
         <list style="symbols">
           <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
-          exchange), in which the offerer adds a new "m=" section, represented by the "zen"
-          identification-tag, to a previously negotiated BUNDLE group, associates a unique address
-          with the added "m=" section, and associates the previously selected offerer BUNDLE address with
+          exchange), in which the offerer adds a new "m=" section, identified by the "zen"
+          identification-tag, to a previously negotiated BUNDLE group, places a unique address/port
+          in the added "m=" section, and places the previously selected BUNDLE transport address/port in
           each of the other bundled "m=" sections within the BUNDLE group.</t>
-          <t>An answer, in which the answerer associates the answerer BUNDLE address with each
+          <t>An answer, in which the answerer places its BUNDLE tranport address/port in each
           bundled "m=" section (including the newly added "m=" section) within the BUNDLE group.</t>
         </list>
       </t>
@@ -1808,10 +1808,10 @@ SDP Answer (2)
         The example below shows:
         <list style="symbols">
           <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
-          transaction), in which the offerer moves a bundled "m=" section out of a BUNDLE group, associates a unique address with
-          the moved "m=" section, and associates the offerer BUNDLE address with each other bundled "m=" section within the BUNDLE group.</t>
-          <t>An answer, in which the answerer moves the "m=" section out of the BUNDLE group, associates a unique address with
-          the moved "m=" section, and associates the answerer BUNDLE address with each of the remaining bundled "m=" section within the BUNDLE group.</t>
+          transaction), in which the offerer moves a bundled "m=" section out of a BUNDLE group, places a unique address/port in
+          the moved "m=" section, and places the previously selected BUNDLE transport address/port in each other bundled "m=" section within the BUNDLE group.</t>
+          <t>An answer, in which the answerer moves the "m=" section out of the BUNDLE group, places a unique address/port in
+          the moved "m=" section, and places its BUNDLE transport address/port in each of the remaining bundled "m=" sections within the BUNDLE group.</t>
         </list>
       </t>
           <figure>
@@ -1885,10 +1885,10 @@ SDP Answer (2)
         <list style="symbols">
           <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
           transaction), in which the offerer disables a bundled "m=" section within a BUNDLE group, assigns a zero port number
-          to the disabled "m=" section, and associates the offerer BUNDLE address with each of the other bundled
+          to the disabled "m=" section, and places the previously selected BUNDLE transport address/port in each of the other bundled
           "m=" sections within the BUNDLE group.</t>
           <t>An answer, in which the answerer moves the disabled "m=" section out of the BUNDLE group, assigns a zero port value
-          to the disabled "m=" section, and associates the answerer BUNDLE address with each of the remaining bundled "m=" section within
+          to the disabled "m=" section, and places its BUNDLE transport address/port in each of the remaining bundled "m=" sections within
           the BUNDLE group.</t>
         </list>
       </t>
