@@ -467,7 +467,6 @@
             </t>
             <t>
               For each other "m=" section in the BUNDLE group:
-            </t>
             <list style="symbols">
               <t>
                 If the offerer does not wish to offer fallback to a non-BUNDLE transport,
@@ -490,6 +489,7 @@
                 might arrive on any of the three offered transports.
               </t>
             </list>
+            </t>
             <t>
               Add an SDP 'group:BUNDLE' attribute to the offer.
             </t>
@@ -503,7 +503,7 @@
         <t>
           NOTE: If the offerer assigns a zero port value to an "m=" section, but does not also include an
           SDP 'bundle-only' attribute in the "m=" section, it is an indication that the offerer wants
-          to disable the "m=" section [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
+          to disable the "m=" section [<xref target="sec-sdp-oa-mod" pageno="false" format="default"/>].
         </t>
         <t>
           [<xref target="sec-example-add" pageno="false" format="default"/>] shows
@@ -568,6 +568,7 @@ SDP Offer
         corresponding offer (as described in <xref target="sec-sdp-oa-ino" pageno="false" format="default"/>),
         or is being modified after a previous offer/answer exchange (as described in
         <xref target="sec-sdp-oa-mod" pageno="false" format="default"/>).
+      </t>
         <t>
           When an answerer generates an answer that contains a BUNDLE group, the following general
           SDP grouping framework restrictions, defined in <xref target="RFC5888" pageno="false"
@@ -633,7 +634,7 @@ SDP Offer
         <t>
           NOTE: If a bundled "m=" section in an offer contains a zero port value, but the "m=" section does not contain
           an SDP 'bundle-only' attribute, it is an indication that the offerer wants to disable the "m="
-          section [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
+          section [<xref target="sec-sdp-oa-mod" pageno="false" format="default"/>].
         </t>
         </section>
         <section title="Answerer BUNDLE-section selection" anchor="sec-sdp-oa-ans-off" toc="default">
@@ -648,7 +649,7 @@ SDP Offer
               [<xref target="sec-sdp-oa-ans-mov" pageno="false" format="default"/>].
             </t>
             <t>
-              The answerer will not reject the "m=" section in this answer [<xref target="sec-sdp-oa-ans-rej"
+              The answerer will not reject the "m=" section in this answer [<xref target="sec-sdp-oa-ans-mov"
               pageno="false" format="default"/>].
             </t>
             <t>
@@ -801,6 +802,7 @@ SDP Answer
               use "bundle-only" in subsequent offers?
             </t>
           </list>
+        </t>
           <t>
             An "m=" section MAY initially be offered with fallback to a non-BUNDLE transport,
             but subsequently offered as bundle-only, or vice-versa.
@@ -860,8 +862,6 @@ SDP Answer
             shows an example of an offer for disabling an "m=" section within a
             BUNDLE group.
           </t>
-        </t>
-      </section>
     </section>
   </section>
 
@@ -1137,7 +1137,7 @@ SDP Answer
             SDP "rtcp-mux-only" attribute, and if the answerer moves the "m=" section out of
             the BUNDLE group in the answer <xref format="default" pageno="false" target="sec-sdp-oa-ans-mov"/>,
             the answerer MUST still either enable RTP/RTCP multiplexing for the media associated
-            with the "m=" section, or reject the "m=" section <xref format="default" pageno="false" target="sec-sdp-oa-ans-rej"/>.
+            with the "m=" section, or reject the "m=" section <xref format="default" pageno="false" target="sec-sdp-oa-ans-mov"/>.
           </t>
           <t>
             The answerer MUST NOT include an SDP 'rtcp' attribute in any bundled
@@ -1206,7 +1206,6 @@ SDP Answer
         NOTE: ICE uses attributes in the TRANSPORT category, which are subject to the restrictions
         in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
       </t>
-    </section>
     </section>
 
     <section title="DTLS Considerations" anchor="sec-dtls" toc="default">
