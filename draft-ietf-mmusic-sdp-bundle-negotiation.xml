@@ -1105,16 +1105,14 @@ SDP Answer
         <t>
           The mapping from an SSRC to an identification-tag is carried in RTCP
           SDES packets or in RTP header extensions (<xref format="default" pageno="false"
-          target="sec-receiver-id"/>). Since a compound RTCP packet can contain multiple
+          target="sec-receiver-id"/>).
+          Since a compound RTCP packet can contain multiple
           RTCP SDES packets, and each RTCP SDES packet can contain multiple chunks, an
           RTCP packet can contain several SSRC to identification-tag mappings. The offerer
-          and answerer maintain tables mapping RTP streams identified by SSRC,
-          to “m=“ lines identified by the identification-tag. These tables are
-          updated each time an RTP/RTCP packet containing one or more mappings
-          from SSRC to identification-tag is received. Note that the mapping
-          from SSRC to identification-tag can change at any time during an RTP
-          session.
-	</t>
+          and answerer maintain tables used for routing that are
+          updated each time an RTP/RTCP packet contains new
+          information that affect how packets should be routed.
+        </t>
 
       <t>To prepare for demultiplexing RTP packets to the correct "m="
       line, the following steps MUST be followed for each BUNDLE
