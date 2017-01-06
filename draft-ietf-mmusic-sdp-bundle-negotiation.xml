@@ -1116,11 +1116,6 @@ SDP Answer
           session.
 	</t>
 
-
-      <t>Note: The following algorithm does not yet have WG consensus
-      but is included here as something concrete for the working group
-      to discuss.</t>
-
       <t>To prepare for demultiplexing RTP packets to the correct "m="
       line, the following steps MUST be followed for each BUNDLE
       group.</t>
