@@ -125,12 +125,12 @@
     the negotiated BUNDLE group.
   </t>
   <t>
-    TODO: The three preceding paragraphs say basically the same thing. Can they be simplified?
+    ISSUE: The three preceding paragraphs say basically the same thing. Can they be simplified?
   </t>
   <t>
     The mechanisms described in this specification are compatible with media transports that are
     identified by something other than a 5-tuple (source address, source port, destination
-    address, destination port, and transport-layer protocol). For example,
+    address, destination port, and transport-layer protocol). For example, it can be used with
     Interactive Connectivity Establishment (ICE) <xref format="default" pageno="false" target="RFC5245"/>,
     which uses relay servers and multiple 5-tuples (candidate pairs) to provide a single media transport,
     where the transport is identified by a combination of local/remote username fragments.
@@ -149,8 +149,8 @@
   </t>
   <t>
     This specification also updates sections 5.1, 8.1 and 8.2 of RFC 3264 <xref format="default" pageno="false"
-    target="RFC3264"/>. The update allows an answerer to assign a non-zero port value to an "m=" section in an
-    SDP answer, even if the "m=" section in the associated SDP offer contained a zero port value.
+    target="RFC3264"/>. The update allows an answerer to assign a non-zero port value to an "m=" line in an
+    SDP answer, even if the "m=" line in the associated SDP offer contained a zero port value.
   </t>
   <t>
     This specification also defines a new Real-time Transport Protocol (RTP) <xref format="default"
@@ -174,8 +174,12 @@
   </section>
     <section title="Terminology" toc="default">
     <t>
-      "m=" section: SDP bodies contain one or more media descriptions, which are
+      "m=" section: SDP session descriptions contain one or more media descriptions, which are
       delineated by "m=" lines, hence the shorthand '"m=" section'.
+    </t>
+    <t>
+      "m=" line: The line that marks the beginning of a media description within a session
+      descripion.
     </t>
     <t>
       5-tuple: A collection of the following values: source address, source port, destination
@@ -192,8 +196,8 @@
       exchange, that will use (or are being proposed to use) the same transport.
     </t>
     <t>
-      BUNDLE transport: The transport shared by all the "m=" sections in a
-      BUNDLE group.
+      BUNDLE transport: The transport shared for the media described by all the
+      "m=" sections in a BUNDLE group.
     </t>
     <t>
       Offerer BUNDLE-section: The "m=" section in the offer that contains
@@ -206,10 +210,10 @@
       the BUNDLE group's offerer BUNDLE-section.
     </t>
     <t>
-      TODO: As the spec is currently written, the offerer BUNDLE-section will
+      ISSUE: As the spec is currently written, the offerer BUNDLE-section will
       always be the same as the answerer BUNDLE-section. But people have stated
-      otherwise on the mailing list, so I expect this will have to change. See
-      other TODO in "Answerer selection of offerer BUNDLE-section".
+      otherwise on the mailing list. See other ISSUE in "Answerer selection of
+      offerer BUNDLE-section".
     </t>
     <t>
       Bundled "m=" section: An "m=" section that is part of a BUNDLE group.
@@ -217,7 +221,7 @@
     <t>
       Bundle-only "m=" section: An offered bundled "m=" section that will only use
       a BUNDLE transport, not offering fallback to being non-bundled. This is
-      implemented using the SDP 'bundle-only' attribute, or the port field
+      achieved using the SDP 'bundle-only' attribute, or the port field
       of the "m=" line.
     </t>
     <t>
@@ -226,7 +230,7 @@
     <t>
       Identification-tag: A unique token value that is used to identify an
       "m=" section. The SDP 'mid' attribute <xref format="default" pageno="false"
-      target="RFC5888" />, contained with an "m=" section, is used for this
+      target="RFC5888" />, contained in an "m=" section, is used for this
       purpose. The session-level SDP 'group' attribute
       <xref format="default" pageno="false" target="RFC5888" /> carries a list
       of identification-tags, identifying the "m=" sections contained in that
@@ -322,8 +326,8 @@
     <t>
       In order to ensure that an "m=" section will only be used in a BUNDLE group, even if
       communicating with an answerer that does not support the BUNDLE extension,
-      the offerer can assign a zero port value to the "m="
-      section. According to <xref target="RFC3264" pageno="false" format="default"/> an answerer
+      the offerer can assign a zero port value to the "m=" line of that "m=" section.
+      According to <xref target="RFC3264" pageno="false" format="default"/> an answerer
       that is not BUNDLE-aware will reject such an "m=" section.
       Thus, by including an SDP 'bundle-only' attribute in such an "m=" section, the offerer can
       force the answerer to accept the "m=" section if and only if the answerer supports the BUNDLE
@@ -339,7 +343,7 @@
     </t>
     <t>
       The usage of the 'bundle-only' attribute is only defined for a bundled "m=" section with
-      a zero port value, within an offer. Other usage is unspecified.
+      a zero port value on its "m=" line, within an offer. Other usage is unspecified.
     </t>
     <t>
       <xref target="sec-sdp-oa" pageno="false" format="default"/> defines the detailed SDP
@@ -418,7 +422,7 @@
       </t>
       <t>
         The procedures in this section are independent of the media type or
-        "m=" section proto value represented by a bundled "m=" section.
+        "m=" line proto value of a bundled "m=" section.
         <xref format="default" pageno="false" target="sec-rtp"/> defines additional
         considerations for RTP based media.
         <xref format="default" pageno="false" target="sec-bundle-only"/> defines
@@ -480,13 +484,13 @@
                 <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />.
               </t>
               <t>
-                TODO: If an "m=" section offers fallback to being non-bundled, should the offerer be
+                ISSUE: If an "m=" section offers fallback to being non-bundled, should the offerer be
                 prepared to receive media for that "m=" section on both the BUNDLE transport and the
-                fallback transport? This seems consistent with other specs, but I can't find it
-                explicitly stated anywhere. Though, currently an issue preventing this is that the
-                answerer gets to select the attributes the offerer will use for the BUNDLE
-                transport. If offering three "m=" sections, the media for the third "m=" section
-                might arrive on any of the three offered transports.
+                fallback transport? This isn't explicitly stated anywhere. One diffulty in
+                fulfilling that requirement is that the answerer is able to select the answerer
+                BUNDLE-section and thus the BUNDLE transport. So if offering three "m=" sections,
+                the media for the third "m=" section might be transmitted through any of the three
+                offered transports.
               </t>
             </list>
             </t>
@@ -656,17 +660,18 @@ SDP Offer
               The "m=" section does not contain a zero port value.
             </t>
             <t>
-              TODO: In the mailing list, we've agreed that if "a=bundle-only" is used, and the
-              offerer proposes "Foo" as the offerer BUNDLE-section, the answerer is still allowed to
-              reject "Foo". But that's not possible given the above restriction. We need to either
-              revise the "answerer selection of offerer BUNDLE-section" logic or remove it. If it
-              were removed, that would imply that the offerer BUNDLE-section is always implicitly
-              bundle-only. An extra corner-casey situation that whatever we come up with should
-              address, as a test case: the offerer wants to offer two "m=" sections with fallback
-              to being non-bundled, and two bundle-only "m=" sections. The answerer wants to keep
-              the bundle-only "m=" sections in the BUNDLE group, but remove the "m=" sections that
-              offer fallback. How does this work? If a bundle-only section requires a zero port,
-              then there are only two ports in the offer, but three ports are needed.
+              ISSUE: In the mailing list, we've agreed that if "a=bundle-only" is used, and the
+              offerer proposes "A" as the offerer BUNDLE-section with "B" and "C" being bundle-only,
+              the answerer is still allowed to reject "A". But that's not possible given the above
+              restriction. We need to either revise the "answerer selection of offerer
+              BUNDLE-section" logic or remove it. If it were removed, that would imply that the
+              offerer BUNDLE-section is always implicitly bundle-only. An even more difficult
+              situation that whatever solution is devised should address, as a test case: the offerer
+              wants to offer two "m=" sections with fallback to being non-bundled, and two
+              bundle-only "m=" sections. The answerer wants to keep the bundle-only "m=" sections in
+              the BUNDLE group, but remove the "m=" sections that offer fallback. How does this
+              work? If a bundle-only section requires a zero port, then there are only two ports in
+              the offer, but three ports are needed.
             </t>
           </list>
         </t>
@@ -681,7 +686,7 @@ SDP Offer
           identification-tag in the identification-tag list, and perform the same criteria
           check for the "m=" section with that identification-tag. If there are no
           more identification-tags in the identification-tag list, the answerer MUST
-          discard the BUNDLE group, by ommitting that group from its answer entirely. In addition, unless the answerer rejects the whole offer,
+          discard the BUNDLE group, by omitting that group from its answer entirely. In addition, unless the answerer rejects the whole offer,
           the answerer MUST apply the answerer procedures for moving an "m=" section out of a
           BUNDLE group [<xref target="sec-sdp-oa-ans-mov" pageno="false" format="default"/>]
           for each bundled "m=" section in the offer.
@@ -710,11 +715,12 @@ SDP Offer
           "m=" section in an answer.
         </t>
         <t>
-          TODO: Earlier we said that the usage of 'bundle-only' in an answer was not defined.
-          But now it's explicitly disallowed? Need to make up our minds.
+          ISSUE: Earlier we said that the usage of 'bundle-only' in an answer was not defined.
+          May want to clarify that although impelementations of this specification will not
+          generate 'bundle-only' in an answer, they should be prepared to receive it.
         </t>
         <t>
-          NOTE: if the answerer keeps a bundle-only "m=" section within the BUNDLE group,
+          NOTE: If the answerer keeps a bundle-only "m=" section within the BUNDLE group,
           it follows the same procedures as
           for any other "m=" section kept within the BUNDLE group.
         </t>
@@ -724,7 +730,7 @@ SDP Offer
           The example shows an SDP answer, based on the SDP offer in
           [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>].
           The answers accepts both "m=" sections in the BUNDLE group. Note that
-          the "rtcp-mux" attribute, being in the IDENTICAL category, is ommitted for
+          the "rtcp-mux" attribute, being in the IDENTICAL category, is omitted for
           the video "m=" section, since it's not the answerer BUNDLE-section.
         </t>
         <figure>
@@ -767,9 +773,9 @@ SDP Answer
         for each bundled "m=" section.
       </t>
       <t>
-        TODO: The "MUST check" part is very incomplete. There are plenty of invalid things that
-        aren't being checked for, like shuffling "m=" sections between groups. Can't we just assume
-        that an answerer will reject any offer that explicitly violates this specification?
+        ISSUE: The "MUST check" part is very incomplete. There are plenty of invalid things that
+        aren't being checked for, like shuffling "m=" sections between groups. Should this be
+        expanded, or can a broader statement be made?
       </t>
       <t>
         NOTE: As the answerer might reject one or more bundled "m=" sections, or move a bundled
@@ -795,11 +801,12 @@ SDP Answer
               matches the offerer BUNDLE-section.
             </t>
             <t>
-              TODO: What is the point of this rule? It only complicates things. Why not just keep
-              using 'bundle-only' in subsequent offers? Also, this rule is not sufficient for
-              media transports that aren't identified by a 5-tuple (such as ICE). Should this
-              rule be generalized to such transports? Or should such transports be allowed to
-              use "bundle-only" in subsequent offers?
+              ISSUE: This rule seems to only complicate things. Why not just keep using
+              'bundle-only' in subsequent offers? Also, this rule is not sufficient for media
+              transports that aren't identified by a 5-tuple (such as ICE). Should this rule be
+              generalized to such transports? Meaning, in the case of ICE, you omit the ICE
+              attributes for bundle-only sections? Or should those protocols be allowed
+              to use "bundle-only" in subsequent offers?
             </t>
           </list>
         </t>
@@ -808,7 +815,7 @@ SDP Answer
             but subsequently offered as bundle-only, or vice-versa.
           </t>
           <t>
-            TODO: Previously, there was a list of conditions that allowed you to offer fallback:
+            ISSUE: Previously, there was a list of conditions that allowed you to offer fallback:
             suggesting a new BUNDLE transport, adding an "m=" section to a BUNDLE group, removing an
             "m=" section from a BUNDLE group, or disabling a bundled "m=" section. Otherwise, it was
             illegal to offer fallback. I don't see the point of this restriction. Do we need it?
@@ -830,18 +837,18 @@ SDP Answer
             BUNDLE group in the same offer.
           </t>
           <t>
-            TODO: Crazy corner case time. Suppose I'm bundling A and B together in one group,
-            and C and D together in a separate group. Now, in a subsequent offer, I start
-            bundling A/C together, and B/D together, and at the same time change the transport
-            parameters for each BUNDLE group. Depending on the protocols used, it may be
-            ambiguous which underlying transport objects are being changed. Basically: is A
-            joining C's group, or is C joining A's group? Practical example where this matters:
+            ISSUE: This leads to ambiguitiy if two BUNDLE groups swap "m=" sections. Suppose I'm
+            bundling A and B together in one group, and C and D together in a separate group. Now,
+            in a subsequent offer, I start bundling A/C together, and B/D together, and at the same
+            time change the transport parameters for each BUNDLE group. Depending on the protocols
+            used, it may be ambiguous which underlying transport objects are being changed.
+            Is A joining C's group, or is C joining A's group? Practical example where this matters:
             ICE. If I change the ufrag/password to do an ICE restart at the same time as I'm
             shuffling "m=" sections, ICE is supposed to send media using the previously selected
             candidate pair until a new pair is formed. But *which* previously selected pair should
             it use for the "A/C" group? The "A/B" group's previously selected pair, or the "C/D"
-            group's? The fundamental issue is that there's no reliable way to identify BUNDLE
-            groups between subsequent offer/answer exchanges, if this kind of shuffling is allowed.
+            group's? The fundamental issue is that there's no reliable way to identify BUNDLE groups
+            between subsequent offer/answer exchanges, if this kind of shuffling is allowed.
           </t>
           <t>
             NOTE: If a removed "m=" section was the previously selected offerer BUNDLE-section,
