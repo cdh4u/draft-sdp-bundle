@@ -781,20 +781,6 @@ SDP Answer
             BUNDLE group in the same offer.
           </t>
           <t>
-            ISSUE: This leads to ambiguitiy if two BUNDLE groups swap "m=" sections. Suppose I'm
-            bundling A and B together in one group, and C and D together in a separate group. Now,
-            in a subsequent offer, I start bundling A/C together, and B/D together, and at the same
-            time change the transport parameters for each BUNDLE group. Depending on the protocols
-            used, it may be ambiguous which underlying transport objects are being changed.
-            Is A joining C's group, or is C joining A's group? Practical example where this matters:
-            ICE. If I change the ufrag/password to do an ICE restart at the same time as I'm
-            shuffling "m=" sections, ICE is supposed to send media using the previously selected
-            candidate pair until a new pair is formed. But *which* previously selected pair should
-            it use for the "A/C" group? The "A/B" group's previously selected pair, or the "C/D"
-            group's? The fundamental issue is that there's no reliable way to identify BUNDLE groups
-            between subsequent offer/answer exchanges, if this kind of shuffling is allowed.
-          </t>
-          <t>
             NOTE: If a removed "m=" section was the previously selected offerer BUNDLE-section,
             the offerer needs to suggest a new offerer BUNDLE-section
             [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].
