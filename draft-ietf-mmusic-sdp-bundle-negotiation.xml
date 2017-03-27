@@ -1778,11 +1778,11 @@ SDP Answer
 
       <t>When the BUNDLE extension is used, the set of configurations of the
       security mechanism used in all the bundled media descriptions will need
-      to be compatible for simultanously use, at least per direction or
-      endpoint. When using SRTP this will be the case, at least for the IETF
-      defined key-management solutions due to their SDP attributes (a=crypto,
-      a=fingerprint, a=mikey) and their classification in <xref
-      target="I-D.ietf-mmusic-sdp-mux-attributes"/>.</t>
+      to be compatible so that they can simultaneously used in parallel, 
+	  at least per direction or endpoint. When using SRTP this will be the 
+	  case, at least for the IETF defined key-management solutions due to 
+	  their SDP attributes (a=crypto, a=fingerprint, a=mikey) and their 
+	  classification in <xref target="I-D.ietf-mmusic-sdp-mux-attributes"/>.</t>
 
       <t><xref target="RFC7941">"RTP Header Extension for the RTP Control
       Protocol (RTCP) Source Description Items"</xref> security consideration
