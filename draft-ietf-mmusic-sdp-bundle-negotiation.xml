@@ -1134,8 +1134,8 @@ SDP Answer
              in order for the payload type to be a reliable indicator of the relevant
              "m=" line for the RTP stream.
              Note that when using payload type based demuxing, an SSRC
-             will be mapped to an "m=" line by first packet with that
-             SSRC and the mapping will not be changed even if the same
+             will be mapped to an "m=" line by the first packet with that
+             SSRC, and the mapping will not be changed even if the same
              SSRC is received with a different payload type.  In other
              words, the SSRC cannot to "move" to a different "m=" line
              simply by changing the payload type.
