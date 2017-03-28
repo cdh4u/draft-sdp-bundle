@@ -2135,6 +2135,11 @@ SDP Answer (2)
       reading the text, and providing useful feedback.
     </t>
     <t>
+       Thanks to Bernard Aboba, Cullen Jennings, Peter Thatcher, Justin Uberti,
+       and Magnus Westerlund for providing the text for the section on 
+       RTP/RTCP stream association.
+    </t>
+    <t>
       Thanks to Magnus Westerlund, Colin Perkins and Jonathan Lennox for providing
       help and text on the RTP/RTCP procedures.
     </t>
