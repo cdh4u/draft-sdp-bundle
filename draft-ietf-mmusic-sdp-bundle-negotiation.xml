@@ -1423,7 +1423,7 @@ SDP Answer
 
     <section title="RTP Header Extensions Consideration" anchor="sec-extmap" toc="default">
       <t>When <xref target="RFC5285"/> RTP header extensions are used in the context of this 
-       specification, the identifier used for a given extension MUST identify the the same 
+       specification, the identifier used for a given extension MUST identify the same 
        extension across all the bundled media descriptions. </t>
     </section>  
 
