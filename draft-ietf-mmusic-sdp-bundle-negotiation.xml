@@ -1976,31 +1976,71 @@ SDP Answer
     </section>
   </section>
 
-    <section title="Security Considerations" anchor="sec-security" toc="default">
-    <t>
-      The security considerations defined in <xref format="default"
+    <section anchor="sec-security" title="Security Considerations" toc="default">
+      <t>The security considerations defined in <xref format="default"
       pageno="false" target="RFC3264"/> and <xref format="default"
-      pageno="false" target="RFC5888"/> apply to the BUNDLE
-      extension. Bundle does not change which information
-      flows over the network but only changes which addresses and
-      ports that information is flowing on and thus has very little
-      impact on the security of the RTP sessions.
-    </t>
-    <t>
-      When the BUNDLE extension is used, a single set of security credentials
-      might be used for all media streams specified by a BUNDLE group.
-    </t>
-    <t>
-      When the BUNDLE extension is used, the number of SSRC values within
-      a single RTP session increases, which increases the risk of SSRC
-      collision. <xref format="default" pageno="false" target="RFC4568"/>
-      describes how SSRC collision may weaken SRTP and SRTCP encryption
-      in certain situations.
-    </t>
+      pageno="false" target="RFC5888"/> apply to the BUNDLE extension. Bundle
+      does not change which information, e.g., RTP streams, flows over
+      the network, with the exception of the usage of the MID SDES item as
+      discussed below. Primarily it changes which addresses and ports, and
+      thus in which (RTP) sessions that the information is flowing in. This
+      affects the security contexts being used and can cause previously
+      separated information flows to share the same security context. This has very
+      little impact on the performance of the security mechanism of the RTP
+      sessions. In cases where one would have applied different security
+      policies on the different RTP streams being bundled, or where the
+      parties having access to the security contexts would have differed
+      between the RTP stream, additional analysis of the implications are
+      needed before selecting to apply BUNDLE.</t>
+
+      <t>The identification-tag, independent of transport, RTCP SDES packet or
+      RTP header extension, can expose the value to parties beyond the
+      signaling chain. Therefore, the identification-tag values MUST be
+      generated in a fashion that does not leak user information, e.g.,
+      randomly or using a per-bundle group counter, and SHOULD be 3 bytes or
+      less, to allow them to efficiently fit into the MID RTP header
+      extension. Note that if implementations use different methods for
+      generating identification-tags this could enable fingerprinting of the
+      implementation making it vulnerable to targeted attacks. The
+      identification-tag is exposed on the RTP stream level when included in
+      the RTP header extensions, however what it reveals of the RTP media
+      stream structure of the endpoint and application was already possible to
+      deduce from the RTP streams without the MID SDES header extensions. As
+      the identification-tag is also used to route the media stream to the
+      right application functionality it is also important that the value
+      received is the one intended by the sender, thus integrity and the
+      authenticity of the source are important to prevent denial of service on
+      the application. Existing SRTP configurations and other security
+      mechanisms protecting the whole RTP/RTCP packets will provide the
+      necessary protection.</t>
+
+      <t>When the BUNDLE extension is used, the set of configurations of the
+	  security mechanism used in all the bundled media descriptions will need to
+	  be compatible so that they can simultaneously used in parallel, at least
+	  per direction or endpoint. When using SRTP this will be the case, at least
+	  for the IETF defined key-management solutions due to their SDP attributes
+	  (a=crypto, a=fingerprint, a=mikey) and their classification in <xref 
+	  target="I-D.ietf-mmusic-sdp-mux-attributes"/>.</t>
+
+      <t>The security considerations of <xref target="RFC7941">"RTP Header
+	  Extension for the RTP Control Protocol (RTCP) Source Description Items"
+	  </xref> requires that when RTCP is confidentiality protected that any SDES
+	  RTP header extension carrying an SDES item, such as the MID RTP header
+      extension, is also protected using commensurate strength algorithms.
+      However, assuming the above requirements and recommendations are
+      followed there are no known significant security risks with leaving the
+      MID RTP header extension without confidentiality protection. Thus, the
+      requirements in RFC 7941 MAY be ignored for the MID RTP header
+      extension. Security mechanisms for RTP/RTCP are discussed in Options for
+      Securing RTP Sessions <xref format="default" pageno="false"
+      target="RFC7201"/>, for example SRTP <xref format="default"
+      pageno="false" target="RFC3711"/> can provide the necessary security
+      functions of ensuring the integrity and source authenticity.</t>
     </section>
 
   <section title="Examples" anchor="sec-example-alt1" toc="default">
-    <section title="Example: Bundle Address Selection" anchor="sec-example-add" toc="default">
+    <section title="Example: Bundle Address Selection" anchor="sec-example-add"
+	toc="default">
       <t>
         The example below shows:
         <list style="symbols">
@@ -2697,6 +2737,7 @@ SDP Answer (2)
     <?rfc include="reference.RFC.3264"?>
     <?rfc include="reference.RFC.3550"?>
     <?rfc include="reference.RFC.3605"?>
+    <?rfc include='reference.RFC.3711'?>
     <?rfc include="reference.RFC.4566"?>
     <?rfc include="reference.RFC.4961"?>
     <?rfc include="reference.RFC.5245"?>
@@ -2705,6 +2746,7 @@ SDP Answer (2)
     <?rfc include="reference.RFC.5764"?>
     <?rfc include="reference.RFC.5888"?>
     <?rfc include="reference.RFC.6347"?>
+    <?rfc include="reference.RFC.7201"?>
     <?rfc include="reference.RFC.7656"?>
     <?rfc include="reference.RFC.7941"?>
     <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-04"?>
