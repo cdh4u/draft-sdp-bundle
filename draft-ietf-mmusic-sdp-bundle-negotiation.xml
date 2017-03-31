@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-36.txt" updates="3264" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-37.txt" updates="3264" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
     Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -1275,7 +1275,7 @@ SDP Answer
                 with that SSRC, but then remove the entry for that SSRC from the
                 incoming SSRC table after an appropriate delay to
                 account for "straggler packets", as specified in <xref
-                xttarget="RFC3550" />, Section 6.2.1. 
+                target="RFC3550" />, Section 6.2.1.
             </t>
             <t>
                 If the packet is of type SR or RR, for each report block in
@@ -1661,10 +1661,10 @@ SDP Answer
     </section>
 
     <section title="RTP Header Extensions Consideration" anchor="sec-extmap" toc="default">
-      <t>When <xref target="RFC5285"/> RTP header extensions are used in the context of this 
-       specification, the identifier used for a given extension MUST identify the same 
+      <t>When <xref target="RFC5285"/> RTP header extensions are used in the context of this
+       specification, the identifier used for a given extension MUST identify the same
        extension across all the bundled media descriptions. </t>
-    </section>  
+    </section>
 
   <section anchor="sec-3264" title="Update to RFC 3264" toc="default">
       <t>
@@ -2025,7 +2025,7 @@ SDP Answer
 	  be compatible so that they can simultaneously used in parallel, at least
 	  per direction or endpoint. When using SRTP this will be the case, at least
 	  for the IETF defined key-management solutions due to their SDP attributes
-	  (a=crypto, a=fingerprint, a=mikey) and their classification in <xref 
+	  (a=crypto, a=fingerprint, a=mikey) and their classification in <xref
 	  target="I-D.ietf-mmusic-sdp-mux-attributes"/>.</t>
 
       <t>The security considerations of <xref target="RFC7941">"RTP Header
@@ -2421,7 +2421,7 @@ SDP Answer (2)
     </t>
     <t>
        Thanks to Bernard Aboba, Cullen Jennings, Peter Thatcher, Justin Uberti,
-       and Magnus Westerlund for providing the text for the section on 
+       and Magnus Westerlund for providing the text for the section on
        RTP/RTCP stream association.
     </t>
     <t>
@@ -2436,6 +2436,20 @@ SDP Answer (2)
 
   <section title="Change Log">
     <t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+    <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-36
+      <list style="symbols">
+        <t>The following GitHub pull requests were merged:</t>
+        <t>https://github.com/cdh4u/draft-sdp-bundle/pull/32</t>
+        <t>- extmap handling in BUNDLE.</t>
+        <t>https://github.com/cdh4u/draft-sdp-bundle/pull/31</t>
+        <t>- Additional Acknowledgement text added.</t>
+        <t>https://github.com/cdh4u/draft-sdp-bundle/pull/30</t>
+        <t>- MID SDES item security procedures updated</t>
+        <t>https://github.com/cdh4u/draft-sdp-bundle/pull/29</t>
+        <t>- Appendix B of JSEP moved into BUNDLE.</t>
+        <t>- Associating RTP/RTCP packets with SDP m- lines.</t>
+      </list>
+    </t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-35
       <list style="symbols">
         <t>Editorial changes on RTP streaming mapping section based on comments from Colin Perkins.</t>
@@ -2752,23 +2766,22 @@ SDP Answer (2)
     <?rfc include="reference.RFC.5764"?>
     <?rfc include="reference.RFC.5888"?>
     <?rfc include="reference.RFC.6347"?>
-    <?rfc include="reference.RFC.7201"?>
-    <?rfc include="reference.RFC.7656"?>
     <?rfc include="reference.RFC.7941"?>
-    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-04"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-14"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-10"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-10"?>
+    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-08"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-16"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-11"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-12"?>
     </references>
 
     <references title="Informative References">
     <?rfc include="reference.RFC.3261"?>
     <?rfc include="reference.RFC.3611"?>
-    <?rfc include="reference.RFC.4568"?>
     <?rfc include="reference.RFC.5104"?>
     <?rfc include="reference.RFC.4585"?>
     <?rfc include="reference.RFC.5576"?>
     <?rfc include="reference.RFC.7160"?>
+    <?rfc include="reference.RFC.7201"?>
+    <?rfc include="reference.RFC.7656"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-02"?>
     <?rfc include="reference.I-D.draft-ietf-avtext-lrr-03"?>
     </references>
