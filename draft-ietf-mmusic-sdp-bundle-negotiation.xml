@@ -1872,10 +1872,13 @@ SDP Answer
           will result in a minimal number of 32-bit words used for the RTP SDES header extension,
           in case no other header extensions are included at the same time. Note, do take into
           account that some single characters when UTF-8 encoded will result in multiple octets.
-          The identification-tag MUST NOT contain any user information, and applications SHALL
-          avoid generating the identification-tag using a pattern that enables application
-          identification.
-        </t>
+		</t>
+		<t>
+		  The identfication-tag when included in the RTP MID SDES item, independent of transport, RTCP SDES packet or RTP header extension, can expose the value to parties beyond the signaling chain. Therefore, the identification-tag MUST NOT contain any user related information for privacy reasons, nor hardware based identifiers. That as such information could enable tracking of the sending end point.
+		</t>
+		<t>
+		  The identification-tag is used to route the media stream to the right application functionality, thus is important that the value received is the one intended by the sender. Malicious modifications can result in that a media stream is wrongly attributed or fails to be played. Thus, verifying integrity and the authenticity of the source are RECOMMENDED to prevent these attacks on the application. Security mechanisms for RTP/RTCP are discussed in Options for Securing RTP Sessions <xref format="default" pageno="false" target="RFC7201"/>.
+		</t>
     </section>
   </section>
   <section title="IANA Considerations" anchor="sec-receiver-id-iana" toc="default">
@@ -2769,6 +2772,7 @@ SDP Answer (2)
     <?rfc include="reference.RFC.4585"?>
     <?rfc include="reference.RFC.5576"?>
     <?rfc include="reference.RFC.7160"?>
+	<?rfc include="reference.RFC.7201"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-02"?>
     <?rfc include="reference.I-D.draft-ietf-avtext-lrr-03"?>
     </references>
