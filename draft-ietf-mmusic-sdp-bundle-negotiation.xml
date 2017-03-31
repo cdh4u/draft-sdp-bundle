@@ -1660,6 +1660,12 @@ SDP Answer
       </t>
     </section>
 
+    <section title="RTP Header Extensions Consideration" anchor="sec-extmap" toc="default">
+      <t>When <xref target="RFC5285"/> RTP header extensions are used in the context of this 
+       specification, the identifier used for a given extension MUST identify the same 
+       extension across all the bundled media descriptions. </t>
+    </section>  
+
   <section anchor="sec-3264" title="Update to RFC 3264" toc="default">
       <t>
         This section replaces the text of the following sections
