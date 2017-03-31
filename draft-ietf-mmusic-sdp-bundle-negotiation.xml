@@ -386,7 +386,17 @@
         An offerer and answerer MUST use the rules and restrictions defined
         in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for
         associating SDP attributes with bundled "m=" lines.
-      </t>
+        </t>
+        <t>
+        The semantics of some attributes only apply to specific types of media.
+        For example, the semantic of the SDP 'rtcp-mux' and 'rtcp-mux-only' attributes
+        only apply to "m=" lines describing RTP-based media. However, as described in
+        <xref target="sec-sdp-oa-cat" />, IDENTICAL and TRANSPORT mux category SDP attributes
+        <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> are only
+        associated with the "m=" line associated with the BUNDLE-tag, it means that
+        media specific attributes might be associated with an "m=" line describing
+        another type of media.
+        </t>
     </section>
   </section>
 
