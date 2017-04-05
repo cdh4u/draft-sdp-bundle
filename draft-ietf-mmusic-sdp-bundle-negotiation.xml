@@ -466,6 +466,16 @@
           associate such SDP attributes with each "m=" line. The attributes and attribute
           values are implicitly applied to each "m=" line associated with the shared address.
         </t>
+        <t>
+          NOTE: In an answer, the rules above only apply to "m=" lines within a bundle group.
+          If the answerer moves an "m=" line out of the BUNDLE group, any IDENTICAL and TRANSPORT
+          mux category SDP attribute that the answerer wants to associate with the "m=" line needs
+          to be explicitly associated with the "m=" line. The answerer can still take into account
+          any attribute that was associated (implicitly or explicitly) with the "m=" line
+          in the corresponding offer, e.g., if an attribute can only be associated
+          with an "m=" line in an answer if the attribute was also associated with the
+          "m=" line in the corresponding offer. 
+        </t>
     </section>
     <section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
         <t>
