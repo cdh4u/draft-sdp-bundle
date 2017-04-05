@@ -393,8 +393,8 @@
         only apply to "m=" lines describing RTP-based media. However, as described in
         <xref target="sec-sdp-oa-cat" />, IDENTICAL and TRANSPORT mux category SDP attributes
         <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> are only
-        associated with the "m=" line associated with the BUNDLE-tag, it means that
-        media specific attributes might be associated with an "m=" line describing
+        associated with the "m=" line associated with the BUNDLE-tag. That means that
+        media specific attributes can be associated with an "m=" line describing
         another type of media.
         </t>
     </section>
@@ -556,7 +556,6 @@ SDP Offer
   m=video 10002 RTP/AVP 31 32
   b=AS:1000
   a=mid:bar
-  a=rtcp-mux
   a=rtpmap:31 H261/90000
   a=rtpmap:32 MPV/90000
   a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -764,7 +763,6 @@ SDP Answer
   m=video 20000 RTP/AVP 32
   b=AS:1000
   a=mid:bar
-  a=rtcp-mux
   a=rtpmap:32 MPV/90000
   a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2088,7 +2086,6 @@ SDP Offer (1)
     m=video 10002 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2111,7 +2108,6 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2152,7 +2148,6 @@ SDP Offer (1)
     m=video 10002 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2171,7 +2166,6 @@ SDP Answer (2)
     a=rtpmap:0 PCMU/8000
     m=video 30000 RTP/AVP 32
     b=AS:1000
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
 
 
@@ -2215,14 +2209,12 @@ SDP Offer (1)
     m=video 10000 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 20000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
-    a=rtcp-mux
     a=rtpmap:66 H261/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2244,13 +2236,11 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 20000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
-    a=rtcp-mux
     a=rtpmap:66 H261/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2293,7 +2283,6 @@ SDP Offer (1)
     m=video 10000 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2321,7 +2310,6 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 60000 RTP/AVP 66
@@ -2371,7 +2359,6 @@ SDP Offer (1)
     m=video 10000 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2397,7 +2384,6 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 0 RTP/AVP 66
