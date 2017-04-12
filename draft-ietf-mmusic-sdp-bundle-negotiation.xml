@@ -431,19 +431,13 @@
       </t>
         <section anchor="sec-sdp-oa-cat" title="Mux Category Considerations" toc="default">
         <t>
-          When an offerer associates SDP attributes with a bundled "m=" line (including any
-          bundle-only "m=" line) associated with a shared address, IDENTICAL and TRANSPORT
-          mux category SDP attributes <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />
+          When an offerer or answerer associates SDP attributes with a bundled "m=" line
+          (including any bundle-only "m=" line) associated with a shared address, IDENTICAL
+          and TRANSPORT mux category SDP attributes <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />
           are associated with the "m=" line only if the "m=" line is also associated with
-          the offerer BUNDLE-tag. Otherwise the offerer MUST NOT associated such SDP attributes
-          with the "m=" line. The rule above does not apply to a bundled "m=" line associated
-          with a unique address.
-        </t>
-        <t>
-          When an answerer associates SDP attributes with a bundled "m=" line,
-          IDENTICAL and TRANSPORT mux category SDP attributes are associated with the
-          "m=" line only if the "m=" line is also associated with the answerer BUNDLE-tag.
-          Otherwise the answerer MUST NOT associated such SDP attributes with the "m=" line.
+          the offerer/answerer BUNDLE-tag. Otherwise the offerer/answerer MUST NOT associate
+          such SDP attributes with the "m=" line. The rule above does not apply to a bundled
+          "m=" line associated with a unique address.
         </t>
         <t>
           NOTE: As bundled "m=" lines (including any bundle-only "m=" line) associated with
@@ -457,7 +451,7 @@
           only apply to "m=" lines describing RTP-based media. However, as described in
           <xref target="sec-sdp-oa-cat" />, there are cases where IDENTICAL and TRANSPORT
           mux category SDP attributes are only associated with the "m=" line associated with
-          the BUNDLE-tag. That means that media specific IDENTICAL and TRANSPORT mux category
+          the BUNDLE-tag. That means that media-specific IDENTICAL and TRANSPORT mux category
           attributes can be associated with an "m=" line associated with another type of media.
         </t>
     </section>
@@ -1417,10 +1411,10 @@ SDP Answer
           </t>
         <section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
           <t>
-            When an offerer generates an initial offer, if the offer contain
+            When an offerer generates an initial offer, if the offer contains
             one or more RTP-based bundled "m=" lines (or, if there is a chance that RTP-based
             "m=" lines will later be added to the BUNDLE group), the offerer MUST
-            associated an SDP 'rtcp-mux' attribute <xref format="default"
+            associate an SDP 'rtcp-mux' attribute <xref format="default"
             pageno="false" target="RFC5761"/> with one or more "m=" lines, following the procedures
             for IDENTICAL mux category attributes in <xref format="default" pageno="false"
             target="sec-sdp-oa-cat"/>. In addition, the offerer MAY associate an
