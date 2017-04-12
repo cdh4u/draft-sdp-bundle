@@ -381,13 +381,6 @@
         associating the SDP bandwidth (b=) line with bundled "m=" lines.
       </t>
     </section>
-    <section title="Attributes (a=)" anchor="sec-sdp-cons-a" toc="default">
-        <t>
-        An offerer and answerer MUST use the rules and restrictions defined
-        in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for
-        associating SDP attributes with bundled "m=" lines.
-      </t>
-    </section>
   </section>
 
   <section title="SDP Offer/Answer Procedures" anchor="sec-sdp-oa" toc="default">
@@ -438,23 +431,28 @@
       </t>
         <section anchor="sec-sdp-oa-cat" title="Mux Category Considerations" toc="default">
         <t>
-          When an offerer associates SDP attributes with a bundled "m=" line associated
-          with a shared address, IDENTICAL and TRANSPORT mux category SDP attributes
-          <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> are associated with the
-          "m=" line only if the "m=" line is also associated with the offerer BUNDLE-tag.
-          Otherwise the offerer MUST NOT associate such SDP attributes with the "m=" line.
+          When an offerer or answerer associates SDP attributes with a bundled "m=" line
+          (including any bundle-only "m=" line) associated with a shared address, IDENTICAL
+          and TRANSPORT mux category SDP attributes <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />
+          are associated with the "m=" line only if the "m=" line is also associated with
+          the offerer/answerer BUNDLE-tag. Otherwise the offerer/answerer MUST NOT associate
+          such SDP attributes with the "m=" line. The rule above does not apply to a bundled
+          "m=" line associated with a unique address.
         </t>
         <t>
-          When an answerer associates SDP attributes with a bundled "m=" line,
-          IDENTICAL and TRANSPORT mux category SDP attributes are associated with the
-          "m=" line only if the "m=" line is also associated with the answerer BUNDLE-tag.
-          Otherwise the answerer MUST NOT associated such SDP attributes with the "m=" line.
+          NOTE: As bundled "m=" lines (including any bundle-only "m=" line) associated with
+          a shared address will share the same IDENTICAL and TRANSPORT mux category SDP attributes,
+          and attribute values, there is no need to associate such SDP attributes with each "m=" line.
+          The attributes and attribute values are implicitly applied to each "m=" line.
         </t>
         <t>
-          NOTE: As bundled "m=" lines associated with a shared address will share the same IDENTICAL
-          and TRANSPORT mux category SDP attributes, and attribute values, there is no need to
-          associate such SDP attributes with each "m=" line. The attributes and attribute
-          values are implicitly applied to each "m=" line associated with the shared address.
+          The semantics of some SDP attributes only apply to specific types of media.
+          For example, the semantics of the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes
+          only apply to "m=" lines describing RTP-based media. However, as described in
+          <xref target="sec-sdp-oa-cat" />, there are cases where IDENTICAL and TRANSPORT
+          mux category SDP attributes are only associated with the "m=" line associated with
+          the BUNDLE-tag. That means that media-specific IDENTICAL and TRANSPORT mux category
+          attributes can be associated with an "m=" line associated with another type of media.
         </t>
     </section>
     <section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
@@ -546,7 +544,6 @@ SDP Offer
   m=video 10002 RTP/AVP 31 32
   b=AS:1000
   a=mid:bar
-  a=rtcp-mux
   a=rtpmap:31 H261/90000
   a=rtpmap:32 MPV/90000
   a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -754,7 +751,6 @@ SDP Answer
   m=video 20000 RTP/AVP 32
   b=AS:1000
   a=mid:bar
-  a=rtcp-mux
   a=rtpmap:32 MPV/90000
   a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -1397,77 +1393,87 @@ SDP Answer
             SDP 'rtcp-mux' attribute <xref format="default" pageno="false"
             target="RFC5761"/> and the SDP 'rtcp-mux-only' attribute
             <xref format="default" pageno="false" target="I-D.ietf-mmusic-mux-exclusive"/>
-            to negotiate usage of RTP/RTCP multiplexing for RTP-based media specified
-            by a BUNDLE group.
+            to negotiate usage of RTP/RTCP multiplexing for RTP-based media associated
+            with a BUNDLE group.
           </t>
           <t>
-            The procedures in this section only apply to RTP-based "m=" lines.
+            The mux category <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> of the
+            SDP 'rtcp-mux' and 'rtcp-mux-only' attributes is IDENTICAL.
+            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/> describes
+            the details regarding which bundled "m=" lines an offerer and answerer
+            associates the attributes with.
+          </t>
+          <t>
+            RTP/RTCP multiplexing only applies to RTP-based media. However, as described in
+            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>, within a BUNDLE
+            group the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes might be associated with
+            a non-RTP-based bundled "m=" line.
           </t>
         <section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
           <t>
-            When an offerer generates an initial offer, the
-            offerer MUST associate an SDP 'rtcp-mux' attribute
-            <xref format="default" pageno="false" target="RFC5761"/>
-            with each bundled RTP-based "m=" line in the offer, including
-            a bundle-only "m=" line. In addition, the offerer MUST
-            associate an SDP 'rtcp-mux-only' attribute
-            <xref format="default" pageno="false" target="I-D.ietf-mmusic-mux-exclusive"/>
-            with each RTP-based bundle-only "m=" line, and MAY associated an SDP
-            'rtcp-mux-only' attribute with other bundled RTP-based "m=" lines.
+            When an offerer generates an initial offer, if the offer contains
+            one or more RTP-based bundled "m=" lines (or, if there is a chance that RTP-based
+            "m=" lines will later be added to the BUNDLE group), the offerer MUST
+            associate an SDP 'rtcp-mux' attribute <xref format="default"
+            pageno="false" target="RFC5761"/> with one or more "m=" lines, following the procedures
+            for IDENTICAL mux category attributes in <xref format="default" pageno="false"
+            target="sec-sdp-oa-cat"/>. In addition, the offerer MAY associate an
+            SDP 'rtcp-mux-only' attribute <xref format="default" pageno="false"
+            target="I-D.ietf-mmusic-mux-exclusive"/> with the same "m=" lines.
           </t>
           <t>
-            NOTE: Whether the offerer associates an SDP 'rtcp-mux-only' attribute with
-            a bundled "m=" line or not depends on whether the offerer supports fallback to
-            usage of a separate port for RTCP in case the answerer does not include the
-            "m=" line in the BUNDLE group.
+            NOTE: Whether the offerer associates the SDP 'rtcp-mux-only' attribute
+            depends on whether the offerer supports fallback to usage of a separate
+            port for RTCP in case the answerer moves one or more RTP-based "m=" line out of
+            the BUNDLE group in the answer.
           </t>
           <t>
-            NOTE: If the offerer associates an SDP 'rtcp-mux' attribute with a bundled "m=" line,
-            but does not associate an SDP 'rtcp-mux-only' attribute with the "m=" line, the
-            offerer can also associate an SDP 'rtcp' attribute <xref format="default" pageno="false" target="RFC3605"/>
-            with the "m=" line in order to provide a fallback port for RTCP, as described
-            in <xref format="default" pageno="false" target="RFC5761"/>. However, the fallback
-            port will only be used in case the answerer does not include the
-            "m=" line in the BUNDLE group.
+            NOTE: If the offerer associates an SDP 'rtcp-mux' attribute with one or
+            more bundled "m=" lines, but does not associate an SDP 'rtcp-mux-only' attribute,
+            the offerer can also associate an SDP 'rtcp' attribute <xref format="default"
+            pageno="false" target="RFC3605"/> with one or more RTP-based "m=" line in order to provide a
+            fallback port for RTCP, as described in <xref format="default" pageno="false"
+            target="RFC5761"/>. However, the fallback port will only be used for RTP-based
+            "m=" lines moved out of the BUNDLE group by the answerer.
           </t>
           <t>
-            In the initial offer, the address:port combination for RTCP
-            MUST be unique in each bundled RTP-based "m=" line (excluding a
-            bundle-only "m=" line), similar to RTP.
+            In the initial offer, the address:port combination for RTCP MUST be unique in each
+            bundled RTP-based "m=" line (excluding a bundle-only "m=" line), similar to RTP.
           </t>
         </section>
         <section title="Generating the SDP Answer" anchor="sec-rtprtcp-mux-oa-ans" toc="default">
           <t>
-            When an answerer generates an answer, if the answerer accepts one or more RTP-based
-            "m=" lines within a BUNDLE group, the answerer MUST enable usage of RTP/RTCP
-            multiplexing. The answerer MUST associate an SDP "rtcp-mux" attribute with
-            each RTP-based "m=" line in the answer. In addition, if an "m=" line in the
-            corresponding offer contained an SDP "rtcp-mux-only" attribute, the answerer
-            MUST associate an SDP "rtcp-mux-only" attribute with the "m=" line in the answer.
+            When an answerer generates an answer, if the answerer supports RTP-based media,
+            and if a bundled "m=" line in the offer contained an SDP 'rtcp-mux' attribute,
+            the answerer MUST enable usage of RTP/RTCP multiplexing, even if there currently
+            are no RTP-based "m=" lines within the BUNDLE group. The answerer MUST associate
+            an SDP 'rtcp-mux' attribute with "m=" lines within the BUNDLE group in the answer
+            following the procedures for IDENTICAL mux category attributes in <xref format="default"
+            pageno="false" target="sec-sdp-oa-cat"/>. In addition, if the "m=" line in the offer
+            contained an an SDP "rtcp-mux-only" attribute, the answerer MUST associate an SDP
+            "rtcp-mux-only" attribute with the "m=" line in the answer.
           </t>
           <t>
-            If an RTP-based "m=" line in the corresponding offer did not contain an
-            SDP 'rtcp-mux' attribute, the answerer MUST NOT include the "m=" line within
-            a BUNDLE group in the answer.
+            If the "m=" line associated with the offerer BUNDLE-tag in the offer contained an
+            SDP 'rtcp-mux-only' attribute, and if the answerer moves an RTP-based "m=" line
+            out of the BUNDLE group in the answer <xref format="default" pageno="false"
+            target="sec-sdp-oa-ans-mov"/>, the answerer MUST either associate the attribute with
+            the moved "m=" line (and enable RTP/RTCP multiplexing for the media associated with
+            the "m=" line), or reject the "m=" line <xref format="default" pageno="false"
+            target="sec-sdp-oa-ans-rej"/>.
           </t>
           <t>
-            If an RTP-based "m=" line in the corresponding offer contained an
-            SDP "rtcp-mux-only" attribute, and if the answerer moves the "m=" line out of
-            the BUNDLE group in the answer <xref format="default" pageno="false" target="sec-sdp-oa-ans-mov"/>,
-            the answerer MUST still either enable RTP/RTCP multiplexing for the media associated
-            with the "m=" line, or reject the "m=" line <xref format="default" pageno="false" target="sec-sdp-oa-ans-rej"/>.
-          </t>
-          <t>
-            The answerer MUST NOT associate an SDP 'rtcp' attribute with any bundled
-            "m=" line in the answer. The answerer will use the port value of the selected
-            offerer BUNDLE address for sending RTP and RTCP packets associated
+            The answerer MUST NOT associate an SDP 'rtcp' attribute with any "m=" line
+            within the BUNDLE group in the answer. The answerer will use the port value
+            of the selected offerer BUNDLE address for sending RTP and RTCP packets associated
             with each RTP-based bundled "m=" line towards the offerer.
           </t>
           <t>
             If the usage of RTP/RTCP multiplexing within a BUNDLE group has been
             negotiated in a previous offer/answer transaction, the answerer MUST
-            associate an SDP 'rtcp-mux' attribute with each bundled RTP-based "m=" line
-            in the answer.
+            associate an SDP 'rtcp-mux' attribute with the "m=" line associated with
+            the answerer BUNDLE-tag in the answer. It is not possible to disable
+            RTP/RTCP multiplexing within a BUNDLE group.
           </t>
         </section>
         <section title="Offerer Processing of the SDP Answer" anchor="sec-rtprtcp-mux-oa-pra" toc="default">
@@ -1475,7 +1481,7 @@ SDP Answer
             When an offerer receives an answer, if the answerer has accepted
             the usage of RTP/RTCP multiplexing (see <xref target="sec-rtprtcp-mux-oa-ans"/>),
             the answerer follows the procedures for RTP/RTCP multiplexing defined
-            in <xref format="default" pageno="false" target="RFC5761"/>.  The
+            in <xref format="default" pageno="false" target="RFC5761"/>. The
             offerer will use the port value associated with the answerer
             BUNDLE address for sending RTP and RTCP packets associated with each
             RTP-based bundled "m=" line towards the answerer.
@@ -1488,17 +1494,19 @@ SDP Answer
         </section>
         <section title="Modifying the Session" anchor="sec-rtprtcp-mux-oa-mod" toc="default">
           <t>
-            When an offerer generates a subsequent offer, for each RTP-based "m=" line
-            that was previously added to the BUNDLE group the offerer MUST associate
-            an SDP 'rtcp-mux' attribute and an SDP 'rtcp-mux-only' attribute with
-            the "m=" line in the same way it was previously done, unless the offerer
-            wants to disable or remove the "m=" line from the BUNDLE group.
+            When an offerer generates a subsequent offer, the offerer MUST associate
+            an SDP 'rtcp-mux' attribute with a bundled "m=" line, following the procedures
+            for IDENTICAL mux category attributes in <xref format="default" pageno="false"
+            target="sec-sdp-oa-cat"/>.
           </t>
           <t>
             If the offerer wants to add a bundled RTP-based "m=" line
-            to the BUNDLE group, it associates an SDP 'rtcp-mux' attribute and
-            an SDP 'rtcp-mux-only' attribute with the "m=" line using the procedures in
-            [<xref format="default" pageno="false" target="sec-rtprtcp-mux-oa-ino"/>].
+            to the BUNDLE group, it MAY also associate an SDP 'rtcp-mux-only' attribute
+            with a bundled "m=", following the procedures for IDENTICAL mux category
+            attributes in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
+            This allows the offerer to mandate RTP/RTCP multiplexing for the added "m="
+            line (or the "m=" line to be rejected by the answerer) even if the answerer
+            does not accept the "m=" line within the BUNDLE group.
           </t>
         </section>
       </section>
@@ -1524,14 +1532,16 @@ SDP Answer
             instead of per bundled "m=" line.
           </t>
           <t>
-            Among bundled "m=" lines with which the offerer has associated a shared address, the
-            offerer only associates ICE-related media-level SDP attributes with the "m=" line
-            associated with the offerer BUNDLE-tag.
+            Among bundled "m=" lines (including any bundle-only "m=" line) with which the offerer
+            has associated a shared address, the offerer only associates ICE-related media-level
+            SDP attributes with the "m=" line associated with the offerer BUNDLE-tag, following
+            the procedures in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
           </t>
           <t>
-            Among bundled "m=" lines with which the answerer has associated a shared address, the
-            answerer only associates ICE-related media-level SDP attributes with the "m=" line
-            associated with the answerer BUNDLE-tag.
+            Among "m=" lines with which the answerer has associated a shared address within
+            a BUNDLE group, the answerer only associates ICE-related media-level SDP attributes
+            with the "m=" line associated with the answerer BUNDLE-tag, following the procedures in
+            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
           </t>
         </list>
       </t>
@@ -1547,25 +1557,22 @@ SDP Answer
         (candidates etc), with the "m=" line, according to the procedures in <xref target="I-D.ietf-mmusic-ice-sip-sdp" />.
       </t>
       <t>
-        When an offerer associates a shared address with a bundled "m=" line, if the
-        "m=" line is associated with the offerer BUNDLE-tag, the offerer MUST associate
-        SDP 'candidate' attributes (and other applicable ICE-related media-level SDP attributes),
-        containing shared ICE properties, with the "m=" line. If the "m=" line is not
-        associated with the offerer BUNDLE-tag, the offerer MUST NOT associate
-        ICE-related SDP attributes with the "m=" line.
+        When an offerer associates a shared address with a bundled "m=" line, the offerer
+        MUST associate SDP 'candidate' attributes (and other applicable ICE-related
+        media-level SDP attributes) with the "m=" line following the procedures in
+        <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
       </t>
       <t>
-        When an answerer associates a shared address with a bundled "m=" line, if the
-        "m=" line is associated with the answerer BUNDLE-tag, the answerer MUST associate
-        SDP 'candidate' attributes (and other applicable ICE-related media-level SDP attributes),
-        containing shared ICE properties, with the "m=" line. If the "m=" line is not
-        associated with the answerer BUNDLE-tag, the answerer MUST NOT associate
-        ICE-related SDP attributes with the "m=" line.
+        When an answerer associates a shared address with an "m=" line within a BUNDLE group, if the
+        answerer MUST associate SDP 'candidate' attributes (and other applicable ICE-related
+        media-level SDP attributes) with the "m=" line following the procedures in
+        <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
       </t>
       <t>
         NOTE: As most ICE-related media-level SDP attributes belong to the TRANSPORT mux category
         <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />, the offerer and answerer follow the
-        rules in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>. However, in the
+        procedures in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/> when
+        deciding whether to associate an attribute with a bundled "m=" line. However, in the
         case of ICE-related media-level attributes, the rules apply to all attributes (see note below),
         even if they belong to a different mux category.
       </t>
@@ -1577,16 +1584,16 @@ SDP Answer
       <section title="Generating the Initial SDP Offer" anchor="sec-ice-oa-ino" toc="default">
         <t>
           When an offerer generates an initial offer, the offerer MUST associate ICE-related media-level
-          SDP attributes with each bundled "m=" line, according to [<xref format="default" pageno="false"
+          SDP attributes with bundled "m=" lines forllowin the procedures in [<xref format="default" pageno="false"
           target="sec-ice-oa"/>].
         </t>
       </section>
       <section title="Generating the SDP Answer" anchor="sec-ice-oa-ans" toc="default">
         <t>
           When an answerer generates an answer that contains a BUNDLE group,
-          the answerer MUST associate ICE-related SDP attributes with the
-          "m=" line associated with the answerer BUNDLE-tag, according to
-          [<xref format="default" pageno="false" target="sec-ice-oa"/>].
+          the answer MUST associate ICE-related SDP attributes to "m=" lines
+          within the BUNDLE group according to [<xref format="default" pageno="false"
+          target="sec-ice-oa"/>].
         </t>
       </section>
       <section title="Offerer Processing of the SDP Answer" anchor="sec-ice-oa-pra" toc="default">
@@ -1601,8 +1608,8 @@ SDP Answer
       <section title="Modifying the Session" anchor="sec-ice-oa-mod" toc="default">
         <t>
           When an offerer generates a subsequent offer, it MUST associate
-          unique or shared ICE properties to one or more bundled "m=" lines,
-          according to [<xref format="default" pageno="false" target="sec-ice-oa"/>].
+          ICE properties to bundled "m=" lines following the procedures in
+          [<xref format="default" pageno="false" target="sec-ice-oa"/>].
         </t>
       </section>
     </section>
@@ -2101,7 +2108,6 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2205,7 +2211,6 @@ SDP Offer (1)
     m=video 10000 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2234,13 +2239,11 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 20000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
-    a=rtcp-mux
     a=rtpmap:66 H261/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2283,7 +2286,6 @@ SDP Offer (1)
     m=video 10000 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2311,7 +2313,6 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 60000 RTP/AVP 66
@@ -2361,7 +2362,6 @@ SDP Offer (1)
     m=video 10000 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2387,7 +2387,6 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 32
     b=AS:1000
     a=mid:bar
-    a=rtcp-mux
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 0 RTP/AVP 66
