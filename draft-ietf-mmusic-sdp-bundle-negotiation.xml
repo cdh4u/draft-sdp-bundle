@@ -1125,27 +1125,28 @@ SDP Answer
          <t>
              However, some implementations of may not include this identification-tag
              in their RTP and RTCP traffic when using the BUNDLE mechanism,
-             and instead use a payload type based mechanism for demuxing.
+             and instead use a payload type based mechanism to associate RTP streams with SDP m= lines.
              In this situation, each "m=" line MUST use unique payload type values,
              in order for the payload type to be a reliable indicator of the relevant
              "m=" line for the RTP stream.
-             Note that when using payload type based demuxing, an SSRC
-             will be mapped to an "m=" line by the first packet with that
-             SSRC, and the mapping will not be changed even if the same
-             SSRC is received with a different payload type.  In other
+             Note that when using the payload type to associate RTP streams 
+             with m= lines an RTP stream, identified by SSRC, will be mapped 
+             to an "m=" line when the first packet of that RTP stream is received,
+             and the mapping will not be changed even if the payload type used by
+             that RTP stream changes. In other
              words, the SSRC cannot to "move" to a different "m=" line
              simply by changing the payload type.
          </t>
          <t>
              Applications can implement RTP stacks in many different
-             ways. The algorithm below details one way that demultiplexing
-             can be accomplished, but is not meant to be prescriptive
+             ways. The algorithm below details one way that RTP streams can be 
+             associated with m= lines, but is not meant to be prescriptive
              about exactly how an RTP stack needs to be implemented.
              Applications MAY use any algorithm that achieves equivalent results to
              those described in the algorithm below.
          </t>
          <t>
-             To prepare for demultiplexing RTP/RTCP packets to the correct "m="
+             To prepare to associate RTP streams with the correct "m="
              line, the following steps MUST be followed for each BUNDLE group.
          </t>
          <t><list>
@@ -1155,12 +1156,12 @@ SDP Answer
                  have one MID.
              </t>
              <t>
-                 Construct a table mapping incoming SSRC to "m=" line for
+                 Construct a table mapping SSRCs of incoming RTP streams to "m=" line for
                  each "m=" line in this BUNDLE group and for each SSRC
                  configured for receiving in that "m=" line.
              </t>
              <t>
-                 Construct a table mapping outgoing SSRC to "m=line" for
+                 Construct a table mapping the SSRC of each outgoing RTP stream to "m=line" for
                  each "m=" line in this BUNDLE group and for each SSRC
                  configured for sending in that "m=" line.
              </t>
@@ -1184,73 +1185,82 @@ SDP Answer
              updated.
          </t>
          <t>
-             For each RTP packet received, the following steps MUST be
-             followed to route the packet to the correct "m=" section within
-             a BUNDLE group. Note that the phrase 'deliver a packet to the
-             "m=" line' means to further process the packet as would normally
-             happen with RTP/RTCP, if it were received on a transport
-             associated with that "m=" line outside of a BUNDLE group (i.e.,
-             if the "m=" line were not BUNDLEd), including dropping an RTP
-             packet if the packet's PT does not match any PT in the "m="
-             line.
+             When an RTP packet is received, it MUST be delivered to the RTP
+             stream corresponding to its SSRC. That RTP stream MUST then be
+             associated with the correct m= line within a BUNDLE group, for
+             additional processing, according to the following steps.
          </t>
          <t><list>
              <t>
-                 If the packet has a MID, and that MID is not in the table
-                 mapping MID to "m=" line, drop the packet and stop.
+                 If the MID associated with the RTP stream is not in the
+                 table mapping MID to “m=“ line, then the RTP stream is not
+                 decoded and the payload data is discarded.
              </t>
              <t>
                  If the packet has a MID, and the packet's extended sequence number
                  is greater than that of the last MID update, as discussed in
-                 <xref target="RFC7941" />, Section 4.2.6, update the incoming
-                 SSRC mapping table to include an entry that maps the packet's
-                 SSRC to the "m=" line for that MID.
+                 <xref target="RFC7941" />, Section 4.2.6, update the MID associated 
+                 with the RTP stream to match the MID carried in the RTP packet, then 
+                 update the mapping tables to include an entry that maps the SSRC of 
+                 that RTP stream to the “m=“ line for that MID.
              </t>
              <t>
-                 If the packet's SSRC is in the incoming SSRC mapping
-                 table, check that the packet's PT matches a PT included on
-                 the associated "m=" line. If so, route the packet to that
-                 associated "m=" line and stop; otherwise drop the
-                 packet and stop.
+                 If the SSRC of the RTP stream is in the incoming SSRC
+                 mapping table, check that the payload type used by the RTP
+                 stream matches a payload type included on the matching
+                 “m=“ line. If so, associate the RTP stream with that “m=“
+                 line. Otherwise, the RTP stream is not decoded and the
+                 payload data is discarded.
              </t>
              <t>
-                 If the packet's payload type is in the payload type
-                 table, update the the incoming SSRC mapping table to include
-                 an entry that maps the packet's SSRC to the "m=" line for
-                 that payload type. In addition, route the packet to the
-                 associated "m=" line and stop.
+                 If the payload type used by the RTP stream is in the
+                 payload type table, update the incoming SSRC mapping table
+                 to include an entry that maps the RTP stream’s SSRC to the
+                 “m=“ line for that payload type. Associate the RTP stream
+                 with the corresponding “m=“ line.
              </t>
              <t>
-                 Otherwise, drop the packet.
+                 Otherwise, mark the RTP stream as not for decoding and
+                 discard the payload. 
              </t>
-          </list></t>
+           </list>
+           If the RTP packet contains one of more contributing source (CSRC) 
+           identifiers, then each CSRC is looked up in the incoming SSRC table
+           and a copy of the RTP packet is associated with the corresponding 
+           m= line for additional processing.
+          </t>
           <t>
-              For each RTCP packet received (including each RTCP packet
-              that is part of a compound RTCP packet), the packet MUST be
-              routed to the "m=" line for the RTP streams it contains
-              information about. This routing is type-dependent, as each kind of RTCP
+              For each RTCP packet received (including each RTCP packet that
+              is part of a compound RTCP packet), the packet is processed as
+              usual by the RTP layer, then is passed to the “m=“ lines
+              corresponding to the RTP streams it contains information about
+              for additional processing.
+              This routing is type-dependent, as each kind of RTCP
               packet has its own mechanism for associating it with the relevant
               RTP streams.
           </t>
           <t>
-              Packets for which no appropriate "m=" line can be identified
-              (i.e., for unknown RTP streams) are not relevant in the context of
-              this algorithm and MAY be dropped. This situation may occur
-              with certain multiparty RTP topologies.
+              RTCP packets for which no appropriate “m=“ line can be
+              identified MUST be processed as usual by the RTP layer,
+              updating the metadata associated with the corresponding RTP
+              streams, but are not passed to any “m=“ line. This situation
+              can occur with certain multiparty RTP topologies, or when
+              RTCP packets are sent containing a subset of the SDES
+              information.
           </t>
           <t>
-              Rules for handling the various types of RTCP packets are
+              Rules for additional processing of the various types of RTCP packets are
               explained below.
           </t>
           <t><list>
               <t>
-                If the packet is of type SDES, for each chunk in the packet
+                If the RTCP packet is of type SDES, for each chunk in the packet
                 whose SSRC is found in the incoming SSRC table, deliver a copy
-                of the packet to the "m=" line associated with that SSRC.
+                of the SDES packet to the "m=" line associated with that SSRC.
                 In addition, for any SDES MID items contained in these chunks,
                 if the MID is found in the table mapping MID to "m=" line,
                 update the incoming SSRC table to include an entry that
-                maps the chunk's SSRC to the "m=" line associated with that MID,
+                maps the RTP stream associated with chunk's SSRC to the "m=" line associated with that MID,
                 unless the packet is older than the packet that most recently
                 updated the mapping for this SSRC, as discussed in
                 <xref target="RFC7941"/>, Section 4.2.6.
@@ -1261,25 +1271,29 @@ SDP Answer
                 the SDES packet is handled (e.g., in the case where RTCP for a
                 source is received before any RTP packets). Therefore, when
                 processing a compound packet, any contained SDES packet MUST
-                be handled first.
+                be handled first. Note that this is a backwards change from 
+                <xref target="RFC3550" /> Section 6.1, which states that 
+                  "Each individual RTCP packet in the compound packet may be 
+                  processed independently with no requirements upon the order 
+                  or combination of packets".
             </t>
             <t>
-                If the packet is of type BYE, it indicates that the RTP streams
+                If the RTCP packet is of type BYE, it indicates that the RTP streams
                 referenced in the packet are ending. Therefore, for each SSRC
                 indicated in the packet that is found in the incoming SSRC table,
-                first deliver a copy of the packet to the "m=" line associated
+                first deliver a copy of the BYE packet to the "m=" line associated
                 with that SSRC, but then remove the entry for that SSRC from the
                 incoming SSRC table after an appropriate delay to
                 account for "straggler packets", as specified in <xref
                 target="RFC3550" />, Section 6.2.1.
             </t>
             <t>
-                If the packet is of type SR or RR, for each report block in
+                If the RTCP packet is of type SR or RR, for each report block in
                 the report whose "SSRC of source" is found in the outgoing
-                SSRC table, deliver a copy of the RTCP packet to the "m=" line
+                SSRC table, deliver a copy of the SR or RR packet to the "m=" line
                 associated with that SSRC. In addition, if the packet is of type
                 SR, and the sender SSRC for the packet is found in the
-                incoming SSRC table, deliver a copy of the packet to the "m=" line
+                incoming SSRC table, deliver a copy of the SR packet to the "m=" line
                 associated with that SSRC.
             </t>
             <t>
@@ -1287,13 +1301,13 @@ SDP Answer
                 type XR, as defined in <xref target="RFC3611" />,
                 for each report block in the report whose "SSRC of source" is
                 is found in the outgoing SSRC table, deliver a copy of the
-                RTCP packet to the "m=" line associated with that SSRC.
+                XR packet to the "m=" line associated with that SSRC.
                 In addition, if the sender SSRC for the packet is found in the
-                incoming SSRC table, deliver a copy of the packet to the "m=" line
+                incoming SSRC table, deliver a copy of the XR packet to the "m=" line
                 associated with that SSRC.
             </t>
             <t>
-                If the packet is a feedback message of type RTPFB or PSFB,
+                If the RTCP packet is a feedback message of type RTPFB or PSFB,
                 as defined in <xref target="RFC4585" />, it will contain a
                 media source SSRC, and this SSRC is used for routing certain
                 subtypes of feedback messages. However, several subtypes of
@@ -1302,10 +1316,10 @@ SDP Answer
                 the target SSRC(s) are used for routing.
             </t>
             <t>
-                If the packet is a feedback message that does not include
+                If the RTCP packet is a feedback packet that does not include
                 target SSRCs in its FCI section, and the media source SSRC is
                 found in the outgoing SSRC table, deliver the
-                packet to the "m=" line associated with that SSRC.
+                feedback packet to the "m=" line associated with that SSRC.
                 RTPFB and PSFB types that are handled in this way include:
                 <list style="hanging">
                     <t hangText="Generic NACK:">
@@ -1323,7 +1337,7 @@ SDP Answer
                 </list>
             </t>
             <t>
-                If the packet is a feedback message that does include target
+                If the RTCP packet is a feedback message that does include target
                 SSRC(s) in its FCI section, it can either be a request or a
                 notification. Requests reference a RTP stream that is being
                 sent by the message recipient, whereas notifications are responses
@@ -1331,7 +1345,7 @@ SDP Answer
                 is being received by the message recipient.
             </t>
             <t>
-                If the packet is a feedback request that includes target SSRC(s),
+                If the RTCP packet is a feedback request that includes target SSRC(s),
                 for each target SSRC that is found in the outgoing SSRC table,
                 deliver a copy of the RTCP packet to the "m=" line associated with
                 that SSRC. PSFB types that are handled in this way include:
@@ -1351,10 +1365,10 @@ SDP Answer
                 </list>
             </t>
             <t>
-                If the packet is a feedback notification that include target SSRC(s),
+                If the RTCP packet is a feedback notification that include target SSRC(s),
                 for each target SSRC that is found in the incoming SSRC table,
                 deliver a copy of the RTCP packet to the "m=" line associated with
-                that SSRC. PSFB types that are handled in this way include:
+                the RTP stream with matching SSRC. PSFB types that are handled in this way include:
                 <list style="hanging">
                     <t hangText="Temporal-Spatial Trade-off Notification (TSTN):">
                         <xref target="RFC5104"/> (PT=PSFB, FMT=6). This message
@@ -1363,10 +1377,9 @@ SDP Answer
                 </list>
             </t>
             <t>
-                If the packet is of type APP, the only routing information
-                included is the source of the packet, and therefore the
-                packet could be related to any existing "m=" line. Accordingly,
-                deliver a copy of the packet to each "m=" line.
+              If the RTCP packet is of type APP, then it is handled in an application 
+              specific manner. If the application does not recognise the APP packet,
+              then it MUST be discarded. 
             </t>
         </list>
         </t>
