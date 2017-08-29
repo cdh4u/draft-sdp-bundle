@@ -1107,7 +1107,7 @@ SDP Answer
             In order for an offerer and answerer to always be able to
             associate an RTP stream with the correct "m=" line, the offerer
             and answerer using the BUNDLE extension MUST support the
-            mechanism defined in section 14, where the offerer and answerer
+            mechanism defined in <xref format="default" pageno="false" target="sec-receiver-id"/>, where the offerer and answerer
             insert the identification-tag associated with an "m=" line
             (provided by the remote peer) into RTP and RTCP packets associated
              with a BUNDLE group.
@@ -1115,7 +1115,7 @@ SDP Answer
          <t>
              When using this mechanism, the mapping from an SSRC to an
              identification-tag is carried in RTP header extensions or RTCP SDES
-             packets, as specified in section 14. Since a compound RTCP packet
+             packets, as specified in <xref format="default" pageno="false" target="sec-receiver-id"/>. Since a compound RTCP packet
              can contain multiple RTCP SDES packets, and each RTCP SDES packet
              can contain multiple chunks, a single RTCP packet can contain several
              SSRC to identification-tag mappings. The offerer and answerer maintain
