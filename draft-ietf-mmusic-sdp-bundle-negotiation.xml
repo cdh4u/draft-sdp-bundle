@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-37.txt" updates="3264" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-38.txt" updates="3264" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
     Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -1129,8 +1129,8 @@ SDP Answer
              In this situation, each "m=" line MUST use unique payload type values,
              in order for the payload type to be a reliable indicator of the relevant
              "m=" line for the RTP stream.
-             Note that when using the payload type to associate RTP streams 
-             with m= lines an RTP stream, identified by SSRC, will be mapped 
+             Note that when using the payload type to associate RTP streams
+             with m= lines an RTP stream, identified by SSRC, will be mapped
              to an "m=" line when the first packet of that RTP stream is received,
              and the mapping will not be changed even if the payload type used by
              that RTP stream changes. In other
@@ -1139,7 +1139,7 @@ SDP Answer
          </t>
          <t>
              Applications can implement RTP stacks in many different
-             ways. The algorithm below details one way that RTP streams can be 
+             ways. The algorithm below details one way that RTP streams can be
              associated with m= lines, but is not meant to be prescriptive
              about exactly how an RTP stack needs to be implemented.
              Applications MAY use any algorithm that achieves equivalent results to
@@ -1199,9 +1199,9 @@ SDP Answer
              <t>
                  If the packet has a MID, and the packet's extended sequence number
                  is greater than that of the last MID update, as discussed in
-                 <xref target="RFC7941" />, Section 4.2.6, update the MID associated 
-                 with the RTP stream to match the MID carried in the RTP packet, then 
-                 update the mapping tables to include an entry that maps the SSRC of 
+                 <xref target="RFC7941" />, Section 4.2.6, update the MID associated
+                 with the RTP stream to match the MID carried in the RTP packet, then
+                 update the mapping tables to include an entry that maps the SSRC of
                  that RTP stream to the “m=“ line for that MID.
              </t>
              <t>
@@ -1221,12 +1221,12 @@ SDP Answer
              </t>
              <t>
                  Otherwise, mark the RTP stream as not for decoding and
-                 discard the payload. 
+                 discard the payload.
              </t>
            </list>
-           If the RTP packet contains one of more contributing source (CSRC) 
+           If the RTP packet contains one of more contributing source (CSRC)
            identifiers, then each CSRC is looked up in the incoming SSRC table
-           and a copy of the RTP packet is associated with the corresponding 
+           and a copy of the RTP packet is associated with the corresponding
            m= line for additional processing.
           </t>
           <t>
@@ -1271,10 +1271,10 @@ SDP Answer
                 the SDES packet is handled (e.g., in the case where RTCP for a
                 source is received before any RTP packets). Therefore, when
                 processing a compound packet, any contained SDES packet MUST
-                be handled first. Note that this is a backwards change from 
-                <xref target="RFC3550" /> Section 6.1, which states that 
-                  "Each individual RTCP packet in the compound packet may be 
-                  processed independently with no requirements upon the order 
+                be handled first. Note that this is a backwards change from
+                <xref target="RFC3550" /> Section 6.1, which states that
+                  "Each individual RTCP packet in the compound packet may be
+                  processed independently with no requirements upon the order
                   or combination of packets".
             </t>
             <t>
@@ -1377,9 +1377,9 @@ SDP Answer
                 </list>
             </t>
             <t>
-              If the RTCP packet is of type APP, then it is handled in an application 
+              If the RTCP packet is of type APP, then it is handled in an application
               specific manner. If the application does not recognise the APP packet,
-              then it MUST be discarded. 
+              then it MUST be discarded.
             </t>
         </list>
         </t>
@@ -2448,6 +2448,16 @@ SDP Answer (2)
 
   <section title="Change Log">
     <t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+    <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-37
+      <list style="symbols">
+        <t>Changes to RTP streaming mapping section based on text from Colin Perkins.</t>
+        <t>The following GitHub pull requests were merged:</t>
+        <t>https://github.com/cdh4u/draft-sdp-bundle/pull/34</t>
+        <t>- Proposed updates to RTP processing</t>
+        <t>https://github.com/cdh4u/draft-sdp-bundle/pull/35</t>
+        <t>- fixed reference to receiver-id section</t>
+      </list>
+    </t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-36
       <list style="symbols">
         <t>The following GitHub pull requests were merged:</t>
@@ -2779,10 +2789,10 @@ SDP Answer (2)
     <?rfc include="reference.RFC.5888"?>
     <?rfc include="reference.RFC.6347"?>
     <?rfc include="reference.RFC.7941"?>
-    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-08"?>
+    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-10"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-16"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-11"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-12"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-12"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-13"?>
     </references>
 
     <references title="Informative References">
@@ -2794,8 +2804,8 @@ SDP Answer (2)
     <?rfc include="reference.RFC.7160"?>
     <?rfc include="reference.RFC.7201"?>
     <?rfc include="reference.RFC.7656"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-02"?>
-    <?rfc include="reference.I-D.draft-ietf-avtext-lrr-03"?>
+    <?rfc include="reference.I-D.draft-ietf-ice-trickle-13"?>
+    <?rfc include="reference.I-D.draft-ietf-avtext-lrr-07"?>
     </references>
 
   <section  title="Design Considerations" toc="default">
@@ -2990,7 +3000,7 @@ SDP Offer
         pacing requirements. All of this gather can be overlapped with other
         things while for exampe a web-page is loading to minimize the impact. If the client
         only wants to generate TURN or STUN ICE candidates for one of the "m="
-        lines and then use trickle ICE <xref target="I-D.ietf-mmusic-trickle-ice" />
+        lines and then use trickle ICE <xref target="I-D.ietf-ice-trickle"/>
         to get the non host ICE candidates for the rest of the "m=" lines, it MAY do
         that and will not need any additional gathering time.
       </t>
