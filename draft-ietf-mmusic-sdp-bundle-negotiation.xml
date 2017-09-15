@@ -728,7 +728,7 @@ SDP Offer
         <t>
           The example shows an SDP answer, based on the SDP offer in
           [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>].
-          The answers acceppts both "m=" lines in the BUNDLE group.
+          The answers accepts both "m=" lines in the BUNDLE group.
         </t>
         <figure>
         <artwork align="left" alt="" height="" name="" type="" width=""
