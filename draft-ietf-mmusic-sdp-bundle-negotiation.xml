@@ -1597,7 +1597,7 @@ SDP Answer
       <section title="Generating the Initial SDP Offer" anchor="sec-ice-oa-ino" toc="default">
         <t>
           When an offerer generates an initial offer, the offerer MUST associate ICE-related media-level
-          SDP attributes with bundled "m=" lines forllowin the procedures in [<xref format="default" pageno="false"
+          SDP attributes with bundled "m=" lines following the procedures in [<xref format="default" pageno="false"
           target="sec-ice-oa"/>].
         </t>
       </section>
