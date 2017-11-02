@@ -728,7 +728,7 @@ SDP Offer
         <t>
           The example shows an SDP answer, based on the SDP offer in
           [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>].
-          The answers acceppts both "m=" lines in the BUNDLE group.
+          The answers accepts both "m=" lines in the BUNDLE group.
         </t>
         <figure>
         <artwork align="left" alt="" height="" name="" type="" width=""
@@ -1597,7 +1597,7 @@ SDP Answer
       <section title="Generating the Initial SDP Offer" anchor="sec-ice-oa-ino" toc="default">
         <t>
           When an offerer generates an initial offer, the offerer MUST associate ICE-related media-level
-          SDP attributes with bundled "m=" lines forllowin the procedures in [<xref format="default" pageno="false"
+          SDP attributes with bundled "m=" lines following the procedures in [<xref format="default" pageno="false"
           target="sec-ice-oa"/>].
         </t>
       </section>
