@@ -1126,12 +1126,12 @@ SDP Answer
          <t>
              However, some implementations of may not include this identification-tag
              in their RTP and RTCP traffic when using the BUNDLE mechanism,
-             and instead use a payload type based mechanism to associate RTP streams with SDP m= lines.
+             and instead use a payload type based mechanism to associate RTP streams with SDP "m=" sections.
              In this situation, each "m=" section MUST use unique payload type values,
              in order for the payload type to be a reliable indicator of the relevant
              "m=" section for the RTP stream.
              Note that when using the payload type to associate RTP streams
-             with m= lines an RTP stream, identified by SSRC, will be mapped
+             with "m=" sections an RTP stream, identified by SSRC, will be mapped
              to an "m=" section when the first packet of that RTP stream is received,
              and the mapping will not be changed even if the payload type used by
              that RTP stream changes. In other words, the SSRC cannot to "move" to a 
@@ -1140,14 +1140,14 @@ SDP Answer
          <t>
              Applications can implement RTP stacks in many different
              ways. The algorithm below details one way that RTP streams can be
-             associated with m= lines, but is not meant to be prescriptive
+             associated with "m=" sections, but is not meant to be prescriptive
              about exactly how an RTP stack needs to be implemented.
              Applications MAY use any algorithm that achieves equivalent results to
              those described in the algorithm below.
          </t>
          <t>
-             To prepare to associate RTP streams with the correct "m="
-             section, the following steps MUST be followed for each BUNDLE group.
+             To prepare to associate RTP streams with the correct
+             "m=" section, the following steps MUST be followed for each BUNDLE group.
          </t>
          <t><list>
              <t>
@@ -1187,13 +1187,13 @@ SDP Answer
          <t>
              When an RTP packet is received, it MUST be delivered to the RTP
              stream corresponding to its SSRC. That RTP stream MUST then be
-             associated with the correct m= line within a BUNDLE group, for
+             associated with the correct "m=" section within a BUNDLE group, for
              additional processing, according to the following steps.
          </t>
          <t><list>
              <t>
                  If the MID associated with the RTP stream is not in the
-                 table mapping MID to “m=“ line, then the RTP stream is not
+                 table mapping MID to "m=" section, then the RTP stream is not
                  decoded and the payload data is discarded.
              </t>
              <t>
@@ -1202,22 +1202,22 @@ SDP Answer
                  <xref target="RFC7941" />, Section 4.2.6, update the MID associated
                  with the RTP stream to match the MID carried in the RTP packet, then
                  update the mapping tables to include an entry that maps the SSRC of
-                 that RTP stream to the “m=“ line for that MID.
+                 that RTP stream to the "m=" section for that MID.
              </t>
              <t>
                  If the SSRC of the RTP stream is in the incoming SSRC
                  mapping table, check that the payload type used by the RTP
                  stream matches a payload type included on the matching
-                 “m=“ line. If so, associate the RTP stream with that “m=“
-                 line. Otherwise, the RTP stream is not decoded and the
+                 "m=" section. If so, associate the RTP stream with that
+                 "m=" section. Otherwise, the RTP stream is not decoded and the
                  payload data is discarded.
              </t>
              <t>
                  If the payload type used by the RTP stream is in the
                  payload type table, update the incoming SSRC mapping table
                  to include an entry that maps the RTP stream’s SSRC to the
-                 “m=“ line for that payload type. Associate the RTP stream
-                 with the corresponding “m=“ line.
+                 "m=" section for that payload type. Associate the RTP stream
+                 with the corresponding "m=" section.
              </t>
              <t>
                  Otherwise, mark the RTP stream as not for decoding and
@@ -1227,12 +1227,12 @@ SDP Answer
            If the RTP packet contains one of more contributing source (CSRC)
            identifiers, then each CSRC is looked up in the incoming SSRC table
            and a copy of the RTP packet is associated with the corresponding
-           m= line for additional processing.
+           "m=" section for additional processing.
           </t>
           <t>
               For each RTCP packet received (including each RTCP packet that
               is part of a compound RTCP packet), the packet is processed as
-              usual by the RTP layer, then is passed to the “m=“ lines
+              usual by the RTP layer, then is passed to the "m=" sections
               corresponding to the RTP streams it contains information about
               for additional processing.
               This routing is type-dependent, as each kind of RTCP
@@ -1240,10 +1240,10 @@ SDP Answer
               RTP streams.
           </t>
           <t>
-              RTCP packets for which no appropriate “m=“ line can be
+              RTCP packets for which no appropriate "m=" section can be
               identified MUST be processed as usual by the RTP layer,
               updating the metadata associated with the corresponding RTP
-              streams, but are not passed to any “m=“ line. This situation
+              streams, but are not passed to any "m=" section. This situation
               can occur with certain multiparty RTP topologies, or when
               RTCP packets are sent containing a subset of the SDES
               information.
