@@ -1193,7 +1193,7 @@ SDP Answer
          <t><list>
              <t>
                  If the MID associated with the RTP stream is not in the
-                 table mapping MID to “m=“ line, then the RTP stream is not
+                 table mapping MID to "m=" line, then the RTP stream is not
                  decoded and the payload data is discarded.
              </t>
              <t>
@@ -1202,22 +1202,22 @@ SDP Answer
                  <xref target="RFC7941" />, Section 4.2.6, update the MID associated
                  with the RTP stream to match the MID carried in the RTP packet, then
                  update the mapping tables to include an entry that maps the SSRC of
-                 that RTP stream to the “m=“ line for that MID.
+                 that RTP stream to the "m=" line for that MID.
              </t>
              <t>
                  If the SSRC of the RTP stream is in the incoming SSRC
                  mapping table, check that the payload type used by the RTP
                  stream matches a payload type included on the matching
-                 “m=“ line. If so, associate the RTP stream with that “m=“
+                 "m=" line. If so, associate the RTP stream with that "m="
                  line. Otherwise, the RTP stream is not decoded and the
                  payload data is discarded.
              </t>
              <t>
                  If the payload type used by the RTP stream is in the
                  payload type table, update the incoming SSRC mapping table
-                 to include an entry that maps the RTP stream’s SSRC to the
-                 “m=“ line for that payload type. Associate the RTP stream
-                 with the corresponding “m=“ line.
+                 to include an entry that maps the RTP stream's SSRC to the
+                 "m=" line for that payload type. Associate the RTP stream
+                 with the corresponding "m=" line.
              </t>
              <t>
                  Otherwise, mark the RTP stream as not for decoding and
@@ -1232,7 +1232,7 @@ SDP Answer
           <t>
               For each RTCP packet received (including each RTCP packet that
               is part of a compound RTCP packet), the packet is processed as
-              usual by the RTP layer, then is passed to the “m=“ lines
+              usual by the RTP layer, then is passed to the "m=" lines
               corresponding to the RTP streams it contains information about
               for additional processing.
               This routing is type-dependent, as each kind of RTCP
@@ -1240,10 +1240,10 @@ SDP Answer
               RTP streams.
           </t>
           <t>
-              RTCP packets for which no appropriate “m=“ line can be
+              RTCP packets for which no appropriate "m=" line can be
               identified MUST be processed as usual by the RTP layer,
               updating the metadata associated with the corresponding RTP
-              streams, but are not passed to any “m=“ line. This situation
+              streams, but are not passed to any "m=" line. This situation
               can occur with certain multiparty RTP topologies, or when
               RTCP packets are sent containing a subset of the SDES
               information.
