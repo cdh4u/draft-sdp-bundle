@@ -1215,7 +1215,7 @@ SDP Answer
              <t>
                  If the payload type used by the RTP stream is in the
                  payload type table, update the incoming SSRC mapping table
-                 to include an entry that maps the RTP stream’s SSRC to the
+                 to include an entry that maps the RTP stream's SSRC to the
                  "m=" section for that payload type. Associate the RTP stream
                  with the corresponding "m=" section.
              </t>
