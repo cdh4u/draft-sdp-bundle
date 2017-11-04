@@ -1192,7 +1192,7 @@ SDP Answer
          </t>
          <t><list>
              <t>
-                 If the MID associated with the RTP stream is not in the
+                 If the MID associated with the RTP stream is not in
                  table mapping MID to "m=" section, then the RTP stream is not
                  decoded and the payload data is discarded.
              </t>
@@ -1201,7 +1201,7 @@ SDP Answer
                  is greater than that of the last MID update, as discussed in
                  <xref target="RFC7941" />, Section 4.2.6, update the MID associated
                  with the RTP stream to match the MID carried in the RTP packet, then
-                 update the mapping tables to include an entry that maps the SSRC of
+                 update the mapping tables to include an entry that maps the SSRC
                  that RTP stream to the "m=" section for that MID.
              </t>
              <t>
