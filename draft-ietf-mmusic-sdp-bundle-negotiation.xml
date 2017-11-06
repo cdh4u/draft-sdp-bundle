@@ -100,7 +100,7 @@
    <t>
      When multimedia communications are established, each 5-tuple reserved for an individual media stream
      consume additional resources (especially when Interactive Connectivity Establishment (ICE)
-     <xref format="default" pageno="false" target="RFC5245"/> is used). For this reason, it is
+     <xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/> is used). For this reason, it is
      attractive to use a 5-tuple for multiple media streams.
   </t>
   <t>
@@ -124,9 +124,9 @@
     the BUNDLE group.
   </t>
   <t>
-    The use of a BUNDLE group and a BUNDLE address also allows the usage of a single set of
-    Interactive Connectivity Establishment (ICE) <xref format="default" pageno="false" target="RFC5245"/>
-    candidates for multiple "m=" sections.
+    The BUNDLE mechanism can also be used with Interactive Connectivity Establishment (ICE) 
+    <xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/>, and a single 
+    set of ICE candidates will be used for the BUNDLE transport. 
   </t>
   <t>
     This specification also defines a new SDP attribute, 'bundle-only', which can be used to
@@ -1540,9 +1540,9 @@ SDP Answer
       <t>
         <list style="symbols">
           <t>
-            When BUNDLE addresses for a BUNDLE group have been selected for both endpoints, ICE
-            connectivity checks and keep-alives only need to be performed for the whole BUNDLE group,
-            instead of per bundled "m=" section.
+            When the BUNDLE transport has been established, ICE connectivity checks and keep-alives 
+            only need to be performed for the BUNDLE transport, instead of per individual "m=" section 
+            within the BUNDLE group.
           </t>
           <t>
             Among bundled "m=" sections (including any bundle-only "m=" section) to which the offerer
@@ -1557,6 +1557,11 @@ SDP Answer
             <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
           </t>
         </list>
+      </t>
+      <t>
+        Initially, before ICE has produced a candidate pair that will be used for media, there might
+        by multiple transports established (if multiple candidate pairs are tested). Once ICE has produced
+        a transport that will be used for media, that becomes the BUNDLE transport.
       </t>
       <t>
         Support and usage of ICE mechanism together with the BUNDLE extension is OPTIONAL.
@@ -2789,7 +2794,6 @@ SDP Answer (2)
     <?rfc include='reference.RFC.3711'?>
     <?rfc include="reference.RFC.4566"?>
     <?rfc include="reference.RFC.4961"?>
-    <?rfc include="reference.RFC.5245"?>
     <?rfc include="reference.RFC.5285"?>
     <?rfc include="reference.RFC.5761"?>
     <?rfc include="reference.RFC.5764"?>
