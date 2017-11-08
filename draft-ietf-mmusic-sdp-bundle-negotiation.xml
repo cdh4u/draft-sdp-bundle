@@ -68,11 +68,12 @@
       <t>
         This specification defines a new Session Description
         Protocol (SDP) Grouping Framework
-        extension, 'BUNDLE'. The extension can be used with the
+        extension, 'BUNDLE'. The extension can be used with the 
         SDP Offer/Answer mechanism to negotiate the usage of a
-        single address:port combination (BUNDLE address) for receiving media,
-        referred to as bundled media, specified by multiple
-        SDP media descriptions ("m=" sections).
+        single transport (5-tuple) for sending and receiving media
+        associated with multiple SDP media descriptions ("m=" sections).
+        This is referred to as bundled media. The collection of "m=" sections
+        that share the transport (BUNDLE transport) from a BUNDLE group.
       </t>
       <t>
         To assist endpoints in negotiating the use of bundle this
@@ -98,44 +99,50 @@
 <middle>
   <section title="Introduction" toc="default">
    <t>
-     When multimedia communications are established, each 5-tuple reserved for an individual media stream
+     When multimedia communications are established, each transport (5-tuple) reserved for an individual media stream
      consume additional resources (especially when Interactive Connectivity Establishment (ICE)
      <xref format="default" pageno="false" target="RFC5245"/> is used). For this reason, it is
-     attractive to use a 5-tuple for multiple media streams.
+     attractive to use a single transport for multiple media streams.
   </t>
   <t>
-    This specification defines a way to use a single address:port combination (BUNDLE address) for
-    receiving media specified by multiple SDP media descriptions ("m=" sections).
+    This specification defines a way to use a single transport (BUNDLE transport) for
+    sending and receiving media specified by multiple SDP media descriptions ("m=" sections). 
+    Each endpoint will assign the same address:port combination (BUNDLE address) to each
+    "m=" section that uses the BUNDLE transport. The collection of "m=" sections
+    that use the BUNDLE transport form a BUNDLE group, and the media described by the
+    "m=" sections is referred to as bundled media. The same BUNDLE transport will be used
+    for both sending and receiving media described by the "m=" sections within the BUNDLE group.
+    For RTR-based media, the symmetric RTP <xref format="default" pageno="false" target="RFC4961"/> 
+    mechanism is used.
   </t>
   <t>
     This specification defines a new SDP Grouping Framework <xref format="default" pageno="false"
     target="RFC5888"/> extension called 'BUNDLE'. The extension can be used with the Session Description
     Protocol (SDP) Offer/Answer mechanism <xref format="default" pageno="false" target="RFC3264"/>
-    to negotiate the usage of a BUNDLE group. Within a BUNDLE group, a BUNDLE address is used
-    for receiving media specified by multiple "m=" sections. This is referred to as bundled media.
+    to negotiate the creation of a BUNDLE group.
   </t>
   <t>
     The offerer and answerer <xref format="default" pageno="false" target="RFC3264"/> use
     the BUNDLE extension to negotiate the BUNDLE addresses, one for the offerer (offerer BUNDLE
-    address) and one for the answerer (answerer BUNDLE address), to be used for receiving
-    the bundled media specified by a BUNDLE group. Once the offerer and the answerer have
-    negotiated a BUNDLE group, they assign their respective BUNDLE address to each "m=" section
-    in the BUNDLE group. The BUNDLE addresses are used to receive all media specified by
-    the BUNDLE group.
+    address) and one for the answerer (answerer BUNDLE address), in order to create the BUNDLE transport
+    that will be used for sending and receiving bundled media associated with the BUNDLE group.
+    Once the offerer and the answerer have negotiated a BUNDLE group, they assign their respective 
+    BUNDLE address to each "m=" section within the BUNDLE group.
   </t>
   <t>
-    The use of a BUNDLE group and a BUNDLE address also allows the usage of a single set of
+    The use of a BUNDLE transport also allows the usage of a single set of
     Interactive Connectivity Establishment (ICE) <xref format="default" pageno="false" target="RFC5245"/>
-    candidates for multiple "m=" sections.
+    candidates each "m=" section within a BUNDLE group.
   </t>
   <t>
     This specification also defines a new SDP attribute, 'bundle-only', which can be used to
-    request that specific media is only used if kept within a BUNDLE group. The specification
-    also updates RFC 3264, to allow usage of zero port values without meaning that media is rejected.
+    request that media described by a specific "m=" section is only used if the "m=" section is kept 
+    within a BUNDLE group. The specification also updates RFC 3264, to allow assigning a zero port value 
+    to a "m=" section without meaning that the media is disabled or rejected.
   </t>
   <t>
     As defined in RFC 4566 <xref format="default" pageno="false" target="RFC4566"/>, the
-    semantics of assigning the same transport address (IP address and port) to multiple
+    semantics of assigning the same address:port combination to multiple
     "m=" sections are undefined, and there is no grouping defined by such means. Instead, an
     explicit grouping mechanism needs to be used to express the intended semantics. This
     specification provides such an extension.
@@ -159,9 +166,9 @@
   <t>
     The BUNDLE extension is backward compatible. Endpoints that do not support the extension
     are expected to generate offers and answers without an SDP 'group:BUNDLE' attribute, and
-    are expected to assign a unique address to each "m=" section within an offer and answer, according
-    to the procedures in <xref format="default" pageno="false" target="RFC4566"/> and
-    <xref format="default" pageno="false" target="RFC3264"/>
+    are expected to assign a unique address:port combination to each "m=" section within an 
+    offer and answer, according to the procedures in <xref format="default" pageno="false" target="RFC4566"/> 
+    and <xref format="default" pageno="false" target="RFC3264"/>.
   </t>
   </section>
 
@@ -204,8 +211,9 @@
       by each "m=" section within the BUNDLE group.
     </t>
     <t>
-      BUNDLE group: A set of "m=" sections, created using an SDP Offer/Answer
-      exchange, which uses the same BUNDLE address for receiving media.
+      BUNDLE group: A collection of "m=" sections, created using an SDP Offer/Answer
+      exchange, which uses the same BUNDLE address for sending and receiving 
+      all media described by the "m=" sections.
     </t>
     <t>
       Bundled "m=" section: An "m=" section, whose identification-tag
@@ -267,17 +275,18 @@
       This section defines a new SDP Grouping Framework extension
       <xref format="default" pageno="false" target="RFC5888"/>, 'BUNDLE'. The
       BUNDLE extension can be used with the SDP Offer/Answer mechanism to negotiate
-      the usage of a single address:port combination (BUNDLE address) for receiving bundled media.
+      the usage of a BUNDLE transport for sending and receiving media described by
+      multiple ("m=" sections).
     </t>
     <t>
-      A single address:port combination is also used for sending bundled media. The address:port
-      combination used for sending bundled media MAY be the same as the BUNDLE address, used to receive
-      bundled media, depending on whether symmetric RTP <xref format="default" pageno="false"
-      target="RFC4961"/> is used.
+      As the same BUNDLE transport is used for both sending and receiving all media
+      associated with a BUNDLE group, for RTP-based media the symmetric RTP mechanism 
+      <xref format="default" pageno="false" target="RFC4961"/> MUST be used.
     </t>
     <t>
-      All media associated with a BUNDLE group MUST be transport using the same
-      transport-layer protocol (e.g., UDP or TCP).
+      As the BUNDLE transport uses the same 5-tuple for sending all media associated with 
+      a BUNDLE group, all media MUST hence use the same transport-layer protocol 
+      (e.g., UDP or TCP).
     </t>
     <t>
       The BUNDLE extension is indicated using an SDP 'group' attribute
@@ -290,7 +299,8 @@
     </t>
     <t>
       SDP bodies can contain multiple BUNDLE groups. Any given bundled "m="
-      section MUST NOT be associated with more than one BUNDLE group.
+      section MUST NOT be associated with more than one BUNDLE group at any given
+      time.
     </t>
     <t>
       NOTE: The order of the "m=" sections listed in the SDP 'group:BUNDLE' attribute
@@ -1006,6 +1016,11 @@ SDP Answer
             pageno="false" target="RFC3550"/>.
           </t>
           <t>
+            Since all media associated with a BUNDLE group is sent and received using
+            the same BUNDLE transport, for RTP-based media the symmetric RTP 
+            <xref format="default" pageno="false" target="RFC4961"/> mechanism 
+            MUST be used.
+          <t>
             The following rules and restrictions apply for a single RTP
             session:
           </t>
@@ -1273,9 +1288,9 @@ SDP Answer
                 processing a compound packet, any contained SDES packet MUST
                 be handled first. Note that this is a backwards change from
                 <xref target="RFC3550" /> Section 6.1, which states that
-                  "Each individual RTCP packet in the compound packet may be
-                  processed independently with no requirements upon the order
-                  or combination of packets".
+                "Each individual RTCP packet in the compound packet may be
+                processed independently with no requirements upon the order
+                or combination of packets".
             </t>
             <t>
                 If the RTCP packet is of type BYE, it indicates that the RTP streams
@@ -1393,12 +1408,11 @@ SDP Answer
           the BUNDLE group.
         </t>
         <t>
-          When RTP/RTCP multiplexing is enabled, the same address:port
-          combination will be used for sending all RTP packets
-          and the RTCP packets associated with the BUNDLE group. Each endpoint
-          will send the packets towards the BUNDLE address of the other
-          endpoint. The same address:port combination MAY be used
-          for receiving RTP packets and RTCP packets.
+          When RTP/RTCP multiplexing is enabled, the BUNDLE transport 
+          associated with a BUNDLE group will be used for sending and receiving 
+          all RTP packets and the RTCP packets associated with the BUNDLE group. 
+          Each endpoint will send the packets from its local BUNDLE address towards 
+          the BUNDLE address of the peer. 
         </t>
         <section title="SDP Offer/Answer Procedures" anchor="sec-rtprtcp-mux-oa" toc="default">
           <t>
