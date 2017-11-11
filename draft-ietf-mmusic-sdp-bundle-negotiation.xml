@@ -296,7 +296,8 @@
     </t>
     <t>
        SDP bodies can contain multiple BUNDLE groups. Any given bundled "m="
-       section MUST NOT be associated with more than one BUNDLE group.
+       section MUST NOT be associated with more than one BUNDLE group at any given
+       time.
     </t>
     <t>
        NOTE: The order of the "m=" sections listed in the SDP 'group:BUNDLE' attribute
