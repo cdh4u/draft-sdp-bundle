@@ -849,6 +849,13 @@ SDP Answer
           also suggest a new offerer BUNDLE address to the other BUNDLE group.
         </t>
         <t>
+          If the offer contains multiple BUNDLE group, the offerer MAY modify the set of identification-tags
+          in each SDP 'group:BUNDLE' attribute. For example, an identification-tag that was previously listed
+          together with a set of identification-tags can be moved to another set of identification-tags.       
+          For a given BUNDLE group, the suggested offerer BUNDLE address is always represented by the offerer 
+          BUNDLE-tag.
+        </t>
+        <t>
           NOTE: Unless the offerer assigns the new suggested offerer BUNDLE address to each
           bundled "m=" section, it can assign unique addresses to any number of bundled "m="
           sections (and the previously selected offerer BUNDLE address to any remaining bundled
