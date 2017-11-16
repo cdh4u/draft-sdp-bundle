@@ -574,7 +574,8 @@ SDP Offer
             <t>
               The answerer MUST NOT include an "m=" section within a BUNDLE group, unless
               the offerer requested the "m=" section to be within that BUNDLE group in the
-              corresponding offer.
+              corresponding offer. Hence, if an offer contains multiple BUNDLE groups, the answerer
+              can only include an "m=" section in the BUNDLE group requested by the offerer.
             </t>
           </list>
         </t>
