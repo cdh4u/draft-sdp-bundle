@@ -512,13 +512,13 @@
         </t>
       <section title="Suggesting the offerer BUNDLE address" anchor="sec-sdp-oa-ino-req" toc="default">
         <t>
-          In the offer, the address assigned with the "m=" section associated with the
-          offerer BUNDLE-tag indicates the address that the offerer suggests as
+          In the offer, the address:port combination assigned to the "m=" section associated with the
+          offerer BUNDLE-tag indicates the address:port combination that the offerer suggests as
           the offerer BUNDLE address.
         </t>
         <t>
-          The "m=" section associated with the offerer BUNDLE-tag MUST NOT contain a zero
-          port value or an SDP 'bundle-only' attribute.
+          The offerer MUST NOT assign a zero port value, or an SDP 'bundle-only' attribute, to the 
+          "m=" section associated with the offerer BUNDLE-tag.
         </t>
       </section>
       <section anchor="sec-sdp-oa-ino-ex" title="Example: Initial SDP Offer">
@@ -576,6 +576,10 @@ SDP Offer
               the offerer requested the "m=" section to be within that BUNDLE group in the
               corresponding offer.
             </t>
+            <t>
+              If the answer contains multiple BUNDLE groups, the answerer MUST NOT move an
+              "m=" section from one BUNDLE group to another.
+            </t>
           </list>
         </t>
         <t>
@@ -603,7 +607,7 @@ SDP Offer
               pageno="false" format="default"/>]; or
             </t>
             <t>
-              Reject the "m=" secction [<xref target="sec-sdp-oa-ans-rej" pageno="false"
+              Reject the "m=" section [<xref target="sec-sdp-oa-ans-rej" pageno="false"
               format="default"/>];
             </t>
           </list>
@@ -703,11 +707,17 @@ SDP Offer
           </list>
         </t>
         <t>
+          An answerer MUST NOT move an "m=" section from one BUNDLE group to another within an answer. If
+          the answerer wants to move an "m=" section from one BUNDLE group to another it MUST first move the
+          BUNDLE group out of the current BUNDLE group, and then generate an offer where the "m=" section is
+          added to another BUNDLE group [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>].
+        </t>
+        <t>
           If either criteria above is fulfilled, the answerer MUST reject the "m=" section
           [<xref target="sec-sdp-oa-ans-rej" pageno="false" format="default"/>].
         </t>
         <t>
-          Otherwise, if a unqiue address has been assigned to the "m=" section in the 
+          Otherwise, if a unique address has been assigned to the "m=" section in the 
           corresponding offer, the answerer MUST assign a unique address to the "m=" section
           in the answer (the answerer does not reject the "m=" section).
         </t>
@@ -721,13 +731,12 @@ SDP Offer
 
       <section title="Rejecting A Media Description In A BUNDLE Group" anchor="sec-sdp-oa-ans-rej" toc="default">
         <t>
-          When an answerer rejects an "m=" section, it MUST assign an address with a zero port
-          value with to "m=" section in the answer, according to the procedures in <xref
-          target="RFC3264" pageno="false" format="default"/>.
+          When an answerer rejects an "m=" section, it MUST assign a zero port value to "m=" section in the answer, 
+          according to the procedures in <xref target="RFC3264" pageno="false" format="default"/>.
         </t>
         <t>
-          In addition, the answerer MUST NOT place the identification-tag, associated with
-          the rejected "m=" section, in the SDP 'group' attribute identification-tag list
+          In addition, the answerer MUST NOT place the identification-tag associated with
+          the rejected "m=" section in the SDP 'group' attribute identification-tag list
           associated with the BUNDLE group.
         </t>
       </section>
@@ -916,6 +925,12 @@ SDP Answer
           another BUNDLE group, the offerer applies the procedures in
           [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>] to
           the "m=" section.
+        </t>
+        <t>
+          An offerer MUST NOT move an "m=" section from one BUNDLE group to another within a single offer. If
+          the offerer wants to move an "m=" section from one BUNDLE group to another it MUST first move the
+          BUNDLE group out of the current BUNDLE group, and then generate a second offer where the "m=" section is
+          added to another BUNDLE group [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>].
         </t>
         <t>
           [<xref target="sec-example-off-mov" pageno="false" format="default"/>]
