@@ -574,7 +574,8 @@ SDP Offer
             <t>
               The answerer MUST NOT include an "m=" section within a BUNDLE group, unless
               the offerer requested the "m=" section to be within that BUNDLE group in the
-              corresponding offer.
+              corresponding offer. Hence, if an offer contains multiple BUNDLE groups, the answerer
+              can only include an "m=" section in the BUNDLE group requested by the offerer.
             </t>
             <t>
               If the answer contains multiple BUNDLE groups, the answerer MUST NOT move an
@@ -684,6 +685,12 @@ SDP Offer
         <t>
           The answerer MUST NOT assign the answerer BUNDLE address to an "m=" section that is
           not within the BUNDLE group, or to an "m=" section that is within another BUNDLE group.
+        </t>
+        <t>
+          The answerer MAY assign an answerer BUNDLE address that has previously been assigned to
+          another BUNDLE group (in case multiple BUNDLE groups are used). However, as a BUNDLE address
+          can only be assigned to one BUNDLE group at any given time, in such case the answerer MUST
+          also assign a new answerer BUNDLE address to the other BUNDLE group.
         </t>
         <t>
           [<xref target="sec-example-add" pageno="false" format="default"/>] shows an example of an
@@ -844,6 +851,19 @@ SDP Answer
           In addition, the offerer MUST indicate that the address is the
           new suggested offerer BUNDLE address [<xref format="default" pageno="false"
           target="sec-sdp-oa-ino-req"/>].
+        </t>
+        <t>
+          The offerer MAY suggest a new offerer BUNDLE address which has previously been
+          selected a the offerer BUNDLE address for another BUNDLE group. However, as a BUNDLE address
+          can only be assigned to one BUNDLE group at any given time, in such case the offerer MUST
+          also suggest a new offerer BUNDLE address to the other BUNDLE group.
+        </t>
+        <t>
+          If the offer contains multiple BUNDLE group, the offerer MAY modify the set of identification-tags
+          in each SDP 'group:BUNDLE' attribute. For example, an identification-tag that was previously listed
+          together with a set of identification-tags can be moved to another set of identification-tags.       
+          For a given BUNDLE group, the suggested offerer BUNDLE address is always represented by the offerer 
+          BUNDLE-tag.
         </t>
         <t>
           NOTE: Unless the offerer assigns the new suggested offerer BUNDLE address to each
