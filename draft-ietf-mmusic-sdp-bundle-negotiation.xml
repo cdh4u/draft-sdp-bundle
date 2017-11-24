@@ -190,10 +190,6 @@
       only one "m=" section in an offer or answer.
     </t>
     <t>
-      Shared address: An address:port combination that is assigned to
-      multiple "m=" sections within an offer or answer.
-    </t>
-    <t>
       Offerer BUNDLE-tag: The first identification-tag in a given
       SDP 'group:BUNDLE' attribute identification-tag list in an offer.
     </t>
@@ -202,14 +198,14 @@
       SDP 'group:BUNDLE' attribute identification-tag list in an answer.
     </t>
     <t>
-      Offerer BUNDLE address: Within a given BUNDLE group, an address:port
-      combination used by an offerer to receive all media described
-      by each "m=" section within the BUNDLE group.
+      BUNDLE address: An address:port combination that an endpoint uses for sending and receiving 
+      bundled media.
     </t>
     <t>
-      Answerer BUNDLE address: Within a given BUNDLE group, an address:port
-      combination used by an answerer to receive all media described
-      by each "m=" section within the BUNDLE group.
+      Offerer BUNDLE address: In an offer, the BUNDLE address of the offerer.      
+    </t>
+    <t>
+      Answerer BUNDLE address: In an answer, the BUNDLE address of the answerer.
     </t>
     <t>
       BUNDLE transport: The transport (5-tuple) used by all media described by the
@@ -218,8 +214,8 @@
     <t>
       BUNDLE group: A set of "m=" sections, created using an SDP Offer/Answer
       exchange, which uses a single BUNDLE transport for sending and receiving all 
-      media described by the set of "m=" sections. The same BUNDLE transport is used
-      for sending and receiving media.      
+      media (bundled media) described by the set of "m=" sections. The same BUNDLE 
+      transport is used for sending and receiving bundled media.      
     </t>
     <t>
       Bundled "m=" section: An "m=" section, whose identification-tag
@@ -231,7 +227,7 @@
       SDP 'bundle-only' attribute.
     </t>
     <t>
-      Bundled media: All media specified by a given BUNDLE group.
+      Bundled media: All media associated with a given BUNDLE group.
     </t>
     <t>
       Initial offer: The first offer, within an SDP session (e.g. a SIP dialog
@@ -344,15 +340,13 @@
       extension, and if the answerer keeps the "m=" section within the associated BUNDLE group.
     </t>
     <t>
-      NOTE: Once the offerer BUNDLE address has been selected, the offerer does
-      not need to include the 'bundle-only' attribute in subsequent offers. By
-      assigning the offerer BUNDLE address to an "m=" section of a subsequent offer,
-      the offerer will ensure that the answerer will either keep the "m=" section within
-      the BUNDLE group, or the answerer will have to reject the "m=" section.
+      Once the offerer and answerer BUNDLE addresses have been selected, an offerer and answerer
+      only assigns the BUNDLE address to one bundled "m=" section. To every other bundled "m=" section
+      the offerer and answerer assigns a zero port value and includes an SDP 'bundle-only' attribute.
     </t>
     <t>
       The usage of the 'bundle-only' attribute is only defined for a bundled "m=" section with
-      a zero port value, within an offer. Other usage is unspecified.
+      a zero port value, within an offer or answer. Other usage is unspecified.
     </t>
     <t>
       <xref target="sec-sdp-oa" pageno="false" format="default"/> defines the detailed SDP
@@ -397,7 +391,7 @@
         pageno="false" target="RFC3264"/> procedures for:
         <list style="symbols">
           <t>
-            Negotiating and creating a BUNDLE group; and
+            Negotiating a BUNDLE group; and
           </t>
           <t>
             Selecting the BUNDLE addresses (offerer BUNDLE address and answerer BUNDLE address); and
@@ -439,40 +433,40 @@
       </t>
         <section anchor="sec-sdp-oa-cat" title="Mux Category Considerations" toc="default">
         <t>
-          When an offerer or answerer includes SDP attributes in a bundled "m=" section
-          (including any bundle-only "m=" section) to which a shared address has been assigned, 
-          IDENTICAL and TRANSPORT mux category SDP attributes <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />
-          are included in the "m=" section only if the "m=" section is also associated with
-          the offerer/answerer BUNDLE-tag. Otherwise the offerer/answerer MUST NOT include
-          such SDP attributes in the "m=" section. The rule above does not apply to a bundled
-          "m=" section to which a unique address has been assigned.
+          When a BUNDLE group is initially negotiated, and a unique address is assigned to
+          each bundled "m=" section (excluding any bundle-only "m=" section) in the initial
+          offer <xref target="sec-sdp-oa-ino" />, IDENTICAL and TRANSPORT mux category 
+          SDP attributes MUST explicitly included in each bundled "m=" section (excluding 
+          any bundle-only "m=" secctions).
         </t>
         <t>
-          NOTE: As bundled "m=" section (including any bundle-only "m=" section) to which a shared
-          address has been assigned will share the same IDENTICAL and TRANSPORT mux category SDP attributes,
-          and attribute values, there is no need to include such SDP attributes in each "m=" section.
-          The attributes and attribute values are implicitly included and applied to each "m=" section.
+          When an offerer or answerer includes SDP attributes in bundled "m=" sections within
+          a BUNDLE group for which the offerer and answerer BUNDLE addresses have been selected, 
+          IDENTICAL and TRANSPORT mux category SDP attributes <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> 
+          are only included in the "m=" section represented by the BUNDLE-tag in the offer or answer.
+          The SDP attribute values are implicitly applied to each bundled "m=" section
+          (including any bundle-only "m=" section). The offerer and answerer MUST NOT include 
+          such SDP attributes in any other bundled "m=" section. 
         </t>
         <t>
           The semantics of some SDP attributes only apply to specific types of media.
           For example, the semantics of the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes
           only apply to "m=" sections describing RTP-based media. However, as described in
           <xref target="sec-sdp-oa-cat" />, there are cases where IDENTICAL and TRANSPORT
-          mux category SDP attributes are only included in the "m=" sections associated with
+          mux category SDP attributes are only included in the "m=" sections represented by
           the BUNDLE-tag. That means that media-specific IDENTICAL and TRANSPORT mux category
           attributes can be included in an "m=" section associated with another type of media.
         </t>
     </section>
     <section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
         <t>
-          When an offerer generates an initial offer, in order to create a
+          When an offerer generates an initial offer, in order to negotiate a
           BUNDLE group, it MUST:
           <list style="symbols">
             <t>
               Assign a unique address to each "m=" section within the offer,
               following the procedures in <xref target="RFC3264" pageno="false"
-              format="default"/>, unless the media line is a 'bundle-only'
-              "m=" section (see below); and
+              format="default"/>, excluding any bundle-only "m=" sections (see below); and
             </t>
             <t>
               Include an SDP 'group:BUNDLE' attribute in the offer; and
@@ -502,7 +496,7 @@
           </list>
         </t>
         <t>
-          NOTE: If the offerer assigns a zero port value to an "m=" section, but does not also include an
+          NOTE: If the offerer assigns a zero port value to an "m=" section, but does not include an
           SDP 'bundle-only' attribute in the "m=" section, it is an indication that the offerer wants
           to disable the "m=" section [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
         </t>
@@ -512,13 +506,13 @@
         </t>
       <section title="Suggesting the offerer BUNDLE address" anchor="sec-sdp-oa-ino-req" toc="default">
         <t>
-          In the offer, the address:port combination assigned to the "m=" section associated with the
-          offerer BUNDLE-tag indicates the address:port combination that the offerer suggests as
-          the offerer BUNDLE address.
+          In the offer, the address:port combination assigned to the "m=" section represented by the
+          offerer BUNDLE-tag indicates offerer BUNDLE address, i.e., the address:port combination that 
+          the offerer suggests for sending and receiving bundled media.
         </t>
         <t>
-          The offerer MUST NOT assign a zero port value, or an SDP 'bundle-only' attribute, to the 
-          "m=" section associated with the offerer BUNDLE-tag.
+          The offerer BUNDLE-tag MUST NOT represent a bundle-only "m=" section. Hence, the offer MUST
+          contain at least one bundle "m=" section with a unique address (and a non-zero port value).
         </t>
       </section>
       <section anchor="sec-sdp-oa-ino-ex" title="Example: Initial SDP Offer">
@@ -569,7 +563,7 @@ SDP Offer
           <list style="symbols">
             <t>
               The answerer MUST NOT include a BUNDLE group in the answer, unless the
-              offerer requested the BUNDLE group to be created in the corresponding offer; and
+              offerer requested the BUNDLE group to be negotiated in the corresponding offer; and
             </t>
             <t>
               The answerer MUST NOT include an "m=" section within a BUNDLE group, unless
@@ -586,17 +580,17 @@ SDP Offer
           If the answer contains a BUNDLE group, the answerer MUST:
           <list style="symbols">
             <t>
-              Select an Offerer BUNDLE Address [<xref target="sec-sdp-oa-ans-off"
+              Select an offerer BUNDLE Address [<xref target="sec-sdp-oa-ans-off"
               pageno="false" format="default"/>]; and
             </t>
             <t>
-              Select an Answerer BUNDLE Address [<xref target="sec-sdp-oa-ans-ans"
+              Select an answerer BUNDLE Address [<xref target="sec-sdp-oa-ans-ans"
               pageno="false" format="default"/>];
             </t>
           </list>
         </t>
         <t>
-          The answerer is allowed to select a new Answerer BUNDLE address each time it
+          The answerer is allowed to select a new answerer BUNDLE address each time it
           generates an answer to an offer.
         </t>
         <t>
@@ -613,18 +607,18 @@ SDP Offer
           </list>
         </t>
         <t>
-          If the answerer keeps a bundle-only "m=" section within the BUNDLE group,
-          it follows the procedures (assigns the answerer BUNDLE address to the "m="
-          section etc) for any other "m=" section kept within the BUNDLE group.
+          When the answerer creates the answer, it selects the offerer BUNDLE address
+          [<xref target="sec-sdp-oa-ans-off" pageno="false" format="default"/>]
+          and the answerer BUNDLE address [<xref target="sec-sdp-oa-ans-ans" pageno="false" 
+          format="default"/>]. The answerer then assigns the answerer BUNDLE address to the
+          bundled "m=" section represented by the answerer BUNDLE-tag. In every other
+          bundled "m=" section the answerer includes an SDP 'bundle-only' attribute and assigns
+          a zero port value to the "m=" section.
         </t>
         <t>
           If the answerer does not want to keep a bundle-only "m=" section within the
           BUNDLE group, it MUST reject the "m=" section [<xref target="sec-sdp-oa-ans-rej"
           pageno="false" format="default"/>].
-        </t>
-        <t>
-          The answerer MUST NOT include an SDP 'bundle-only' attribute in any
-          "m=" section in an answer.
         </t>
         <t>
           NOTE: If a bundled "m=" section in an offer contains a zero port value, but the "m=" section 
@@ -634,9 +628,9 @@ SDP Offer
 
       <section title="Answerer Selection of Offerer Bundle Address" anchor="sec-sdp-oa-ans-off" toc="default">
         <t>
-          In an offer, the address (unique or shared) assigned to the bundled "m=" section
-          associated with the offerer BUNDLE-tag indicates the address that
-          the offerer suggests as the offerer BUNDLE address
+          In an offer, the bundled "m=" section represented by the offerer BUNDLE-tag contains
+          the suggested offerer BUNDLE address, i.e, the address:port combination that the offerer
+          wants to use for sending and receiving bundled media
           [<xref target="sec-sdp-oa-ino-req" pageno="false" format="default"/>]. The answerer
           MUST check whether that "m=" section fulfils the following criteria:
           <list style="symbols">
@@ -654,10 +648,9 @@ SDP Offer
           </list>
         </t>
         <t>
-          If all of the criteria above are fulfilled, the answerer MUST select the address
-          assigned to the "m=" section as the offerer BUNDLE address. In the answer, the
-          answerer BUNDLE-tag represents the "m=" section, and the address assigned to the 
-          "m=" section in the offer becomes the offerer BUNDLE address.
+          If all of the criteria above are fulfilled, the answerer MUST select the suggested
+          offerer BUNDLE address as the offerer BUNDLE address. In the answer, the
+          answerer BUNDLE-tag represents the "m=" section.
         </t>
         <t>
           If one or more of the criteria are not fulfilled, the answerer MUST select the next
@@ -677,12 +670,14 @@ SDP Offer
 
       <section title="Answerer Selection of Answerer BUNDLE Address" anchor="sec-sdp-oa-ans-ans" toc="default">
         <t>
-          When the answerer selects a BUNDLE address for itself, referred to as the answerer
-          BUNDLE address, it MUST assign that address to each bundled "m=" section within the
-          created BUNDLE group in the answer.
+          When the answerer selects a BUNDLE address for itself (answerer BUNDLE address), 
+          the answerer MUST assign the answerer BUNDLE address to the "m=" section
+          represented by the answerer BUNDLE-tag (i.e., the "m=" section in the corresponding
+          offer that contains the selected offerer BUNDLE address). To every other bundled "m=" section 
+          the answerer MUST assign a zero port value and include an SDP 'bundle-only' attribute.
         </t>
         <t>
-          The answerer MUST NOT assign the answerer BUNDLE address to an "m=" section that is
+          The answerer MUST NOT assign an answerer BUNDLE address to an "m=" section that is
           not within the BUNDLE group, or to an "m=" section that is within another BUNDLE group.
         </t>
         <t>
@@ -693,16 +688,39 @@ SDP Offer
 
       <section title="Moving A Media Description Out Of A BUNDLE Group" anchor="sec-sdp-oa-ans-mov" toc="default">
         <t>
-          When an answerer wants to move an "m=" section out of a BUNDLE group,
+          When an answerer wants to move a bundled "m=" section out of a BUNDLE group in an answer,
           it MUST first check the following criteria:
           <list style="symbols">
           <t>
-            In the corresponding offer, a shared address (e.g. a previously selected offerer BUNDLE address)
-            has been assigned to the "m=" section; or
+            In the corresponding offer, an offerer BUNDLE address (previously selected or new suggested)
+            has been assigned to the "m=" section by the offerer; or
           </t>
           <t>
-            In the corresponding offer, the "m=" section contains an SDP 'bundle-only' attribute, and 
-            the "m=" section contains a zero port value.
+            In the corresponding offer, the "m=" section contains an SDP 'bundle-only' attribute and a zero port value.
+          </t> 
+          </list>
+        </t>
+        <t>
+          If either criteria above is fulfilled, the answerer can not not move the "m=" section out of 
+          the BUNDLE group in the answer. The answerer can either reject the whole offer, or keep the 
+          "m=" section within the BUNDLE group in the answer and later create an offer where 
+          the "m=" section is moved out of the BUNDLE group [<xref target="sec-sdp-oa-mod-mov" 
+          pageno="false" format="default"/>]
+        </t>
+        <t>
+          When the answerer generates an answer, in which it removes a bundled "m=" section out
+          of a BUNDLE group, the answerer:
+          <list style="symbols">
+          <t>
+            MUST assign a unique address to the "m=" section; and
+          </t>
+          <t>
+            MUST NOT place the identification-tag associated with the "m=" section in
+            the SDP 'group:BUNDLE' attribute identification-tag list associated with
+            the BUNDLE group; and
+          </t>
+          <t>
+            MUST NOT assign an SDP 'bundle-only' attribute to the "m=" section.
           </t>
           </list>
         </t>
@@ -712,39 +730,53 @@ SDP Offer
           BUNDLE group out of the current BUNDLE group, and then generate an offer where the "m=" section is
           added to another BUNDLE group [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>].
         </t>
-        <t>
-          If either criteria above is fulfilled, the answerer MUST reject the "m=" section
-          [<xref target="sec-sdp-oa-ans-rej" pageno="false" format="default"/>].
-        </t>
-        <t>
-          Otherwise, if a unique address has been assigned to the "m=" section in the 
-          corresponding offer, the answerer MUST assign a unique address to the "m=" section
-          in the answer (the answerer does not reject the "m=" section).
-        </t>
-        <t>
-          In addition, in either case above, the answerer MUST NOT place the
-          identification-tag, associated with the moved "m=" section, in the SDP
-          'group' attribute identification-tag list associated with the BUNDLE
-          group.
-        </t>
       </section>
 
       <section title="Rejecting A Media Description In A BUNDLE Group" anchor="sec-sdp-oa-ans-rej" toc="default">
-        <t>
-          When an answerer rejects an "m=" section, it MUST assign a zero port value to "m=" section in the answer, 
-          according to the procedures in <xref target="RFC3264" pageno="false" format="default"/>.
+       <t>
+          When an answerer wants to reject a bundled "m=" section in an answer, it MUST first check 
+          the following criteria:
+          <list style="symbols">
+          <t>
+            In the corresponding offer, an offerer BUNDLE address (previously selected or new suggested)
+            has been assigned to the "m=" section by the offerer.
+          </t>
+          </list>
         </t>
         <t>
-          In addition, the answerer MUST NOT place the identification-tag associated with
-          the rejected "m=" section in the SDP 'group' attribute identification-tag list
-          associated with the BUNDLE group.
+          If either criteria above is fulfilled, the answerer can not not reject the "m=" section in 
+          the answer. The answerer can either reject the whole offer, or keep the "m=" section within 
+          the BUNDLE group in the answer and later create an offer where the "m=" section is disabled
+          of the BUNDLE group [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>]
+        </t>
+        <t>
+          When an answerer generates an answer, in which it rejects a bundled "m=" section, 
+          the answerer:
+          <list style="symbols">
+          <t>
+            MUST assign a zero port value to the "m=" section, according to the procedures in 
+            <xref target="RFC3264" pageno="false" format="default"/>; and
+          </t>
+          <t>
+            MUST NOT place the identification-tag associated with the "m=" section in
+            the SDP 'group:BUNDLE' attribute identification-tag list associated with
+            the BUNDLE group; and
+          </t>
+          <t>
+            MUST NOT assign an SDP 'bundle-only' attribute to the "m=" section.
+          </t>
+          </list>
         </t>
       </section>
       <section title="Example: SDP Answer">
         <t>
           The example shows an SDP answer, based on the SDP offer in
           [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>].
-          The answers accepts both "m=" sections within the BUNDLE group.
+          The answers accepts both "m=" sections within the BUNDLE group. The
+          answerer assigns the answerer BUNDLE address to the "m=" section
+          represented by the answerer BUNDLE-tag. The answerer assigns a zero
+          port value and an SDP 'bundle-only' attribute to the other bundled
+          "m=" section.
         </t>
         <figure>
         <artwork align="left" alt="" height="" name="" type="" width=""
@@ -764,9 +796,10 @@ SDP Answer
   a=rtcp-mux
   a=rtpmap:0 PCMU/8000
   a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-  m=video 20000 RTP/AVP 32
+  m=video 0 RTP/AVP 32
   b=AS:1000
   a=mid:bar
+  a=bundle-only
   a=rtpmap:32 MPV/90000
   a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -797,21 +830,18 @@ SDP Answer
 
     <section title="Modifying the Session" anchor="sec-sdp-oa-mod" toc="default">
         <t>
-          When an offerer generates a subsequent offer, it MUST assign
-          the previously selected offerer BUNDLE address [<xref format="default"
-          pageno="false" target="sec-sdp-oa-ans-off"/>] to each bundled "m=" section
-          (including any bundle-only "m=" section), except if:
+          When an offerer generates a subsequent offer (i.e., a BUNDLE group has
+          previously been negotiated), it MUST assign the previously selected
+          offer BUNDLE address [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>],
+          or a new suggested offerer BUNDLE address [<xref target="sec-sdp-oa-mod-req" 
+          pageno="false" format="default"/>], to exactly one "m=" section within the BUNDLE group.
+        </t>
+        <t>  
+          The offerer MUST NOT assign an offerer BUNDLE address (previously negotiated or 
+          suggested new) to a bundled "m=" section if:
           <list style="symbols">
             <t>
-              The offerer suggests a new offerer BUNDLE address
-              [<xref target="sec-sdp-oa-mod-req" pageno="false" format="default"/>]; or
-            </t>
-            <t>
-              The offerer wants to add a bundled "m=" section to the BUNDLE group
-              [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>]; or
-            </t>
-            <t>
-              The offerer wants to move a bundled "m=" section out of the BUNDLE group
+              The offerer wants to move the bundled "m=" section out of the BUNDLE group
               [<xref target="sec-sdp-oa-mod-mov" pageno="false" format="default"/>]; or
             </t>
             <t>
@@ -821,10 +851,13 @@ SDP Answer
           </list>
         </t>
         <t>
-          In addition, the offerer MUST select an offerer BUNDLE-tag
-          [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>]
-          associated with the previously selected offerer BUNDLE address, unless
-          the offerer suggests a new offerer BUNDLE address.
+          To every other "m=" section within the BUNDLE group, the offerer MUST assign a 
+          zero port value and an SDP 'bundle-only' attribute.
+        </t>
+        <t>
+          When the offerer generates a subsequent offer, the offerer BUNDLE-tag MUST represent 
+          the bundled "m=" section to which the offerer BUNDLE address (previously negotiated 
+          or new suggested) has been assigned.
         </t>
       <section title="Suggesting a new offerer BUNDLE address" anchor="sec-sdp-oa-mod-req" toc="default">
         <t>
@@ -833,42 +866,29 @@ SDP Answer
           pageno="false" format="default"/>], the offerer MUST:
           <list style="symbols">
             <t>
-              Assign the address (shared address) to each "m=" section within the BUNDLE group; or
+              Assign the new suggested offerer BUNDLE address to exactly one "m=" section 
+              within the BUNDLE group; and
             </t>
             <t>
-              Assign the address (unique address) to one bundled "m=" section.
+              Assign a zero port value and an SDP 'bundle-only' attribute to every
+              other "m=" section within the BUNDLE group.
             </t>
           </list>
-        </t>
-        <t>
-          In addition, the offerer MUST indicate that the address is the
-          new suggested offerer BUNDLE address [<xref format="default" pageno="false"
-          target="sec-sdp-oa-ino-req"/>].
-        </t>
-        <t>
-          NOTE: Unless the offerer assigns the new suggested offerer BUNDLE address to each
-          bundled "m=" section, it can assign unique addresses to any number of bundled "m="
-          sections (and the previously selected offerer BUNDLE address to any remaining bundled
-          "m=" section) if it wants to suggest multiple alternatives for the new offerer
-          BUNDLE address.
         </t>
       </section>
       <section title="Adding a media description to a BUNDLE group" anchor="sec-sdp-oa-mod-add" toc="default">
         <t>
-          When an offerer generates an offer, in which it wants to add a bundled "m=" section
-          to a BUNDLE group, the offerer MUST:
+          When an offerer generates an offer, in which it wants to add a bundled "m=" section, 
+          the offerer MUST:
           <list style="symbols">
           <t>
-            Assign a unique address to the added "m=" section; or
+            Assign the offerer BUNDLE address (previously negotiated or a new suggested) to the 
+            added "m=" section; or
           </t>
           <t>
-            Assign the previously selected offerer BUNDLE address to the added "m=" section; or
-          </t>
-          <t>
-            If the offerer assigns a new (shared address) suggested offerer BUNDLE address to each
-            bundled "m=" section [<xref format="default" pageno="false"
-            target="sec-sdp-oa-mod-req"/>], also assigns that address to the
-            added "m=" section.
+            Assign a zero port value and an SDP 'bundle-only' attribute to the added "m=" section
+            (in this case the offerer BUNDLE address is assigned to another "m=" section
+            within the BUNDLE group).
           </t>
           </list>
         </t>
@@ -878,21 +898,10 @@ SDP Answer
           with the BUNDLE group [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].
         </t>
         <t>
-          NOTE: Assigning a unique address to the "m=" section allows the answerer
-          to move the "m=" section out of the BUNDLE group [<xref format="default" pageno="false"
-          target="sec-sdp-oa-ans-mov"/>], without having to reject the "m=" section.
-        </t>
-        <t>
-          If the offerer assigns a unique address to the added "m=" section, and if the offerer
-          suggests that address as the new offerer BUNDLE address [<xref format="default"
-          pageno="false" target="sec-sdp-oa-mod-req"/>], the offerer BUNDLE-tag MUST represent
-          the added "m=" section [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].
-        </t>
-        <t>
-          If the offerer associates a new suggested offerer BUNDLE address with each bundled "m=" section
-          [<xref format="default" pageno="false" target="sec-sdp-oa-mod-req"/>], including the added
-          "m=" section, the offerer BUNDLE-tag MAY represent the added "m=" section
-          [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].
+          NOTE: If the offerer also wants to suggest a new offerer BUNDLE address to the BUNDLE group, 
+          the offerer can assign the new suggested offerer BUNDLE address either to the added "m=" section, 
+          or to some other "m=" section within the BUNDLE group [<xref format="default" pageno="false"
+          target="sec-sdp-oa-mod-req"/>]. 
         </t>
         <t>
           [<xref target="sec-example-off-add" pageno="false" format="default"/>]
@@ -903,7 +912,7 @@ SDP Answer
       <section title="Moving A Media Description Out Of A BUNDLE Group" anchor="sec-sdp-oa-mod-mov" toc="default">
         <t>
           When an offerer generates an offer, in which it wants to move a bundled "m=" section out
-          of a BUNDLE group it was added to in a previous offer/answer transaction, the offerer:
+          of a BUNDLE group, the offerer:
           <list style="symbols">
           <t>
             MUST assign a unique address to the "m=" section; and
@@ -911,26 +920,19 @@ SDP Answer
           <t>
             MUST NOT place the identification-tag associated with the "m=" section in
             the SDP 'group:BUNDLE' attribute identification-tag list associated with
-            the BUNDLE group.
+            the BUNDLE group; and
+          </t>
+          <t>
+            MUST NOT assign an SDP 'bundle-only' attribute to the "m=" section.
           </t>
           </list>
         </t>
         <t>
-          NOTE: If the removed "m=" section is associated with the previously selected
-          BUNDLE-tag, the offerer needs to suggest a new BUNDLE-tag
-          [<xref format="default" pageno="false" target="sec-sdp-oa-ino-req"/>].
-        </t>
-        <t>
-          NOTE: If an "m=" section, when being moved out of a BUNDLE group, is added to
-          another BUNDLE group, the offerer applies the procedures in
-          [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>] to
-          the "m=" section.
-        </t>
-        <t>
-          An offerer MUST NOT move an "m=" section from one BUNDLE group to another within a single offer. If
-          the offerer wants to move an "m=" section from one BUNDLE group to another it MUST first move the
-          BUNDLE group out of the current BUNDLE group, and then generate a second offer where the "m=" section is
-          added to another BUNDLE group [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>].
+          An offerer MUST NOT move an "m=" section from one BUNDLE group to another within a 
+          single offer. If the offerer wants to move an "m=" section from one BUNDLE group to 
+          another it MUST first move the BUNDLE group out of the current BUNDLE group, and then 
+          generate a second offer where the "m=" section is added to another BUNDLE group 
+          [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>].
         </t>
         <t>
           [<xref target="sec-example-off-mov" pageno="false" format="default"/>]
@@ -939,18 +941,20 @@ SDP Answer
       </section>
          <section title="Disabling A Media Description In A BUNDLE Group" anchor="sec-sdp-oa-mod-dis" toc="default">
         <t>
-          When an offerer generates an offer, in which it wants to disable a bundled "m=" section (added
-          to the BUNDLE group in a previous offer/answer transaction), the offerer:
+          When an offerer generates an offer, in which it wants to disable a bundled "m=" section, 
+          the offerer:
           <list style="symbols">
             <t>
-              MUST assign an address with a zero port value to the "m=" section,
-              following the procedures in <xref target="RFC4566" pageno="false"
-              format="default"/>; and
+              MUST assign a zero port value to the "m=" section, following the procedures 
+              in <xref target="RFC4566" pageno="false" format="default"/>; and
             </t>
             <t>
               MUST NOT place the identification-tag associated with the "m=" section in
               the SDP 'group:BUNDLE' attribute identification-tag list associated with
-              the BUNDLE group.
+              the BUNDLE group; and
+            </t>
+            <t>
+              MUST NOT assign an SDP 'bundle-only' attribute to the "m=" section.
             </t>
           </list>
         </t>
@@ -1568,16 +1572,17 @@ SDP Answer
             within the BUNDLE group.
           </t>
           <t>
-            Among bundled "m=" sections (including any bundle-only "m=" section) to which the offerer
-            has assigned a shared address, the offerer only includes ICE-related media-level
-            SDP attributes in the "m=" section associated with the offerer BUNDLE-tag, following
-            the procedures in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
+            In an offer, if the offer assigns a unique address to one or more bundled "m=" sections (excluding any
+            bundle-only "m=" section), the offerer MUST include ICE-related media-level attributes in each of those "m=" sections.
+            If the offerer assigns an offerer BUNDLE address (previously selected or new suggested) to 
+            a bundled "m=" section (the "m=" section represented by the offerer BUNDLE-tag), the offerer only 
+            includes ICE-related media-level SDP attributes in that "m=" section, following the procedures 
+            in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>. 
           </t>
           <t>
-            Among "m=" sections within a BUNDLE group, to which the answerer has assigned a 
-            shared address within, the answerer only includes ICE-related media-level SDP attributes
-            in the "m=" section associated with the answerer BUNDLE-tag, following the procedures in
-            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
+            In an answer, the answerer only includes ICE-related media-level SDP attributes
+            in the bundled "m=" section to which the answerer has assigned the answerer BUNDLE address (the "m=" section
+            represented by the answerer BUNDLE-tag), following the procedures in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
           </t>
         </list>
       </t>
@@ -1592,22 +1597,25 @@ SDP Answer
 
     <section title="SDP Offer/Answer Procedures" anchor="sec-ice-oa" toc="default">
       <t>
-        When an offerer assigns a unique address to a bundled "m=" section (excluding
+        When an offerer assigns a unique address to one or more bundled "m=" sections (excluding
         any bundle-only "m=" section), the offerer MUST include SDP 'candidate' attributes (and
         other applicable ICE-related media-level SDP attributes), containing unique ICE properties
-        (candidates etc), in the "m=" section according to the procedures in <xref target="I-D.ietf-mmusic-ice-sip-sdp" />.
+        (candidates etc), in each of those "m=" sections, follwoing the procedures in 
+        <xref target="I-D.ietf-mmusic-ice-sip-sdp" />.
       </t>
       <t>
-        When an offerer assigns a shared address to a bundled "m=" section, the offerer
-        MUST include SDP 'candidate' attributes (and other applicable ICE-related
-        media-level SDP attributes) in the "m=" section following the procedures in
-        <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
+        When an offerer assigns a BUNDLE address (previously selected or new suggested) to a 
+        bundled "m=" section, (the "m=" section represented by the offerer BUNDLE-tag) the offerer MUST only 
+        include SDP 'candidate' attributes (and other applicable ICE-related media-level SDP attributes) 
+        in that "m=" section, following the procedures in <xref format="default" pageno="false" 
+        target="sec-sdp-oa-cat"/>.
       </t>
       <t>
-        When an answerer assigns a shared address to an "m=" section within a BUNDLE group, the
-        answerer MUST include SDP 'candidate' attributes (and other applicable ICE-related
-        media-level SDP attributes) in the "m=" section following the procedures in
-        <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
+        When an answerer assigns a BUNDLE address to an "m=" section within a BUNDLE group
+        (the "m=" section represented by the answerer BUNDLE-tag), the answerer MUST only include 
+        SDP 'candidate' attributes (and other applicable ICE-related media-level SDP attributes) 
+        in that "m=" section, following the procedures in <xref format="default" pageno="false" 
+        target="sec-sdp-oa-cat"/>.
       </t>
       <t>
         NOTE: As most ICE-related media-level SDP attributes belong to the TRANSPORT mux category
@@ -1622,37 +1630,6 @@ SDP Answer
         <xref target="I-D.ietf-mmusic-ice-sip-sdp" />: 'candidiate', 'remote-candidates', 'ice-mismatch',
         'ice-ufrag', 'ice-pwd', and 'ice-pacing'.
       </t>
-      <section title="Generating the Initial SDP Offer" anchor="sec-ice-oa-ino" toc="default">
-        <t>
-          When an offerer generates an initial offer, the offerer MUST include ICE-related media-level
-          SDP attributes in bundled "m=" sections following the procedures in [<xref format="default" pageno="false"
-          target="sec-ice-oa"/>].
-        </t>
-      </section>
-      <section title="Generating the SDP Answer" anchor="sec-ice-oa-ans" toc="default">
-        <t>
-          When an answerer generates an answer that contains a BUNDLE group,
-          the answer MUST include ICE-related SDP attributes in "m=" sections
-          within the BUNDLE group according to [<xref format="default" pageno="false"
-          target="sec-ice-oa"/>].
-        </t>
-      </section>
-      <section title="Offerer Processing of the SDP Answer" anchor="sec-ice-oa-pra" toc="default">
-        <t>
-          When an offerer receives an answer, if the answerer supports and uses the ICE
-          mechanism and the BUNDLE extension, the offerer MUST apply the ICE properties
-          associated with the offerer BUNDLE address, selected by the
-          answerer [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>],
-          to each bundled "m=" section.
-        </t>
-      </section>
-      <section title="Modifying the Session" anchor="sec-ice-oa-mod" toc="default">
-        <t>
-          When an offerer generates a subsequent offer, it MUST include
-          ICE-related SDP attributes in a bundled "m=" section following the procedures in
-          [<xref format="default" pageno="false" target="sec-ice-oa"/>].
-        </t>
-      </section>
     </section>
     </section>
 
@@ -2101,7 +2078,7 @@ SDP Answer
         <list style="symbols">
           <t>An offer, in which the offerer assigns a unique address to each bundled "m=" section within the BUNDLE group.</t>
           <t>An answer, in which the answerer selects the offerer BUNDLE address, and then selects its own BUNDLE
-          address (the answerer BUNDLE address) and assigns it to each bundled "m=" section within the BUNDLE group.</t>
+          address (the answerer BUNDLE address) and assigns it to the bundled "m=" section represented by the answerer BUNDLE-tag.</t>
         </list>
       </t>
           <figure>
@@ -2147,9 +2124,10 @@ SDP Answer (2)
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 20000 RTP/AVP 32
+    m=video 0 RTP/AVP 32
     b=AS:1000
     a=mid:bar
+    a=bundle-only
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2223,11 +2201,12 @@ SDP Answer (2)
         <list style="symbols">
           <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
           exchange), in which the offerer adds a new "m=" section, represented by the "zen"
-          identification-tag, to a previously negotiated BUNDLE group, associates a unique address
-          with the added "m=" section, and assigns the previously selected offerer BUNDLE address to
-          each of the other bundled "m=" sections within the BUNDLE group.</t>
-          <t>An answer, in which the answerer assigns the answerer BUNDLE address to each
-          bundled "m=" section (including the newly added "m=" section) within the BUNDLE group.</t>
+          identification-tag, to a previously negotiated BUNDLE group, assigns the previously selected offerer BUNDLE address
+          to the added "m=" section, represented by the offerer BUNDLE-tag. To every other bundled "m=" section the offerer
+          assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
+          <t>An answer, in which the answerer assigns the answerer BUNDLE address to the
+          bundled "m=" section represented by the answerer BUNDLE-tag. To every other bundled "m=S section the answerer
+          assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
         </list>
       </t>
           <figure>
@@ -2241,24 +2220,26 @@ SDP Offer (1)
     s=
     c=IN IP4 atlanta.example.com
     t=0 0
-    a=group:BUNDLE foo bar zen
-    m=audio 10000 RTP/AVP 0 8 97
+    a=group:BUNDLE zen foo bar
+    m=audio 0 RTP/AVP 0 8 97
     b=AS:200
     a=mid:foo
+    a=bundle-only
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 10000 RTP/AVP 31 32
+    m=video 0 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 20000 RTP/AVP 66
+    m=video 10000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
+    a=bundle-only
     a=rtcp-mux
     a=rtpmap:66 H261/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2271,16 +2252,18 @@ SDP Answer (2)
     s=
     c=IN IP4 biloxi.example.com
     t=0 0
-    a=group:BUNDLE foo bar zen
-    m=audio 20000 RTP/AVP 0
+    a=group:BUNDLE zen foo bar
+    m=audio 0 RTP/AVP 0
     b=AS:200
     a=mid:foo
+    a=bundle-only
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 20000 RTP/AVP 32
+    m=video 0 RTP/AVP 32
     b=AS:1000
     a=mid:bar
+    a=bundle-only
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 20000 RTP/AVP 66
@@ -2299,10 +2282,13 @@ SDP Answer (2)
         The example below shows:
         <list style="symbols">
           <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
-          transaction), in which the offerer moves a bundled "m=" section out of a BUNDLE group, assigns a unique address to
-          the moved "m=" section, and assigns the offerer BUNDLE address to each other bundled "m=" section within the BUNDLE group.</t>
+          transaction), in which the offerer moves a bundled "m=" section, represented by the "zen"
+          identification-tag, out of a BUNDLE group, assigns a unique address to
+          the moved "m=" section, and assigns the previously selected offerer BUNDLE address to another bundled "m=" section, represented by the offerer BUNDLE-tag.
+          To every other bundled "m=" section the offerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
           <t>An answer, in which the answerer moves the "m=" section out of the BUNDLE group, assigns a unique address to
-          the moved "m=" section, and assigns the answerer BUNDLE address to each of the remaining bundled "m=" sections within the BUNDLE group.</t>
+          the moved "m=" section, and assigns the answerer BUNDLE address to the bundled "m=" section represented by the answerer BUNDLE-tag. To every
+          other bundled "m=" section the answerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
         </list>
       </t>
           <figure>
@@ -2325,9 +2311,10 @@ SDP Offer (1)
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 10000 RTP/AVP 31 32
+    m=video 0 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
+    a=bundle-only
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2352,9 +2339,10 @@ SDP Answer (2)
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 20000 RTP/AVP 32
+    m=video 0 RTP/AVP 32
     b=AS:1000
     a=mid:bar
+    a=bundle-only
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 60000 RTP/AVP 66
@@ -2373,12 +2361,13 @@ SDP Answer (2)
         The example below shows:
         <list style="symbols">
           <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
-          transaction), in which the offerer disables a bundled "m=" section within a BUNDLE group, assigns a zero port number
-          to the disabled "m=" section, and assigns the offerer BUNDLE address to each of the other bundled
-          "m=" sections within the BUNDLE group.</t>
+          transaction), in which the offerer disables a bundled "m=" section represented by the "zen"
+          identification-tag, within a BUNDLE group, assigns a zero port number
+          to the disabled "m=" section, and assigns the offerer BUNDLE address to another bundled "m=" section, represented by the offerer BUNDLE-tag.
+          To every other bundled "m=" section the offerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
           <t>An answer, in which the answerer moves the disabled "m=" sections out of the BUNDLE group, assigns a zero port value
-          to the disabled "m=" section, and assigns the answerer BUNDLE address to each of the remaining bundled "m=" sections within
-          the BUNDLE group.</t>
+          to the disabled "m=" section, and assigns the answerer BUNDLE address to the bundled "m=" section represented by the answerer BUNDLE-tag.
+          To every other bundled "m=" section the answerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
         </list>
       </t>
           <figure>
@@ -2401,9 +2390,10 @@ SDP Offer (1)
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 10000 RTP/AVP 31 32
+    m=video 0 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
+    a=bundle-only
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2426,9 +2416,10 @@ SDP Answer (2)
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
-    m=video 20000 RTP/AVP 32
+    m=video 0 RTP/AVP 32
     b=AS:1000
     a=mid:bar
+    a=bundle-only
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 0 RTP/AVP 66
