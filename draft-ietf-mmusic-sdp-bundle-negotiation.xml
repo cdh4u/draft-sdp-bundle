@@ -1699,6 +1699,7 @@ SDP Answer
       <t>
         <list style="symbols">
           <t>Section 5.1 (Unicast Streams).</t>
+          <t>Section 6 (Generating the Answer).</t>
           <t>Section 8.2 (Removing a Media Stream).</t>
           <t>Section 8.4 (Putting a Unicast Media Stream on Hold).</t>
         </list>
@@ -1738,6 +1739,27 @@ SDP Answer
         Furthermore, existing streams can be terminated by setting the port to
         zero (Section 8). In general, a port number of zero by default indicates
         that the media stream is not wanted.
+      </t>
+    </section>
+    <section anchor="sec-3264-old-6" title="Original text of section 6 (4th paragraph) of RFC 3264" toc="default">
+      <t>
+        An offered stream MAY be rejected in the answer, for any reason. If
+        a stream is rejected, the offerer and answerer MUST NOT generate
+        media (or RTCP packets) for that stream. To reject an offered
+        stream, the port number in the corresponding stream in the answer
+        MUST be set to zero. Any media formats listed are ignored. At least
+        one MUST be present, as specified by SDP.
+      </t>
+    </section>
+    <section anchor="sec-3264-new-6" title="New text replacing section 6 (4th paragraph) of RFC 3264" toc="default">
+      <t>
+        An offered stream MAY be rejected in the answer, for any reason. If
+        a stream is rejected, the offerer and answerer MUST NOT generate
+        media (or RTCP packets) for that stream. A port number of zero in the 
+        answer by default indicates that the offered stream is rejected, but 
+        an extension mechanism might specify different semantics for the usage 
+        of a zero port value. If a stream is rejected, any media formats listed 
+        are ignored. At least one MUST be present, as specified by SDP. 
       </t>
     </section>
     <section anchor="sec-3264-old-8_2" title="Original text of section 8.2 (2nd paragraph) of RFC 3264" toc="default">
