@@ -715,10 +715,11 @@ SDP Offer
         </t>
         <t>
           If either criteria above is fulfilled, the answerer can not move the "m=" section out of 
-          the BUNDLE group in the answer. The answerer can either reject the whole offer, or keep the 
-          "m=" section within the BUNDLE group in the answer and later create an offer where 
+          the BUNDLE group in the answer. The answerer can either reject the whole offer, reject each
+          bundled "m=" section within the BUNDLE group [<xref target="sec-sdp-oa-ans-rej" pageno="false" format="default"/>], 
+          or keep the "m=" section within the BUNDLE group in the answer and later create an offer where 
           the "m=" section is moved out of the BUNDLE group [<xref target="sec-sdp-oa-mod-mov" 
-          pageno="false" format="default"/>]
+          pageno="false" format="default"/>].
         </t>
         <t>
           When the answerer generates an answer, in which it moves a bundled "m=" section out
@@ -758,9 +759,10 @@ SDP Offer
         </t>
         <t>
           If the criteria above is fulfilled, the answerer can not reject the "m=" section in 
-          the answer. The answerer can either reject the whole offer, or keep the "m=" section within 
-          the BUNDLE group in the answer and later create an offer where the "m=" section is disabled
-          within the BUNDLE group [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
+          the answer (unless the answerer rejects each bundled "m=" section within the BUNDLE group). 
+          The answerer can either reject the whole offer, reject each bundled "m=" section within the 
+          BUNDLE group, or keep the "m=" section within the BUNDLE group in the answer and later create
+          an offer where the "m=" section is disabled within the BUNDLE group [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
         </t>
         <t>
           When an answerer generates an answer, in which it rejects a bundled "m=" section, 
