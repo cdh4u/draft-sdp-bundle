@@ -1350,7 +1350,7 @@ SDP Answer
                 as defined in <xref target="RFC4585" />, it will contain a
                 media source SSRC, and this SSRC is used for routing certain
                 subtypes of feedback messages. However, several subtypes of
-                PSFB messages include target SSRC(s) in a section called
+                PSFB and RTPFB messages include target SSRC(s) in a section called
                 Feedback Control Information (FCI). For these messages,
                 the target SSRC(s) are used for routing.
             </t>
@@ -1387,7 +1387,7 @@ SDP Answer
                 If the RTCP packet is a feedback request that includes target SSRC(s),
                 for each target SSRC that is found in the outgoing SSRC table,
                 deliver a copy of the RTCP packet to the "m=" section associated with
-                that SSRC. PSFB types that are handled in this way include:
+                that SSRC. PSFB and RTPFB types that are handled in this way include:
                 <list style="hanging">
                     <t hangText="Full Intra Request (FIR):">
                         <xref target="RFC5104"/> (PT=PSFB, FMT=4).
@@ -1398,6 +1398,9 @@ SDP Answer
                     <t hangText="H.271 Video Back Channel Message (VBCM):">
                         <xref target="RFC5104"/> (PT=PSFB, FMT=7).
                     </t>
+                    <t hangText="Temporary Maximum Media Bit Rate Request (TMMBR):">
+                        <xref target="RFC5104"/> (PT=RTPFB, FMT=3).
+                    </t>
                     <t hangText="Layer Refresh Request (LRR):">
                         <xref target="I-D.ietf-avtext-lrr"/> (PT=PSFB, FMT=TBD).
                     </t>
@@ -1407,11 +1410,16 @@ SDP Answer
                 If the RTCP packet is a feedback notification that includes target SSRC(s),
                 for each target SSRC that is found in the incoming SSRC table,
                 deliver a copy of the RTCP packet to the "m=" section associated with
-                the RTP stream with matching SSRC. PSFB types that are handled in this way include:
+                the RTP stream with matching SSRC. PSFB and RTPFB types that are handled in this way include:
                 <list style="hanging">
                     <t hangText="Temporal-Spatial Trade-off Notification (TSTN):">
                         <xref target="RFC5104"/> (PT=PSFB, FMT=6). This message
                         is a notification in response to a prior TSTR.
+                    </t>
+                    <t hangText="Temporary Maximum Media Bit Rate Notification (TMMBN):">
+                        <xref target="RFC5104"/> (PT=RTPFB, FMT=4). This message is a 
+                        notification in response to a prior TMMBR, but can also be sent 
+                        unsolicited.
                     </t>
                 </list>
             </t>
