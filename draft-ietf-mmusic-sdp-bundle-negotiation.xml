@@ -367,7 +367,7 @@
   <section title="SDP Information Considerations" anchor="sec-sdp-cons" toc="default">
       <t>
         This section describes restrictions associated with the usage of
-        SDP parameters within a BUNDLE group. It also describes describes how to calculate a 
+        SDP parameters within a BUNDLE group. It also describes how to calculate a 
         value for the whole BUNDLE group, when parameter and attribute values have been assigned 
         to each bundled "m=" section.
       </t>
@@ -2091,7 +2091,7 @@ SDP Answer
 
       <t>The security considerations of <xref target="RFC7941">"RTP Header
 	  Extension for the RTP Control Protocol (RTCP) Source Description Items"
-	  </xref> requires that when RTCP is confidentiality protected,and that any SDES
+	  </xref> requires that when RTCP is confidentiality protected, and that any SDES
 	  RTP header extension carrying an SDES item, such as the MID RTP header
       extension, is also protected using commensurate strength algorithms.
       However, assuming the above requirements and recommendations are
