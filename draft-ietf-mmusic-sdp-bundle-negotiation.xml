@@ -80,15 +80,15 @@
         specification defines a new SDP attribute, 'bundle-only',
         which can be used to request that specific media is only
         used if bundled. The specification also updates RFC 3264,
-        to allow assigning a zero port value to a "m= section without
+        to allow assigning a zero port value to a "m=" section without
         meaning that the media described by the "m=" section is disabled
         or rejected.
       </t>
       <t>
         When RTP-based media is used, there are multiple ways to correlate 
         bundled RTP packets with the appropriate "m=" section. This
-        specification defines a new Real-time Transport Protocol
-        (RTP) source description (SDES) item and a new RTP header
+        specification defines a new Real-time Transport Control Protocol
+        (RTCP) source description (SDES) item and a new RTP header
         extension that provides an additional way to do this
         correlation by using them to carry a value that
         associates the RTP/RTCP packets with a specific "m=" section.
@@ -121,7 +121,7 @@
   </t>
   <t>
     Within a BUNDLE group, each endpoint uses a single address:port combination for sending and receiving 
-    bundled media. The address:port combination is referred to as BUNDLE address.
+    bundled media. The address:port combination is referred to as the BUNDLE address.
     In addition to negotiating the BUNDLE group, the offerer and answerer <xref format="default" pageno="false" target="RFC3264"/> 
     use the BUNDLE extension to negotiate the BUNDLE addresses, one for the offerer (offerer BUNDLE
     address) and one for the answerer (answerer BUNDLE address). Once the offerer and the answerer have
@@ -168,7 +168,7 @@
     are expected to generate offers and answers without an SDP 'group:BUNDLE' attribute, and
     are expected to assign a unique address to each "m=" section within an offer and answer, according
     to the procedures in <xref format="default" pageno="false" target="RFC4566"/> and
-    <xref format="default" pageno="false" target="RFC3264"/>
+    <xref format="default" pageno="false" target="RFC3264"/>.
   </t>
   </section>
 
@@ -177,7 +177,7 @@
     <t>
       "m=" section: SDP bodies contain one or more media descriptions, referred to
       as "m=" sections. Each "m=" section is represented by an SDP "m=" line, and zero or more
-      SDP attributes associated with the "m=" line. An local address:port combination is
+      SDP attributes associated with the "m=" line. A local address:port combination is
       assigned to each "m=" section.
     </t>
     <t>
@@ -288,7 +288,7 @@
        target="RFC5888"/> extension, 'BUNDLE'. The BUNDLE extension can be used with the SDP
        Offer/Answer mechanism to negotiate a set of "m=" sections that will become part of a BUNDLE 
        group. Within a BUNDLE group, each "m=" section will use a BUNDLE transport for sending and 
-       receiving bundled media. Each endpoint use a single address:port combination for sending 
+       receiving bundled media. Each endpoint uses a single address:port combination for sending and
        receiving the bundled media.
     </t>
     <t>
@@ -344,19 +344,19 @@
       In order to ensure that an answerer that does not support the BUNDLE extension always
       rejects a bundled "m=" section, the offerer can assign a zero port value to the "m="
       section. According to <xref target="RFC3264" pageno="false" format="default"/> an answerer
-      will reject such "m=" section.
-      By including an SDP 'bundle-only' attribute in such "m=" section, the offerer can
-      request that the answerer accepts the "m=" section if the answerer supports the Bundle
+      will reject such an "m=" section.
+      By including an SDP 'bundle-only' attribute in such an "m=" section, the offerer can
+      request that the answerer accepts the "m=" section if the answerer supports the BUNDLE
       extension, and if the answerer keeps the "m=" section within the associated BUNDLE group.
     </t>
     <t>
       Once the offerer and answerer BUNDLE addresses have been selected, an offerer and answerer
-      only assigns the BUNDLE address to one bundled "m=" section. To every other bundled "m=" section
-      the offerer and answerer assigns a zero port value and includes an SDP 'bundle-only' attribute.
+      only assign the BUNDLE address to one bundled "m=" section. The offerer and answerer assign 
+      a zero port value and includes an SDP 'bundle-only' attribute to every other bundled "m=" section.
     </t>
     <t>
       The usage of the 'bundle-only' attribute is only defined for a bundled "m=" section with
-      a zero port value, within an offer or answer. Other usage is unspecified.
+      a zero port value. Other usage is unspecified.
     </t>
     <t>
       <xref target="sec-sdp-oa" pageno="false" format="default"/> defines the detailed SDP
@@ -367,9 +367,9 @@
   <section title="SDP Information Considerations" anchor="sec-sdp-cons" toc="default">
       <t>
         This section describes restrictions associated with the usage of
-        SDP parameters within a BUNDLE group. It also describes, when parameter
-        and attribute values have been assigned to each bundled "m=" section, how to
-        calculate a value for the whole BUNDLE group.
+        SDP parameters within a BUNDLE group. It also describes how to calculate a 
+        value for the whole BUNDLE group, when parameter and attribute values have been assigned 
+        to each bundled "m=" section.
       </t>
     <section title="Connection Data (c=)" anchor="sec-sdp-cons-c" toc="default">
       <t>
@@ -390,7 +390,7 @@
         <t>
         An offerer and answerer MUST use the rules and restrictions defined
         in <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> for
-        associating the SDP bandwidth (b=) line with bundled "m=" section.
+        associating the SDP bandwidth (b=) line with bundled "m=" sections.
       </t>
     </section>
   </section>
@@ -445,9 +445,9 @@
         <t>
           When a BUNDLE group is initially negotiated, and a unique address is assigned to
           each bundled "m=" section (excluding any bundle-only "m=" section) in the initial
-          offer <xref target="sec-sdp-oa-ino" />, IDENTICAL and TRANSPORT mux category 
-          SDP attributes MUST explicitly included in each bundled "m=" section (excluding 
-          any bundle-only "m=" secctions).
+          offer [<xref target="sec-sdp-oa-ino" />], IDENTICAL and TRANSPORT mux category 
+          SDP attributes MUST explicitly be included in each bundled "m=" section (excluding 
+          any bundle-only "m=" sections).
         </t>
         <t>
           When an offerer or answerer includes SDP attributes in bundled "m=" sections within
@@ -470,7 +470,7 @@
     </section>
     <section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
         <t>
-          When an offerer generates an initial offer, in order to negotiate a
+          When an offerer generates an initial offer, to negotiate a
           BUNDLE group, it MUST:
           <list style="symbols">
             <t>
@@ -511,25 +511,25 @@
           to disable the "m=" section [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
         </t>
         <t>
-          [<xref target="sec-example-add" pageno="false" format="default"/>] shows
+          [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>] and [<xref target="sec-example-add" pageno="false" format="default"/>] show
           an example of an initial offer.
         </t>
-      <section title="Suggesting the offerer BUNDLE address" anchor="sec-sdp-oa-ino-req" toc="default">
+      <section title="Suggesting the Offerer BUNDLE Address" anchor="sec-sdp-oa-ino-req" toc="default">
         <t>
           In the offer, the address:port combination assigned to the "m=" section represented by the
-          offerer BUNDLE-tag indicates offerer BUNDLE address, i.e., the address:port combination that 
+          offerer BUNDLE-tag indicates the offerer BUNDLE address, i.e., the address:port combination that 
           the offerer suggests for sending and receiving bundled media.
         </t>
         <t>
           The offerer BUNDLE-tag MUST NOT represent a bundle-only "m=" section. Hence, the offer MUST
-          contain at least one bundle "m=" section with a unique address (and a non-zero port value).
+          contain at least one bundled "m=" section with a unique address (and a non-zero port value).
         </t>
       </section>
       <section anchor="sec-sdp-oa-ino-ex" title="Example: Initial SDP Offer">
         <t>
           The example shows an initial SDP offer. The offer includes two
-          "m=" section in the SDP, and suggests that both are included in
-          a BUNDLE group. The audio "m=" section is associated with the
+          "m=" sections in the SDP, and suggests that both are included in
+          a BUNDLE group. The audio "m=" section is represented by the
           offerer BUNDLE-tag (placed first in the SDP group:BUNDLE
           attribute identification-id list).
         </t>
@@ -556,6 +556,7 @@ SDP Offer
   m=video 10002 RTP/AVP 31 32
   b=AS:1000
   a=mid:bar
+  a=rtcp-mux
   a=rtpmap:31 H261/90000
   a=rtpmap:32 MPV/90000
   a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -595,7 +596,7 @@ SDP Offer
             </t>
             <t>
               Select an answerer BUNDLE Address [<xref target="sec-sdp-oa-ans-ans"
-              pageno="false" format="default"/>];
+              pageno="false" format="default"/>].
             </t>
           </list>
         </t>
@@ -612,7 +613,7 @@ SDP Offer
             </t>
             <t>
               Reject the "m=" section [<xref target="sec-sdp-oa-ans-rej" pageno="false"
-              format="default"/>];
+              format="default"/>].
             </t>
           </list>
         </t>
@@ -636,7 +637,7 @@ SDP Offer
           to disable the "m=" section [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
         </t>
 
-      <section title="Answerer Selection of Offerer Bundle Address" anchor="sec-sdp-oa-ans-off" toc="default">
+      <section title="Answerer Selection of Offerer BUNDLE Address" anchor="sec-sdp-oa-ans-off" toc="default">
         <t>
           In an offer, the bundled "m=" section represented by the offerer BUNDLE-tag contains
           the suggested offerer BUNDLE address, i.e, the address:port combination that the offerer
@@ -692,7 +693,8 @@ SDP Offer
           not within the BUNDLE group, or to an "m=" section that is within another BUNDLE group.
         </t>
         <t>
-          [<xref target="sec-example-add" pageno="false" format="default"/>] shows an example of an
+          [<xref target="sec-sdp-oa-ans-ex" pageno="false" format="default"/>] and 
+          [<xref target="sec-example-add" pageno="false" format="default"/>] show an example of an
           answerer BUNDLE address selection.
         </t>
       </section>
@@ -712,14 +714,15 @@ SDP Offer
           </list>
         </t>
         <t>
-          If either criteria above is fulfilled, the answerer can not not move the "m=" section out of 
-          the BUNDLE group in the answer. The answerer can either reject the whole offer, or keep the 
-          "m=" section within the BUNDLE group in the answer and later create an offer where 
+          If either criteria above is fulfilled, the answerer can not move the "m=" section out of 
+          the BUNDLE group in the answer. The answerer can either reject the whole offer, reject each
+          bundled "m=" section within the BUNDLE group [<xref target="sec-sdp-oa-ans-rej" pageno="false" format="default"/>], 
+          or keep the "m=" section within the BUNDLE group in the answer and later create an offer where 
           the "m=" section is moved out of the BUNDLE group [<xref target="sec-sdp-oa-mod-mov" 
-          pageno="false" format="default"/>]
+          pageno="false" format="default"/>].
         </t>
         <t>
-          When the answerer generates an answer, in which it removes a bundled "m=" section out
+          When the answerer generates an answer, in which it moves a bundled "m=" section out
           of a BUNDLE group, the answerer:
           <list style="symbols">
           <t>
@@ -738,12 +741,12 @@ SDP Offer
         <t>
           An answerer MUST NOT move an "m=" section from one BUNDLE group to another within an answer. If
           the answerer wants to move an "m=" section from one BUNDLE group to another it MUST first move the
-          BUNDLE group out of the current BUNDLE group, and then generate an offer where the "m=" section is
+          "m=" section out of the current BUNDLE group, and then generate an offer where the "m=" section is
           added to another BUNDLE group [<xref target="sec-sdp-oa-mod-add" pageno="false" format="default"/>].
         </t>
       </section>
 
-      <section title="Rejecting A Media Description In A BUNDLE Group" anchor="sec-sdp-oa-ans-rej" toc="default">
+      <section title="Rejecting a Media Description in a BUNDLE Group" anchor="sec-sdp-oa-ans-rej" toc="default">
        <t>
           When an answerer wants to reject a bundled "m=" section in an answer, it MUST first check 
           the following criteria:
@@ -755,10 +758,11 @@ SDP Offer
           </list>
         </t>
         <t>
-          If either criteria above is fulfilled, the answerer can not not reject the "m=" section in 
-          the answer. The answerer can either reject the whole offer, or keep the "m=" section within 
-          the BUNDLE group in the answer and later create an offer where the "m=" section is disabled
-          of the BUNDLE group [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>]
+          If the criteria above is fulfilled, the answerer can not reject the "m=" section in 
+          the answer (unless the answerer rejects each bundled "m=" section within the BUNDLE group). 
+          The answerer can either reject the whole offer, reject each bundled "m=" section within the 
+          BUNDLE group, or keep the "m=" section within the BUNDLE group in the answer and later create
+          an offer where the "m=" section is disabled within the BUNDLE group [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
         </t>
         <t>
           When an answerer generates an answer, in which it rejects a bundled "m=" section, 
@@ -779,11 +783,11 @@ SDP Offer
           </list>
         </t>
       </section>
-      <section title="Example: SDP Answer">
+      <section title="Example: SDP Answer" anchor="sec-sdp-oa-ans-ex">
         <t>
-          The example shows an SDP answer, based on the SDP offer in
+          The example below shows an SDP answer, based on the SDP offer in
           [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>].
-          The answers accepts both "m=" sections within the BUNDLE group. The
+          The answerer accepts both "m=" sections within the BUNDLE group. The
           answerer assigns the answerer BUNDLE address to the "m=" section
           represented by the answerer BUNDLE-tag. The answerer assigns a zero
           port value and an SDP 'bundle-only' attribute to the other bundled
@@ -871,7 +875,7 @@ SDP Answer
           the bundled "m=" section to which the offerer BUNDLE address (previously negotiated 
           or new suggested) has been assigned.
         </t>
-      <section title="Suggesting a new offerer BUNDLE address" anchor="sec-sdp-oa-mod-req" toc="default">
+      <section title="Suggesting a New Offerer BUNDLE Address" anchor="sec-sdp-oa-mod-req" toc="default">
         <t>
           When an offerer generates an offer, in which it suggests a new
           offerer BUNDLE address [<xref target="sec-sdp-oa-ino-req"
@@ -888,7 +892,7 @@ SDP Answer
           </list>
         </t>
       </section>
-      <section title="Adding a media description to a BUNDLE group" anchor="sec-sdp-oa-mod-add" toc="default">
+      <section title="Adding a Media Description to a BUNDLE group" anchor="sec-sdp-oa-mod-add" toc="default">
         <t>
           When an offerer generates an offer, in which it wants to add a bundled "m=" section, 
           the offerer MUST:
@@ -921,7 +925,7 @@ SDP Answer
           add a bundled "m=" section to a BUNDLE group.
         </t>
       </section>
-      <section title="Moving A Media Description Out Of A BUNDLE Group" anchor="sec-sdp-oa-mod-mov" toc="default">
+      <section title="Moving a Media Description Out of a BUNDLE Group" anchor="sec-sdp-oa-mod-mov" toc="default">
         <t>
           When an offerer generates an offer, in which it wants to move a bundled "m=" section out
           of a BUNDLE group, the offerer:
@@ -951,7 +955,7 @@ SDP Answer
           shows an example of an offer for moving an "m=" section out of a BUNDLE group.
         </t>
       </section>
-         <section title="Disabling A Media Description In A BUNDLE Group" anchor="sec-sdp-oa-mod-dis" toc="default">
+         <section title="Disabling a Media Description in a BUNDLE Group" anchor="sec-sdp-oa-mod-dis" toc="default">
         <t>
           When an offerer generates an offer, in which it wants to disable a bundled "m=" section, 
           the offerer:
@@ -972,7 +976,7 @@ SDP Answer
         </t>
         <t>
           [<xref target="sec-example-off-dis" pageno="false" format="default"/>]
-          shows an example of an offer for disabling an "m=" section within a
+          shows an example of an offer and answer for disabling an "m=" section within a
           BUNDLE group.
         </t>
       </section>
@@ -984,9 +988,8 @@ SDP Answer
       Each "m=" section within a BUNDLE group MUST use the same transport-
       layer protocol. If bundled "m=" sections use different protocols on top
       of the transport-layer protocol, there MUST exist a publicly
-      available specification which describes a mechanism, for this
-      particular protocol combination, how to associate received data
-      with the correct protocol.
+      available specification which describes a mechanism how to associate 
+      received data with the correct protocol for this particular protocol combination.
     </t>
     <t>
       In addition, if received data can be associated with more than
@@ -998,7 +1001,7 @@ SDP Answer
       This document describes a mechanism to identify the
       protocol of received data among the STUN, DTLS and SRTP protocols
       (in any combination), when UDP is used as transport-layer protocol,
-      but does not describe how to identify different protocols transported on
+      but it does not describe how to identify different protocols transported on
       DTLS. While the mechanism is generally applicable to other protocols and
       transport-layer protocols, any such use requires further specification around
       how to multiplex multiple protocols on a given transport-layer protocol,
@@ -1007,9 +1010,9 @@ SDP Answer
     <section anchor="sec-packets-id-sds" title="STUN, DTLS, SRTP" toc="default">
       <t>
         Section 5.1.2 of <xref format="default" pageno="false" target="RFC5764"/> describes a
-        mechanism to identify the protocol of a received packet among the STUN, Datagram
-        Transport Layer Security (DTLS) and SRTP protocols (in any combination).
-        If an offer or answer includes bundled "m=" section that represent these protocols, the offerer
+        mechanism to identify the protocol of a received packet among the STUN, DTLS and 
+        SRTP protocols (in any combination).
+        If an offer or answer includes a bundled "m=" section that represents these protocols, the offerer
         or answerer MUST support the mechanism described in <xref format="default" pageno="false"
         target="RFC5764"/>, and no explicit negotiation is required in order to indicate support
         and usage of the mechanism.
@@ -1020,7 +1023,7 @@ SDP Answer
         multiple protocols are transported on DTLS, there MUST exist a specification describing a
         mechanism for identifying each individual protocol. In addition, if a received DTLS packet
         can be associated with more than one "m=" section, there MUST exist a specification which
-        describes a mechanism for associating the received DTLS packet with the correct "m=" section.
+        describes a mechanism for associating the received DTLS packets with the correct "m=" section.
       </t>
       <t>
         [<xref format="default" pageno="false" target="sec-rtp-pt"/>] describes how to
@@ -1062,7 +1065,7 @@ SDP Answer
               </t>
               <t>
                 The proto value in each bundled RTP-based "m=" section MUST be identical
-                (e.g. RTP/AVPF).
+                (e.g., RTP/AVPF).
               </t>
               <t>
                 The RTP MID header extension MUST be enabled, by including
@@ -1090,7 +1093,7 @@ SDP Answer
           </t>
       <section anchor="sec-rtp-sessions-pt" title="Payload Type (PT) Value Reuse" toc="default">
           <t>
-            Multiple bundled "m=" section might describe RTP based media. As all RTP based
+            Multiple bundled "m=" sections might describe RTP based media. As all RTP based
             media associated with a BUNDLE group belong to the same RTP session, in order
             for a given payload type value to be used inside more than one bundled "m=" section,
             all codecs associated with the payload type number MUST share an identical codec
@@ -1103,11 +1106,7 @@ SDP Answer
       </section>
     </section>
 
-    <section anchor="sec-rtp-pt" title="Associating RTP/RTCP Streams With Correct SDP Media Description" toc="default">
-        <t>
-            NOTE: The text in this section is copied from Appendix B of JSEP. The
-            community has not yet agreed on the text.
-        </t>
+    <section anchor="sec-rtp-pt" title="Associating RTP/RTCP Streams with Correct SDP Media Description" toc="default">
         <t>
             As described in <xref target="RFC3550" />, RTP packets are associated with RTP
             streams <xref target="RFC7656" />. Each RTP stream is identified by an SSRC
@@ -1167,17 +1166,17 @@ SDP Answer
              packets should be routed.
          </t>
          <t>
-             However, some implementations of may not include this identification-tag
+             However, some implementations may not include this identification-tag
              in their RTP and RTCP traffic when using the BUNDLE mechanism,
              and instead use a payload type based mechanism to associate RTP streams with SDP "m=" sections.
              In this situation, each "m=" section MUST use unique payload type values,
              in order for the payload type to be a reliable indicator of the relevant
              "m=" section for the RTP stream.
              Note that when using the payload type to associate RTP streams
-             with "m=" sections an RTP stream, identified by SSRC, will be mapped
+             with "m=" sections an RTP stream, identified by its SSRC, will be mapped
              to an "m=" section when the first packet of that RTP stream is received,
              and the mapping will not be changed even if the payload type used by
-             that RTP stream changes. In other words, the SSRC cannot to "move" to a 
+             that RTP stream changes. In other words, the SSRC cannot "move" to a 
              different "m=" section simply by changing the payload type.
          </t>
          <t>
@@ -1190,7 +1189,7 @@ SDP Answer
          </t>
          <t>
              To prepare to associate RTP streams with the correct
-             "m=" section, the following steps MUST be followed for each BUNDLE group.
+             "m=" section, the following steps MUST be followed for each BUNDLE group:
          </t>
          <t><list>
              <t>
@@ -1213,8 +1212,8 @@ SDP Answer
                  each "m=" section in the BUNDLE group and for each payload type
                  configured for receiving in that "m=" section. If any payload
                  type is configured for receiving in more than one "m=" section
-                 in the BUNDLE group, do not it include it in the table, as it
-                 cannot be used to uniquely identify a "m=" section.
+                 in the BUNDLE group, do not include it in the table, as it
+                 cannot be used to uniquely identify an "m=" section.
              </t>
              <t>
                  Note that for each of these tables, there can only be one
@@ -1231,7 +1230,7 @@ SDP Answer
              When an RTP packet is received, it MUST be delivered to the RTP
              stream corresponding to its SSRC. That RTP stream MUST then be
              associated with the correct "m=" section within a BUNDLE group, for
-             additional processing, according to the following steps.
+             additional processing, according to the following steps:
          </t>
          <t><list>
              <t>
@@ -1267,7 +1266,7 @@ SDP Answer
                  discard the payload.
              </t>
            </list>
-           If the RTP packet contains one of more contributing source (CSRC)
+           If the RTP packet contains one or more contributing source (CSRC)
            identifiers, then each CSRC is looked up in the incoming SSRC table
            and a copy of the RTP packet is associated with the corresponding
            "m=" section for additional processing.
@@ -1275,7 +1274,7 @@ SDP Answer
           <t>
               For each RTCP packet received (including each RTCP packet that
               is part of a compound RTCP packet), the packet is processed as
-              usual by the RTP layer, then is passed to the "m=" sections
+              usual by the RTP layer, then passed to the "m=" sections
               corresponding to the RTP streams it contains information about
               for additional processing.
               This routing is type-dependent, as each kind of RTCP
@@ -1303,7 +1302,7 @@ SDP Answer
                 In addition, for any SDES MID items contained in these chunks,
                 if the MID is found in the table mapping MID to "m=" section,
                 update the incoming SSRC table to include an entry that
-                maps the RTP stream associated with chunk's SSRC to the "m=" section 
+                maps the RTP stream associated with the chunk's SSRC to the "m=" section 
                 associated with that MID, unless the packet is older than the packet 
                 that most recently updated the mapping for this SSRC, as discussed in
                 <xref target="RFC7941"/>, Section 4.2.6.
@@ -1314,7 +1313,7 @@ SDP Answer
                 the SDES packet is handled (e.g., in the case where RTCP for a
                 source is received before any RTP packets). Therefore, when
                 processing a compound packet, any contained SDES packet MUST
-                be handled first. Note that this is a backwards change from
+                be handled first. Note that this is a change from
                 <xref target="RFC3550" /> Section 6.1, which states that
                   "Each individual RTCP packet in the compound packet may be
                   processed independently with no requirements upon the order
@@ -1325,7 +1324,7 @@ SDP Answer
                 referenced in the packet are ending. Therefore, for each SSRC
                 indicated in the packet that is found in the incoming SSRC table,
                 first deliver a copy of the BYE packet to the "m=" section associated
-                with that SSRC, but then remove the entry for that SSRC from the
+                with that SSRC, then remove the entry for that SSRC from the
                 incoming SSRC table after an appropriate delay to
                 account for "straggler packets", as specified in <xref
                 target="RFC3550" />, Section 6.2.1.
@@ -1342,7 +1341,7 @@ SDP Answer
             <t>
                 If the implementation supports RTCP XR and the packet is of
                 type XR, as defined in <xref target="RFC3611" />,
-                for each report block in the report whose "SSRC of source" is
+                for each report block in the report whose "SSRC of source"
                 is found in the outgoing SSRC table, deliver a copy of the
                 XR packet to the "m=" section associated with that SSRC.
                 In addition, if the sender SSRC for the packet is found in the
@@ -1354,7 +1353,7 @@ SDP Answer
                 as defined in <xref target="RFC4585" />, it will contain a
                 media source SSRC, and this SSRC is used for routing certain
                 subtypes of feedback messages. However, several subtypes of
-                PSFB messages include target SSRC(s) in a section called
+                PSFB and RTPFB messages include target SSRC(s) in a section called
                 Feedback Control Information (FCI). For these messages,
                 the target SSRC(s) are used for routing.
             </t>
@@ -1391,7 +1390,7 @@ SDP Answer
                 If the RTCP packet is a feedback request that includes target SSRC(s),
                 for each target SSRC that is found in the outgoing SSRC table,
                 deliver a copy of the RTCP packet to the "m=" section associated with
-                that SSRC. PSFB types that are handled in this way include:
+                that SSRC. PSFB and RTPFB types that are handled in this way include:
                 <list style="hanging">
                     <t hangText="Full Intra Request (FIR):">
                         <xref target="RFC5104"/> (PT=PSFB, FMT=4).
@@ -1402,20 +1401,28 @@ SDP Answer
                     <t hangText="H.271 Video Back Channel Message (VBCM):">
                         <xref target="RFC5104"/> (PT=PSFB, FMT=7).
                     </t>
+                    <t hangText="Temporary Maximum Media Bit Rate Request (TMMBR):">
+                        <xref target="RFC5104"/> (PT=RTPFB, FMT=3).
+                    </t>
                     <t hangText="Layer Refresh Request (LRR):">
                         <xref target="I-D.ietf-avtext-lrr"/> (PT=PSFB, FMT=TBD).
                     </t>
                 </list>
             </t>
             <t>
-                If the RTCP packet is a feedback notification that include target SSRC(s),
+                If the RTCP packet is a feedback notification that includes target SSRC(s),
                 for each target SSRC that is found in the incoming SSRC table,
                 deliver a copy of the RTCP packet to the "m=" section associated with
-                the RTP stream with matching SSRC. PSFB types that are handled in this way include:
+                the RTP stream with matching SSRC. PSFB and RTPFB types that are handled in this way include:
                 <list style="hanging">
                     <t hangText="Temporal-Spatial Trade-off Notification (TSTN):">
                         <xref target="RFC5104"/> (PT=PSFB, FMT=6). This message
                         is a notification in response to a prior TSTR.
+                    </t>
+                    <t hangText="Temporary Maximum Media Bit Rate Notification (TMMBN):">
+                        <xref target="RFC5104"/> (PT=RTPFB, FMT=4). This message is a 
+                        notification in response to a prior TMMBR, but can also be sent 
+                        unsolicited.
                     </t>
                 </list>
             </t>
@@ -1459,7 +1466,7 @@ SDP Answer
             RTP/RTCP multiplexing only applies to RTP-based media. However, as described in
             <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>, within a BUNDLE
             group the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes might be included in
-            a non-RTP-based bundled "m=" section.
+            a non-RTP-based bundled "m=" section (if such "m=" line is represented by a BUNDLE-tag).
           </t>
         <section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
           <t>
@@ -1467,11 +1474,11 @@ SDP Answer
             one or more RTP-based bundled "m=" sections (or, if there is a chance that RTP-based
             "m=" sections will later be added to the BUNDLE group), the offerer MUST
             include an SDP 'rtcp-mux' attribute <xref format="default"
-            pageno="false" target="RFC5761"/> in one or more "m=" sections, following the procedures
-            for IDENTICAL mux category attributes in <xref format="default" pageno="false"
+            pageno="false" target="RFC5761"/> in each bundled "m=" section (excluding any bundle-only "m=" sections),
+            following the procedures for IDENTICAL mux category attributes in <xref format="default" pageno="false"
             target="sec-sdp-oa-cat"/>. In addition, the offerer MAY include an
             SDP 'rtcp-mux-only' attribute <xref format="default" pageno="false"
-            target="I-D.ietf-mmusic-mux-exclusive"/> in the same "m=" section.
+            target="I-D.ietf-mmusic-mux-exclusive"/> in a RTP-based bundled "m=" section.
           </t>
           <t>
             NOTE: Whether the offerer associates the SDP 'rtcp-mux-only' attribute
@@ -1480,10 +1487,10 @@ SDP Answer
             the BUNDLE group in the answer.
           </t>
           <t>
-            NOTE: If the offerer includes an SDP 'rtcp-mux' attribute in one or
-            more bundled "m=" sections, but does not include an SDP 'rtcp-mux-only' attribute,
+            NOTE: If the offerer includes an SDP 'rtcp-mux' attribute in the bundled "m=" sections, 
+            but does not include an SDP 'rtcp-mux-only' attribute,
             the offerer can also include an SDP 'rtcp' attribute <xref format="default"
-            pageno="false" target="RFC3605"/> in one or more RTP-based "m=" sections in order 
+            pageno="false" target="RFC3605"/> in one or more RTP-based bundled "m=" sections in order 
             to provide a fallback port for RTCP, as described in <xref format="default" pageno="false"
             target="RFC5761"/>. However, the fallback port will only be used for RTP-based
             "m=" sections moved out of the BUNDLE group by the answerer.
@@ -1499,20 +1506,21 @@ SDP Answer
             and if a bundled "m=" section in the offer contained an SDP 'rtcp-mux' attribute,
             the answerer MUST enable usage of RTP/RTCP multiplexing, even if there currently
             are no RTP-based "m=" sections within the BUNDLE group. The answerer MUST include
-            an SDP 'rtcp-mux' attribute in "m=" sections within the BUNDLE group in the answer
+            an SDP 'rtcp-mux' attribute in the bundled "m=" section represented by the answerer BUNDLE-tag,
             following the procedures for IDENTICAL mux category attributes in <xref format="default"
             pageno="false" target="sec-sdp-oa-cat"/>. In addition, if the "m=" section in the offer
-            contained an an SDP "rtcp-mux-only" attribute, the answerer MUST include an SDP
-            "rtcp-mux-only" attribute to the "m=" section in the answer.
+            contained an SDP "rtcp-mux-only" attribute, the answerer MUST include an SDP
+            "rtcp-mux-only" attribute in the bundled "m=" section represented by the answerer BUNDLE-tag 
+            in the answer.
           </t>
           <t>
-            If the "m=" section associated with the offerer BUNDLE-tag in the offer contained an
+            If the "m=" section represented by the offerer BUNDLE-tag in the offer contained an
             SDP 'rtcp-mux-only' attribute, and if the answerer moves an RTP-based "m=" section
-            out of the BUNDLE group in the answer <xref format="default" pageno="false"
-            target="sec-sdp-oa-ans-mov"/>, the answerer MUST either include the attribute with
-            in moved "m=" section (and enable RTP/RTCP multiplexing for the media associated with
-            the "m=" section), or reject the "m=" section <xref format="default" pageno="false"
-            target="sec-sdp-oa-ans-rej"/>.
+            out of the BUNDLE group in the answer [<xref format="default" pageno="false"
+            target="sec-sdp-oa-ans-mov"/>], the answerer MUST either include the attribute
+            in the moved "m=" section (and enable RTP/RTCP multiplexing for the media associated with
+            the "m=" section), or reject the "m=" section [<xref format="default" pageno="false"
+            target="sec-sdp-oa-ans-rej"/>].
           </t>
           <t>
             The answerer MUST NOT include an SDP 'rtcp' attribute in any "m=" section
@@ -1522,7 +1530,7 @@ SDP Answer
           </t>
           <t>
             If the usage of RTP/RTCP multiplexing within a BUNDLE group has been
-            negotiated in a previous offer/answer transaction, the answerer MUST
+            negotiated in a previous offer/answer exchange, the answerer MUST
             include an SDP 'rtcp-mux' attribute in the "m=" section associated with
             the answerer BUNDLE-tag in the answer. It is not possible to disable
             RTP/RTCP multiplexing within a BUNDLE group.
@@ -1547,18 +1555,9 @@ SDP Answer
         <section title="Modifying the Session" anchor="sec-rtprtcp-mux-oa-mod" toc="default">
           <t>
             When an offerer generates a subsequent offer, the offerer MUST include
-            an SDP 'rtcp-mux' attribute in a bundled "m=" section, following the procedures
-            for IDENTICAL mux category attributes in <xref format="default" pageno="false"
+            an SDP 'rtcp-mux' attribute in the bundled "m=" section represented by the offerer BUNDLE-tag, 
+            following the procedures for IDENTICAL mux category attributes in <xref format="default" pageno="false"
             target="sec-sdp-oa-cat"/>.
-          </t>
-          <t>
-            If the offerer wants to add a bundled RTP-based "m=" section
-            to the BUNDLE group, it MAY also include an SDP 'rtcp-mux-only' attribute
-            in a bundled "m=" section, following the procedures for IDENTICAL mux category
-            attributes in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
-            This allows the offerer to mandate RTP/RTCP multiplexing for the added "m="
-            section (or the "m=" section to be rejected by the answerer) even if the answerer
-            does not accept the "m=" section within the BUNDLE group.
           </t>
         </section>
       </section>
@@ -1585,7 +1584,7 @@ SDP Answer
           </t>
           <t>
             In an offer, if the offer assigns a unique address to one or more bundled "m=" sections (excluding any
-            bundle-only "m=" section), the offerer MUST include ICE-related media-level attributes in each of those "m=" sections.
+            bundle-only "m=" sections), the offerer MUST include ICE-related media-level attributes in each of those "m=" sections.
             If the offerer assigns an offerer BUNDLE address (previously selected [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>] 
             or new suggested [<xref target="sec-sdp-oa-mod-req" pageno="false" format="default"/>]) to 
             a bundled "m=" section (the "m=" section represented by the offerer BUNDLE-tag), the offerer only 
@@ -1601,11 +1600,12 @@ SDP Answer
       </t>
       <t>
         Initially, before ICE has produced a candidate pair that will be used for media, there might
-        by multiple transports established (if multiple candidate pairs are tested). Once ICE has produced
+        be multiple transports established (if multiple candidate pairs are tested). Once ICE has produced
         a transport that will be used for media, that becomes the BUNDLE transport.
       </t>
       <t>
-        Support and usage of ICE mechanism together with the BUNDLE extension is OPTIONAL.
+        Support and usage of ICE mechanism together with the BUNDLE extension is OPTIONAL, and the procedures in this 
+        section only apply when the ICE mechanism is used.
       </t>
 
     <section title="SDP Offer/Answer Procedures" anchor="sec-ice-oa" toc="default">
@@ -1613,7 +1613,7 @@ SDP Answer
         When an offerer assigns a unique address to one or more bundled "m=" sections (excluding
         any bundle-only "m=" section), the offerer MUST include SDP 'candidate' attributes (and
         other applicable ICE-related media-level SDP attributes), containing unique ICE properties
-        (candidates etc), in each of those "m=" sections, follwoing the procedures in 
+        (candidates etc), in each of those "m=" sections, following the procedures in 
         <xref target="I-D.ietf-mmusic-ice-sip-sdp" />.
       </t>
       <t>
@@ -1640,7 +1640,7 @@ SDP Answer
       </t>
       <t>
         NOTE: The following ICE-related media-level SDP attributes are defined in
-        <xref target="I-D.ietf-mmusic-ice-sip-sdp" />: 'candidiate', 'remote-candidates', 'ice-mismatch',
+        <xref target="I-D.ietf-mmusic-ice-sip-sdp" />: 'candidate', 'remote-candidates', 'ice-mismatch',
         'ice-ufrag', 'ice-pwd', and 'ice-pacing'.
       </t>
     </section>
@@ -1670,7 +1670,7 @@ SDP Answer
           DTLS client and DTLS server; and
         </t>
         <t>
-          Each usage of the DTLS association within the Bundle
+          Each usage of the DTLS association within the BUNDLE
           group MUST use the same mechanism for determining
           whether an offer or answer will trigger the
           establishment of a new DTLS association, or whether
@@ -1682,7 +1682,7 @@ SDP Answer
           it MUST include the 'use_srtp' extension
           <xref format="default" pageno="false" target="RFC5764"/>
           in the DTLS ClientHello message
-          <xref format="default" pageno="false" target="RFC5764"/>,
+          <xref format="default" pageno="false" target="RFC5764"/>.
           The client MUST include the extension even if the usage
           of DTLS-SRTP is not negotiated as part of the
           multimedia session (e.g., SIP session <xref format="default"
@@ -1790,7 +1790,7 @@ SDP Answer
         which specifies semantics for the usage of a non-zero port value, is
         used. If the stream is marked with port zero in the answer, the answer
         MAY omit all attributes present previously, and MAY list
-        just a single media format from amongst those in the offer."
+        just a single media format from amongst those in the offer.
       </t>
     </section>
     <section anchor="sec-3264-old-8_4" title="Original text of section 8.4 (6th paragraph) of RFC 3264" toc="default">
@@ -1845,7 +1845,7 @@ SDP Answer
       </t>
       <t>
         The SDES item and RTP SDES header extension make it possible for a receiver to associate
-        each RTP stream with with a specific "m=" section, with which the receiver has
+        each RTP stream with a specific "m=" section, with which the receiver has
         associated an identification-tag, even if those "m=" sections are part of the same RTP session.
         The RTP SDES header extension also ensures that the media recipient gets the identification-tag
         upon receipt of the first decodable media and is able to associate the media with the
@@ -1859,7 +1859,7 @@ SDP Answer
       </t>
       <t>
         NOTE: This text above defines how identification-tags are carried in SDP Offers
-        and Answers. The usage of other signalling protocols for carrying identification-tags
+        and Answers. The usage of other signaling protocols for carrying identification-tags
         is not prevented, but the usage of such protocols is outside the scope of this document.
       </t>
       <t>
@@ -1880,7 +1880,7 @@ SDP Answer
         the importance of immediate receipt of the identification-tag.
       </t>
       <t>
-        For robustness purpose, endpoints need to be prepared for situations where the
+        For robustness, endpoints need to be prepared for situations where the
         reception of the identification-tag is delayed, and SHOULD NOT terminate sessions
         in such cases, as the identification-tag is likely to arrive soon.
       </t>
@@ -2050,14 +2050,14 @@ SDP Answer
       does not change which information, e.g., RTP streams, flows over
       the network, with the exception of the usage of the MID SDES item as
       discussed below. Primarily it changes which addresses and ports, and
-      thus in which (RTP) sessions that the information is flowing in. This
+      thus in which (RTP) sessions the information is flowing. This
       affects the security contexts being used and can cause previously
       separated information flows to share the same security context. This has very
       little impact on the performance of the security mechanism of the RTP
       sessions. In cases where one would have applied different security
       policies on the different RTP streams being bundled, or where the
       parties having access to the security contexts would have differed
-      between the RTP stream, additional analysis of the implications are
+      between the RTP streams, additional analysis of the implications are
       needed before selecting to apply BUNDLE.</t>
 
       <t>The identification-tag, independent of transport, RTCP SDES packet or
@@ -2074,7 +2074,7 @@ SDP Answer
       stream structure of the endpoint and application was already possible to
       deduce from the RTP streams without the MID SDES header extensions. As
       the identification-tag is also used to route the media stream to the
-      right application functionality it is also important that the value
+      right application functionality it is important that the value
       received is the one intended by the sender, thus integrity and the
       authenticity of the source are important to prevent denial of service on
       the application. Existing SRTP configurations and other security
@@ -2083,7 +2083,7 @@ SDP Answer
 
       <t>When the BUNDLE extension is used, the set of configurations of the
 	  security mechanism used in all the bundled media descriptions will need to
-	  be compatible so that they can simultaneously used in parallel, at least
+	  be compatible so that they can be used simultaneously, at least
 	  per direction or endpoint. When using SRTP this will be the case, at least
 	  for the IETF defined key-management solutions due to their SDP attributes
 	  (a=crypto, a=fingerprint, a=mikey) and their classification in <xref
@@ -2091,11 +2091,11 @@ SDP Answer
 
       <t>The security considerations of <xref target="RFC7941">"RTP Header
 	  Extension for the RTP Control Protocol (RTCP) Source Description Items"
-	  </xref> requires that when RTCP is confidentiality protected that any SDES
+	  </xref> requires that when RTCP is confidentiality protected, and that any SDES
 	  RTP header extension carrying an SDES item, such as the MID RTP header
       extension, is also protected using commensurate strength algorithms.
       However, assuming the above requirements and recommendations are
-      followed there are no known significant security risks with leaving the
+      followed, there are no known significant security risks with leaving the
       MID RTP header extension without confidentiality protection. Thus, the
       requirements in RFC 7941 MAY be ignored for the MID RTP header
       extension. Security mechanisms for RTP/RTCP are discussed in Options for
@@ -2230,7 +2230,7 @@ SDP Answer (2)
       </figure>
     </section>
 
-    <section title="Example: Offerer Adds A Media Description To A BUNDLE Group" anchor="sec-example-off-add" toc="default">
+    <section title="Example: Offerer Adds a Media Description to a BUNDLE Group" anchor="sec-example-off-add" toc="default">
       <t>
         The example below shows:
         <list style="symbols">
@@ -2240,7 +2240,7 @@ SDP Answer (2)
           to the added "m=" section, represented by the offerer BUNDLE-tag. To every other bundled "m=" section the offerer
           assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
           <t>An answer, in which the answerer assigns the answerer BUNDLE address to the
-          bundled "m=" section represented by the answerer BUNDLE-tag. To every other bundled "m=S section the answerer
+          bundled "m=" section represented by the answerer BUNDLE-tag. To every other bundled "m=" section the answerer
           assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
         </list>
       </t>
@@ -2260,7 +2260,6 @@ SDP Offer (1)
     b=AS:200
     a=mid:foo
     a=bundle-only
-    a=rtcp-mux
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
@@ -2268,13 +2267,13 @@ SDP Offer (1)
     m=video 0 RTP/AVP 31 32
     b=AS:1000
     a=mid:bar
+    a=bundle-only
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 10000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
-    a=bundle-only
     a=rtcp-mux
     a=rtpmap:66 H261/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
@@ -2292,7 +2291,6 @@ SDP Answer (2)
     b=AS:200
     a=mid:foo
     a=bundle-only
-    a=rtcp-mux
     a=rtpmap:0 PCMU/8000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
     m=video 0 RTP/AVP 32
@@ -2304,6 +2302,7 @@ SDP Answer (2)
     m=video 20000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
+    a=rtcp-mux
     a=rtpmap:66 H261/90000
     a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
 
@@ -2312,7 +2311,7 @@ SDP Answer (2)
         </figure>
     </section>
 
-    <section title="Example: Offerer Moves A Media Description Out Of A BUNDLE Group" anchor="sec-example-off-mov" toc="default">
+    <section title="Example: Offerer Moves a Media Description Out of a BUNDLE Group" anchor="sec-example-off-mov" toc="default">
       <t>
         The example below shows:
         <list style="symbols">
@@ -2391,7 +2390,7 @@ SDP Answer (2)
         </figure>
     </section>
 
-        <section title="Example: Offerer Disables A Media Description Within A BUNDLE Group" anchor="sec-example-off-dis" toc="default">
+        <section title="Example: Offerer Disables a Media Description Within a BUNDLE Group" anchor="sec-example-off-dis" toc="default">
       <t>
         The example below shows:
         <list style="symbols">
@@ -2470,7 +2469,7 @@ SDP Answer (2)
   <section anchor="sec-acks" title="Acknowledgements" toc="default">
     <t>
       The usage of the SDP grouping extension for negotiating bundled media is
-      based on a similar alternatives proposed by Harald Alvestrand and Cullen
+      based on similar alternatives proposed by Harald Alvestrand and Cullen
       Jennings. The BUNDLE extension described in this document is based on
       the different alternative proposals, and text (e.g., SDP examples)
       have been borrowed (and, in some cases, modified) from those alternative
@@ -2918,7 +2917,7 @@ SDP Answer (2)
         grouping extension:
         <list style="symbols">
           <t>1) Interoperability with existing UAs.</t>
-          <t>2) Interoperability with intermediary B2BUA- and proxy entities.</t>
+          <t>2) Interoperability with intermediary Back to Back User Agent (B2BUA) and proxy entities.</t>
           <t>3) Time to gather, and the number of, ICE candidates.</t>
           <t>4) Different error scenarios, and when they occur.</t>
           <t>5) SDP Offer/Answer impacts, including usage of port number value zero.</t>
@@ -2967,16 +2966,16 @@ SDP Answer
 ]]></artwork>
       </figure>
       <t>
-        RFC 4961 specifies a way of doing symmetric RTP but that is an a later
-        invention to RTP and Bob can not assume that Alice supports RFC 4961. This
+        RFC 4961 specifies a way of doing symmetric RTP but that is a later
+        extension to RTP and Bob can not assume that Alice supports RFC 4961. This
         means that Alice may be sending RTP from a different port than 10000 or
-        10002 - some implementation simply send the RTP from an ephemeral
+        10002 - some implementations simply send the RTP from an ephemeral
         port. When Bob's endpoint receives an RTP packet, the only way that Bob
         knows if it should be passed to the video or audio codec is by looking at
-        the port it was received on. This lead some SDP implementations to use the
+        the port it was received on. This led some SDP implementations to use the
         fact that each "m=" section had a different port number to use that port
         number as an index to find the correct m line in the SDP. As a result, some
-        implementations that do support symmetric RTP and ICE still use a SDP data
+        implementations that do support symmetric RTP and ICE still use an SDP data
         structure where SDP with "m=" sections with the same port such as:
       </t>
       <figure>
@@ -3004,7 +3003,7 @@ SDP Offer
       </t>
     </section>
 
-    <section  title="Usage of port number value zero" toc="default">
+    <section  title="Usage of Port Number Value Zero" toc="default">
       <t>
         In an SDP Offer or SDP Answer, the media specified by an "m=" section can be
         disabled/rejected by setting the port number value to zero. This is different
@@ -3016,9 +3015,9 @@ SDP Offer
         If each "m=" section associated with a BUNDLE group would contain different
         port values, and one of those port values would be used for a BUNDLE address
         associated with the BUNDLE group, problems would occur if an endpoint wants to
-        disable/reject the "m=" sectcion associated with that port, by setting the port
+        disable/reject the "m=" section associated with that port, by setting the port
         value to zero. After that, no "m=" section would contain the port value which
-        is used for the BUNDLE address.  In addition, it is unclear what would happen
+        is used for the BUNDLE address. In addition, it is unclear what would happen
         to the ICE candidates associated with the "m=" section, as they are also used for
         the BUNDLE address.
       </t>
@@ -3053,10 +3052,10 @@ SDP Offer
 ]]></artwork>
         </figure>
         <t>
-      It would be looking for RTCP on port 49172 but would not see any
+      It would be looking for RTCP on port 49171 but would not see any
       because the RTCP would be on port 53020 and after five minutes, it would
       tear down the call. Similarly, a B2BUA that did not understand BUNDLE yet
-      put BUNDLE in it's offer may be looking for media on the wrong port and
+      put BUNDLE in its offer may be looking for media on the wrong port and
       tear down the call. It is worth noting that a B2BUA that generated an
       Offer with capabilities it does not understand is not compliant with the
       specifications.
@@ -3064,7 +3063,7 @@ SDP Offer
 
       <section  title="Traffic Policing" toc="default">
         <t>
-          Sometimes intermediaries do not act as B2BUA, in the sense that
+          Sometimes intermediaries do not act as B2BUAs, in the sense that
           they don't modify SDP bodies, nor do they terminate SIP dialogs.
           Still, however, they may use SDP information (e.g., IP address and
           port) in order to control traffic gating functions, and to set
@@ -3076,7 +3075,7 @@ SDP Offer
       </section>
       <section  title="Bandwidth Allocation" toc="default">
         <t>
-          Sometimes intermediaries do not act as B2BUA, in the sense that
+          Sometimes intermediaries do not act as B2BUAs, in the sense that
           they don't modify SDP bodies, nor do they terminate SIP dialogs.
           Still, however, they may use SDP information (e.g., codecs and
           media types) in order to control bandwidth allocation functions.
@@ -3092,8 +3091,8 @@ SDP Offer
       <t>
         When using ICE, a candidate needs to be gathered for each port. This
         takes approximately 20 ms extra for each extra "m=" section due to the NAT
-        pacing requirements. All of this gather can be overlapped with other
-        things while for exampe a web-page is loading to minimize the impact. If the client
+        pacing requirements. All of this gathering can be overlapped with other
+        things while e.g., a web-page is loading to minimize the impact. If the client
         only wants to generate TURN or STUN ICE candidates for one of the "m="
         lines and then use trickle ICE <xref target="I-D.ietf-ice-trickle"/>
         to get the non host ICE candidates for the rest of the "m=" sections, it MAY do
@@ -3102,7 +3101,7 @@ SDP Offer
       <t>
         Some people have suggested a TURN extension to get a bunch of TURN
         allocations at once. This would only provide a single STUN result so in
-        cases where the other end did not support BUNDLE, may cause more use of
+        cases where the other end did not support BUNDLE, it may cause more use of
         the TURN server but would be quick in the cases where both sides
         supported BUNDLE and would fall back to a successful call in the other
         cases.
