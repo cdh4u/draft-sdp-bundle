@@ -110,7 +110,7 @@
     This specification defines a way to use a single transport (BUNDLE transport) 
     for sending and receiving media (bundled media) described by multiple SDP media descriptions 
     ("m=" sections). The same BUNDLE transport is used for sending and receiving bundled media, which
-    means that the symmetric RTP mechanism <xref format="default" pageno="false" target="RFC4961"/> 
+    means that the symmetric Real-time Transport Protocol (RTP) mechanism <xref format="default" pageno="false" target="RFC4961"/> 
     is always used for RTP-based bundled media.
   </t>
   <t>
