@@ -87,7 +87,7 @@
       <t>
         When Real-time Transport Protocol (RTP)-based media is used, there are multiple ways to correlate 
         bundled RTP packets with the appropriate "m=" section. This
-        specification defines a new Real-time Control Protocol
+        specification defines a new Real-time Transport Control Protocol
         (RTCP) source description (SDES) item and a new RTP header
         extension that provides an additional way to do this
         correlation by using them to carry a value that
