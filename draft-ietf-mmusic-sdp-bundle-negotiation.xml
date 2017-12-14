@@ -85,9 +85,9 @@
         or rejected.
       </t>
       <t>
-        When RTP-based media is used, there are multiple ways to correlate 
+        When Real-time Transport Protocol (RTP)-based media is used, there are multiple ways to correlate 
         bundled RTP packets with the appropriate "m=" section. This
-        specification defines a new Real-time Transport Control Protocol
+        specification defines a new Real-time Control Protocol
         (RTCP) source description (SDES) item and a new RTP header
         extension that provides an additional way to do this
         correlation by using them to carry a value that
@@ -109,7 +109,7 @@
     This specification defines a way to use a single transport (BUNDLE transport) 
     for sending and receiving media (bundled media) described by multiple SDP media descriptions 
     ("m=" sections). The same BUNDLE transport is used for sending and receiving bundled media, which
-    means that the symmetric RTP mechanism <xref format="default" pageno="false" target="RFC4961"/> 
+    means that the symmetric Real-time Transport Protocol (RTP) mechanism <xref format="default" pageno="false" target="RFC4961"/> 
     is always used for RTP-based bundled media.
   </t>
   <t>
@@ -153,7 +153,7 @@
     SDP answer, even if the "m=" section in the associated SDP offer contained a zero port value.
   </t>
   <t>
-    This specification also defines a new Real-time Transport Protocol (RTP) <xref format="default"
+    This specification also defines a new Real-time Transport Control Protocol (RTCP) <xref format="default"
     pageno="false" target="RFC3550"/> source description (SDES) item, 'MID', and a new RTP SDES header
     extension that can be used to associate RTP streams with "m=" sections.
   </t>
