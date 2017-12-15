@@ -312,6 +312,10 @@
        the "m=" sections occur in the SDP.
     </t>
     <t>
+       The mux category [I-D.ietf-mmusic-sdp-mux-attributes] for the 'group:BUNDLE'
+       attribute is 'NORMAL'.
+    </t>
+    <t>
        <xref target="sec-sdp-oa" pageno="false" format="default"/> defines the
        detailed SDP Offer/Answer procedures for the BUNDLE extension.
     </t>
