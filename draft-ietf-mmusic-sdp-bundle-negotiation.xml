@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-46.txt" updates="3264" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-47.txt" updates="3264" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
     Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -2517,6 +2517,11 @@ SDP Answer (2)
 
   <section title="Change Log">
     <t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+    <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-46
+      <list style="symbols">
+        <t>Pre-RFC5378 disclaimer removed put back.</t>
+      </list>
+    </t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-45
       <list style="symbols">
         <t>Mux category for SDP 'group:BUNDLE' attribute added.</t>
