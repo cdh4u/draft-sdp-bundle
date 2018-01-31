@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-47.txt" updates="3264" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-47.txt" updates="3264,7941" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
     Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -166,7 +166,7 @@
   </section>
 
 
-    <section title="Terminology" toc="default">
+    <section anchor="sec-term" title="Terminology" toc="default">
     <t>
       "m=" section: SDP bodies contain one or more media descriptions, referred to
       as "m=" sections. Each "m=" section is represented by an SDP "m=" line, and zero or more
@@ -1177,18 +1177,22 @@ SDP Answer
              packets are to be routed.
          </t>
          <t>
-             However, some implementations may not include this identification-tag
-             in their RTP and RTCP traffic when using the BUNDLE mechanism,
-             and instead use a payload type based mechanism to associate RTP streams with SDP "m=" sections.
-             In this situation, each "m=" section MUST use unique payload type values,
-             in order for the payload type to be a reliable indicator of the relevant
-             "m=" section for the RTP stream.
-             Note that when using the payload type to associate RTP streams
-             with "m=" sections an RTP stream, identified by its SSRC, will be mapped
-             to an "m=" section when the first packet of that RTP stream is received,
-             and the mapping will not be changed even if the payload type used by
-             that RTP stream changes. In other words, the SSRC cannot "move" to a 
-             different "m=" section simply by changing the payload type.
+            However, some legacy implementations may not include this identification-tag
+            in their RTP and RTCP traffic when using the BUNDLE mechanism, and
+            instead use a payload type based mechanism to associate RTP streams
+            with SDP "m=" sections.  In this situation, each "m=" section needs to
+            use unique payload type values, in order for the payload type to be a
+            reliable indicator of the relevant "m=" section for the RTP stream. If an
+            implementation fails to ensure unique payload type values it will be 
+            impossible to associate the RTP stream using that payload type value
+            to a particular "m=" section. 
+            Note that when using the payload type to associate RTP streams with
+            "m=" sections an RTP stream, identified by its SSRC, will be mapped
+            to an "m=" section when the first packet of that RTP stream is
+            received, and the mapping will not be changed even if the payload
+            type used by that RTP stream changes.  In other words, the SSRC
+            cannot "move" to a different "m=" section simply by changing the
+            payload type.
          </t>
          <t>
              Applications can implement RTP stacks in many different
@@ -1315,16 +1319,19 @@ SDP Answer
                 <xref target="RFC7941"/>, Section 4.2.6.
             </t>
             <t>
-                Note that if an SDES packet is received as part of a compound
-                RTCP packet, the SSRC to "m=" section mapping may not exist until
-                the SDES packet is handled (e.g., in the case where RTCP for a
-                source is received before any RTP packets). Therefore, when
-                processing a compound packet, any contained SDES packet MUST
-                be handled first. Note that this is a change from
-                <xref target="RFC3550" /> Section 6.1, which states that
-                  "Each individual RTCP packet in the compound packet may be
-                  processed independently with no requirements upon the order
-                  or combination of packets".
+                Note that if an SDES packet is received as part of a compound RTCP
+                packet, the SSRC to "m=" section mapping might not exist until the
+                SDES packet is handled (e.g., in the case where RTCP for a source
+                is received before any RTP packets). Therefore, it can be beneficial 
+                for an implementation to delay RTCP packet routing, such that it 
+                either prioritizes processing of the SDES item to generate or update 
+                the mapping, or buffers the RTCP information that needs to be 
+                routed until the SDES item(s) has been processed. If the 
+                implementation is unable to follow this recommendation, the 
+                consequence could be that some RTCP information from this 
+                particular RTCP compound packet is not provided to higher layers.
+                The impact from this is likely minor, when this information relates 
+                to a future incoming RTP stream.
             </t>
             <t>
                 If the RTCP packet is of type BYE, it indicates that the RTP streams
@@ -1474,6 +1481,14 @@ SDP Answer
             <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>, within a BUNDLE
             group the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes might be included in
             a non-RTP-based bundled "m=" section (if such "m=" line is indicated by a BUNDLE-tag).
+          </t>
+          <t>
+            NOTE: The offer in which the offerer indicates that it wants to create a BUNDLE group 
+            can be the initial offer of the session, or a subsequent offer within the session. 
+            As defined in <xref format="default" pageno="false" target="sec-term"/>, within the 
+            scope of this document the initial offer always refers to the offer in which the offerer 
+            indicates that it wants to create a BUNDLE group, no matter whether that offer is the 
+            initial offer, or a subsequent offer, within the session.
           </t>
         <section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
           <t>
@@ -1925,8 +1940,8 @@ SDP Answer
           will result in a minimal number of 32-bit words used for the RTP SDES header extension,
           in case no other header extensions are included at the same time. Note, do take into
           account that some single characters when UTF-8 encoded will result in multiple octets.
-          The identification-tag MUST NOT contain any user information, and applications SHALL
-          avoid generating the identification-tag using a pattern that enables application
+          The identification-tag MUST NOT contain any user information, and applications SHALL avoid 
+          generating the identification-tag using a pattern that enables user- or application 
           identification.
         </t>
     </section>
@@ -1971,7 +1986,7 @@ SDP Answer
 
   Extension URI: urn:ietf:params:rtp-hdrext:sdes:mid
   Description:   Media identification
-  Contact:       christer.holmberg@ericsson.com
+  Contact:       IESG (iesg@ietf.org)
   Reference:     RFCXXXX
 
   The SDES item does not reveal privacy information about the users.
@@ -2005,8 +2020,8 @@ SDP Answer
                       in the answer only if kept within a BUNDLE
                       group by the answerer.
   Appropriate values: N/A
-  Contact name:       Christer Holmberg
-  Contact e-mail:     christer.holmberg@ericsson.com
+  Contact name:       IESG
+  Contact e-mail:     iesg@ietf.org
   Reference:          RFCXXXX
   Mux category:       NORMAL
 
@@ -2082,20 +2097,21 @@ SDP Answer
 	  (a=crypto, a=fingerprint, a=mikey) and their classification in <xref
 	  target="I-D.ietf-mmusic-sdp-mux-attributes"/>.</t>
 
-      <t>The security considerations of <xref target="RFC7941">"RTP Header
+      <t>The security considerations of "RTP Header
 	  Extension for the RTP Control Protocol (RTCP) Source Description Items"
-	  </xref> requires that when RTCP is confidentiality protected, and that any SDES
+	  <xref target="RFC7941"/> requires that when RTCP is confidentiality protected, and that any SDES
 	  RTP header extension carrying an SDES item, such as the MID RTP header
       extension, is also protected using commensurate strength algorithms.
       However, assuming the above requirements and recommendations are
       followed, there are no known significant security risks with leaving the
-      MID RTP header extension without confidentiality protection. Thus, the
-      requirements in RFC 7941 MAY be ignored for the MID RTP header
-      extension. Security mechanisms for RTP/RTCP are discussed in Options for
-      Securing RTP Sessions <xref format="default" pageno="false"
-      target="RFC7201"/>, for example SRTP <xref format="default"
-      pageno="false" target="RFC3711"/> can provide the necessary security
-      functions of ensuring the integrity and source authenticity.</t>
+      MID RTP header extension without confidentiality protection. 
+      Therefore, this specification updates RFC 7941 by adding an exception 
+      to that requirement, allowing the requirements in RFC 7941 MAY be ignored 
+      for the MID RTP header extension. Security mechanisms for RTP/RTCP are 
+      discussed in Options for Securing RTP Sessions <xref target="RFC7201"/>, 
+      for example SRTP <xref target="RFC3711"/> can provide the necessary security 
+      functions of ensuring the integrity and source authenticity.
+      </t>
     </section>
 
   <section title="Examples" anchor="sec-example-alt1" toc="default">
