@@ -131,10 +131,12 @@
   <t>
     This specification defines a new SDP attribute, 'bundle-only', which can be used to
     request that specific media is only used if the "m=" section describing the media is kept 
-    within a BUNDLE group. The specification updates RFC 3264 <xref format="default" pageno="false" 
-    target="RFC3264"/>, to allow usage of zero port values without meaning that media is rejected, 
-    and to allow an answerer to assign a non-zero port value to an "m=" section in an SDP answer, 
-    even if the "m=" section in the associated SDP offer contained a zero port value.
+    within a BUNDLE group. 
+  </t>
+  <t>  
+    This specification updates RFC 3264 <xref format="default" pageno="false" 
+    target="RFC3264"/>, to allow assigning a zero port value to a "m=" section without 
+    meaning that the media described by the "m=" section is disabled or rejected.
   </t>
   <t>
     As defined in RFC 4566 <xref format="default" pageno="false" target="RFC4566"/>, the
@@ -1715,14 +1717,14 @@ SDP Answer
 
   <section anchor="sec-3264" title="Update to RFC 3264" toc="default">
       <t>
-        This section replaces the text of the following sections
-        of RFC 3264:
+        This section updates RFC 3264, in order to allow extensions to define the usage of 
+        a zero port value in offers and answers for other purposes than removing or disabling 
+        media streams. The following sections of RFC 3264 are updated:
       </t>
       <t>
         <list style="symbols">
           <t>Section 5.1 (Unicast Streams).</t>
           <t>Section 6 (Generating the Answer).</t>
-          <t>Section 8.2 (Removing a Media Stream).</t>
           <t>Section 8.4 (Putting a Unicast Media Stream on Hold).</t>
         </list>
       </t>
@@ -1782,24 +1784,6 @@ SDP Answer
         an extension mechanism might specify different semantics for the usage 
         of a zero port value. If a stream is rejected, any media formats listed 
         are ignored. At least one MUST be present, as specified by SDP. 
-      </t>
-    </section>
-    <section anchor="sec-3264-old-8_2" title="Original text of section 8.2 (2nd paragraph) of RFC 3264" toc="default">
-      <t>
-        A stream that is offered with a port of zero MUST be marked with port
-        zero in the answer. Like the offer, the answer MAY omit all
-        attributes present previously, and MAY list just a single media
-        format from amongst those in the offer.
-      </t>
-    </section>
-    <section anchor="sec-3264-new-8_2" title="New text replacing section 8.2 (2nd paragraph) of RFC 3264" toc="default">
-      <t>
-        A stream that is offered with a port of zero MUST by default be
-        marked with port zero in the answer, unless an extension mechanism,
-        which specifies semantics for the usage of a non-zero port value, is
-        used. If the stream is marked with port zero in the answer, the answer
-        MAY omit all attributes present previously, and MAY list
-        just a single media format from amongst those in the offer.
       </t>
     </section>
     <section anchor="sec-3264-old-8_4" title="Original text of section 8.4 (6th paragraph) of RFC 3264" toc="default">
