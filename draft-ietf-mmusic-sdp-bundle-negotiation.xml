@@ -174,7 +174,7 @@
   </section>
 
 
-    <section title="Terminology" toc="default">
+    <section anchor="sec-term" title="Terminology" toc="default">
     <t>
       "m=" section: SDP bodies contain one or more media descriptions, referred to
       as "m=" sections. Each "m=" section is represented by an SDP "m=" line, and zero or more
@@ -1483,6 +1483,14 @@ SDP Answer
             group the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes might be included in
             a non-RTP-based bundled "m=" section (if such "m=" line is represented by a BUNDLE-tag).
           </t>
+          <t>
+            NOTE: The offer in which the offerer indicates that it wants to create a BUNDLE group 
+            can be the initial offer of the session, or a subsequent offer within the session. 
+            As defined in <xref format="default" pageno="false" target="sec-term"/>, within the 
+            scope of this document the initial offer always refers to the offer in which the offerer 
+            indicates that it wants to create a BUNDLE group, no matter whether that offer is the 
+            initial offer, or a subsequent offer, within the session.
+          </t>
         <section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
           <t>
             When an offerer generates an initial offer, if the offer contains
@@ -1947,8 +1955,8 @@ SDP Answer
           will result in a minimal number of 32-bit words used for the RTP SDES header extension,
           in case no other header extensions are included at the same time. Note, do take into
           account that some single characters when UTF-8 encoded will result in multiple octets.
-          The identification-tag MUST NOT contain any user information, and applications SHALL
-          avoid generating the identification-tag using a pattern that enables application
+          The identification-tag MUST NOT contain any user information, and applications SHALL avoid 
+          generating the identification-tag using a pattern that enables user- or application 
           identification.
         </t>
     </section>
@@ -1993,7 +2001,7 @@ SDP Answer
 
   Extension URI: urn:ietf:params:rtp-hdrext:sdes:mid
   Description:   Media identification
-  Contact:       christer.holmberg@ericsson.com
+  Contact:       IESG (iesg@ietf.org)
   Reference:     RFCXXXX
 
   The SDES item does not reveal privacy information about the users.
@@ -2027,8 +2035,8 @@ SDP Answer
                       in the answer only if kept within a BUNDLE
                       group by the answerer.
   Appropriate values: N/A
-  Contact name:       Christer Holmberg
-  Contact e-mail:     christer.holmberg@ericsson.com
+  Contact name:       IESG
+  Contact e-mail:     iesg@ietf.org
   Reference:          RFCXXXX
   Mux category:       NORMAL
 
