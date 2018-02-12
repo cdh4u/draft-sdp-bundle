@@ -83,7 +83,7 @@
       <t>
         This specification defines a new RTP Control Protocol
         (RTCP) source description (SDES) item and a new RTP header
-        extension that van be used to correlate bundled RTP/RTCP packets 
+        extension that can be used to correlate bundled RTP/RTCP packets 
         with their appropriate "m=" section.
       </t>
     </abstract>
@@ -159,7 +159,7 @@
   <t>
     The BUNDLE extension is backward compatible. Endpoints that do not support the extension
     are expected to generate offers and answers without an SDP 'group:BUNDLE' attribute, and
-    are expected to assign a unique address to each "m=" section within an offer and answer, according
+    are expected to assign a unique address:port to each "m=" section within an offer and answer, according
     to the procedures in <xref format="default" pageno="false" target="RFC4566"/> and
     <xref format="default" pageno="false" target="RFC3264"/>.
   </t>
@@ -181,7 +181,7 @@
       protocol.
     </t>
     <t>
-      Unique address: An address:port combination that is assigned to
+      Unique address:port: An address:port combination that is assigned to
       only one "m=" section in an offer or answer.
     </t>
     <t>
@@ -444,7 +444,7 @@
       </t>
         <section anchor="sec-sdp-oa-cat" title="Multiplex Category Considerations" toc="default">
         <t>
-          When a BUNDLE group is initially negotiated, and a unique address is assigned to
+          When a BUNDLE group is initially negotiated, and a unique address:port is assigned to
           each bundled "m=" section (excluding any bundle-only "m=" section) in the initial
           offer [<xref target="sec-sdp-oa-ino" />], any IDENTICAL and TRANSPORT mux category 
           SDP attributes included in the BUNDLE group MUST explicitly be included in each 
@@ -475,7 +475,7 @@
           BUNDLE group, it MUST:
           <list style="symbols">
             <t>
-              Assign a unique address to each "m=" section within the offer,
+              Assign a unique address:port to each "m=" section within the offer,
               following the procedures in <xref target="RFC3264" pageno="false"
               format="default"/>, excluding any bundle-only "m=" sections (see below); and
             </t>
@@ -487,7 +487,7 @@
               SDP 'group:BUNDLE' attribute identification-tag list; and
             </t>
             <t>
-              Indicate which unique address the offerer suggests as the
+              Indicate which unique address:port the offerer suggests as the
               offerer BUNDLE address:port [<xref target="sec-sdp-oa-ino-req" pageno="false"
               format="default"/>].
             </t>
@@ -512,8 +512,8 @@
           to disable the "m=" section [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
         </t>
         <t>
-          NOTE: If the offerer assigns unique addresses to multiple bundled "m=" sections, the offerer needs to be prepared
-          to receive bundled media on each unique address, until it receives the associated answer and finds out which
+          NOTE: If the offerer assigns unique addresses:ports to multiple bundled "m=" sections, the offerer needs to be prepared
+          to receive bundled media on each unique address:port, until it receives the associated answer and finds out which
           address:port combination has been selected as the offerer BUNDLE-address.
         </t>
         <t>
@@ -528,7 +528,7 @@
         </t>
         <t>
           The offerer BUNDLE-tag MUST NOT represent a bundle-only "m=" section. Hence, the offer MUST
-          contain at least one bundled "m=" section with a unique address (and a non-zero port value).
+          contain at least one bundled "m=" section with a unique address:port (and a non-zero port value).
         </t>
         <t>
           It is RECOMMENDED that the offerer assigns the suggested offerer BUNDLE address:port to a bundled "m=" section that the offerer assumes
@@ -737,7 +737,7 @@ SDP Offer
           of a BUNDLE group, the answerer:
           <list style="symbols">
           <t>
-            MUST assign a unique address to the "m=" section; and
+            MUST assign a unique address:port to the "m=" section; and
           </t>
           <t>
             MUST NOT place the identification-tag associated with the "m=" section in
@@ -942,7 +942,7 @@ SDP Answer
           of a BUNDLE group, the offerer:
           <list style="symbols">
           <t>
-            MUST assign a unique address to the "m=" section; and
+            MUST assign a unique address:port to the "m=" section; and
           </t>
           <t>
             MUST NOT place the identification-tag associated with the "m=" section in
@@ -1605,7 +1605,7 @@ SDP Answer
             within the BUNDLE group.
           </t>
           <t>
-            In an offer, if the offer assigns a unique address to one or more bundled "m=" sections (excluding any
+            In an offer, if the offer assigns a unique address:port to one or more bundled "m=" sections (excluding any
             bundle-only "m=" sections), the offerer MUST include ICE-related media-level attributes in each of those "m=" sections.
             If the offerer assigns an offerer BUNDLE address:port (previously selected [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>] 
             or newly suggested [<xref target="sec-sdp-oa-mod-req" pageno="false" format="default"/>]) to 
@@ -1634,7 +1634,7 @@ SDP Answer
 
     <section title="SDP Offer/Answer Procedures" anchor="sec-ice-oa" toc="default">
       <t>
-        When an offerer assigns a unique address to one or more bundled "m=" sections (excluding
+        When an offerer assigns a unique address:port to one or more bundled "m=" sections (excluding
         any bundle-only "m=" section), the offerer MUST include SDP 'candidate' attributes (and
         other applicable ICE-related media-level SDP attributes), containing unique ICE properties
         (candidates etc), in each of those "m=" sections, following the procedures in 
@@ -2119,7 +2119,7 @@ SDP Answer
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An offer, in which the offerer assigns a unique address to each bundled "m=" section within the BUNDLE group.</t>
+          <t>An offer, in which the offerer assigns a unique address:port to each bundled "m=" section within the BUNDLE group.</t>
           <t>An answer, in which the answerer selects the offerer BUNDLE address:port, and then selects its own BUNDLE
           address (the answerer BUNDLE address:port) and assigns it to the bundled "m=" section indicated by the answerer BUNDLE-tag.</t>
         </list>
@@ -2183,8 +2183,8 @@ SDP Answer (2)
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An offer, in which the offerer assigns a unique address to each bundled "m=" section within the BUNDLE group.</t>
-          <t>An answer, in which the answerer rejects the offered BUNDLE group, and assigns a unique address
+          <t>An offer, in which the offerer assigns a unique address:port to each bundled "m=" section within the BUNDLE group.</t>
+          <t>An answer, in which the answerer rejects the offered BUNDLE group, and assigns a unique address:port
           to each "m=" section (following normal RFC 3264 procedures).</t>
         </list>
       </t>
@@ -2325,10 +2325,10 @@ SDP Answer (2)
         <list style="symbols">
           <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
           transaction), in which the offerer moves a bundled "m=" section, indicated by the "zen"
-          identification-tag, out of a BUNDLE group, assigns a unique address to
+          identification-tag, out of a BUNDLE group, assigns a unique address:port to
           the moved "m=" section, and assigns the previously selected offerer BUNDLE address:port to another bundled "m=" section, indicated by the offerer BUNDLE-tag.
           To every other bundled "m=" section the offerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
-          <t>An answer, in which the answerer moves the "m=" section out of the BUNDLE group, assigns a unique address to
+          <t>An answer, in which the answerer moves the "m=" section out of the BUNDLE group, assigns a unique address:port to
           the moved "m=" section, and assigns the answerer BUNDLE address:port to the bundled "m=" section indicated by the answerer BUNDLE-tag. To every
           other bundled "m=" section the answerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
         </list>
@@ -2505,6 +2505,12 @@ SDP Answer (2)
       help and text on the RTP/RTCP procedures.
     </t>
     <t>
+       Thanks to Charlie Kaufman for performing the Sec-Dir review.
+    </t>
+    <t>
+       Thanks to Linda Dunbar for performing the Gen-ART review.
+    </t>
+    <t>
       Thanks to Spotify for providing music for the countless hours of
       document editing.
     </t>
@@ -2512,6 +2518,13 @@ SDP Answer (2)
 
   <section title="Change Log">
     <t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+    <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-48
+      <list style="symbols">
+        <t>Changes based on Sec-Dir review by Charlie Kaufman.</t>
+        <t>- s/unique address/unique address:port</t>
+        <t>Changes based on Gen-ART review by Linda Dunbar.</t>
+      </list>
+    </t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-47
       <list style="symbols">
         <t>Changes based on AD review by Ben Campbell.</t>
