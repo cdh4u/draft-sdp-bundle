@@ -2042,9 +2042,12 @@ SDP Answer
       <figure>
         <artwork align="left"><![CDATA[
 
-    Semantics                              Token   Reference
-    -------------------------------------  ------  ---------
-    Media bundling                         BUNDLE  [RFCXXXX]
+  Semantics                              Token   Reference
+  -------------------------------------  ------  ---------
+  Media bundling                         BUNDLE  [RFCXXXX]
+
+  
+  Mux category:       NORMAL
 
         ]]></artwork>
       </figure>
