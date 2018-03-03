@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-48.txt" updates="3264,7941" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-49.txt" updates="3264,7941" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
     Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -2526,6 +2526,7 @@ SDP Answer (2)
         <t>Changes based on Sec-Dir review by Charlie Kaufman.</t>
         <t>- s/unique address/unique address:port</t>
         <t>Changes based on Gen-ART review by Linda Dunbar.</t>
+        <t>Mux category for group:BUNDLE attribute added.</t>
       </list>
     </t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-47
@@ -2939,8 +2940,8 @@ SDP Answer (2)
     <?rfc include="reference.RFC.6347"?>
     <?rfc include="reference.RFC.7941"?>
     <?rfc include="reference.RFC.8285"?>
-    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-16"?>
-    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-16"?>
+    <?rfc include="reference.I-D.draft-ietf-ice-rfc5245bis-18"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-17"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-12"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-16"?>
     </references>
@@ -2954,7 +2955,7 @@ SDP Answer (2)
     <?rfc include="reference.RFC.7160"?>
     <?rfc include="reference.RFC.7201"?>
     <?rfc include="reference.RFC.7656"?>
-    <?rfc include="reference.I-D.draft-ietf-ice-trickle-15"?>
+    <?rfc include="reference.I-D.draft-ietf-ice-trickle-17"?>
     <?rfc include="reference.I-D.draft-ietf-avtext-lrr-07"?>
     </references>
 
