@@ -1672,6 +1672,13 @@ SDP Answer
         SDP attributes in any other "m=" sections.
       </t>
       <t>
+        NOTE: If the trickle ICE mechanism <xref target="I-D.ietf-mmusic-trickle-ice-sip" />
+        is used, an offerer and answerer might assign a port value of '9', and an IPv4 
+        address of '0.0.0.0' (or, the IPv6 equivalent '::') to multiple "m=" sections. As far
+        as the procedures in this specification are concerned, before a BUNDLE group has been
+        negotiated, those addresses:ports are processed as unique addresses:ports.
+      </t>
+      <t>
         NOTE: As most ICE-related media-level SDP attributes belong to the TRANSPORT mux category
         <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />, the offerer and answerer follow the
         procedures in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/> when
@@ -2966,6 +2973,7 @@ SDP Answer (2)
     <?rfc include="reference.I-D.draft-ietf-mmusic-sdp-mux-attributes-17"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-mux-exclusive-12"?>
     <?rfc include="reference.I-D.draft-ietf-mmusic-ice-sip-sdp-16"?>
+    <?rfc include="reference.I-D.draft-ietf-mmusic-trickle-ice-sip-14"?>
     </references>
 
     <references title="Informative References">
