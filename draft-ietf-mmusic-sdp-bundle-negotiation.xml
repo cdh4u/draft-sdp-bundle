@@ -503,7 +503,7 @@
               format="default"/>, excluding any bundle-only "m=" sections (see below); and
             </t>
             <t>
-              Pick a bundleed "m=" section as the offerer suggested tagged "m=" section [<xref target="sec-sdp-oa-ino-req" 
+              Pick a bundled "m=" section as the offerer suggested tagged "m=" section [<xref target="sec-sdp-oa-ino-req" 
               pageno="false" format="default"/>]; and
             </t>
             <t>
@@ -1656,29 +1656,36 @@ SDP Answer
         <list style="symbols">
           <t>
             When the BUNDLE transport has been established, ICE connectivity checks and keep-alives 
-            only need to be performed for the BUNDLE transport, instead of per individual "m=" section 
+            only need to be performed for the BUNDLE transport, instead of per individual bundled "m=" section 
             within the BUNDLE group.
           </t>
           <t>
-            In an offer, if the offer assigns a unique address:port to one or more bundled "m=" sections (excluding any
-            bundle-only "m=" sections), the offerer MUST include ICE-related media-level attributes in each of those "m=" sections.
-            If the offerer assigns an offerer BUNDLE address:port (previously selected [<xref format="default" pageno="false" target="sec-sdp-oa-ans-off"/>] 
-            or newly suggested to 
-            a bundled "m=" section (the "m=" section indicated by the offerer BUNDLE-tag), the offerer only 
-            includes ICE-related media-level SDP attributes in that "m=" section, following the procedures 
-            in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>. 
-          </t>
-          <t>
-            In an answer, the answerer only includes ICE-related media-level SDP attributes
-            in the bundled "m=" section to which the answerer has assigned the answerer BUNDLE address:port (the "m=" section
-            indicated by the answerer BUNDLE-tag), following the procedures in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
+            The generic SDP attribute offer/answer considerations [<xref format="default" pageno="false" target="sec-sdp-oa-cat"/>] also apply to ICE-related 
+            attributes. Therefore, when an offer sends an initial offer (in order to negotiate a BUNDLE group) the offerer
+            include ICE-related media-level attributes in each bundled "m=" section (excluding any bundle-only "m=" section),
+            and each "m=" section MUST contain unique ICE properties. When an answerer generates an answer (initial or subsequent) 
+            that contains a BUNDLE group, and when an offerer sends a subsequent offer that contains a BUNDLE group, ICE-related media-level 
+            attributes are only included in the tagged "m=" section (suggested offerer tagged "m=" section or answerer tagged "m=" section), and
+            the ICE properties are applied to each bundled "m=" section within the BUNDLE group.
           </t>
         </list>
       </t>
       <t>
-        Initially, before ICE has produced a candidate pair that will be used for media, there might
-        be multiple transports established (if multiple candidate pairs are tested). Once ICE has produced
-        a transport that will be used for media, that becomes the BUNDLE transport.
+        NOTE: Most ICE-related media-level SDP attributes belong to the TRANSPORT mux category
+        <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />, and the generic SDP attribute offer/answer
+        considerations for TRANSPORT mux category apply to the attributes. However, in the case of
+        ICE-related attributes, the same considerations also apply to ICE-related media-level attributes that
+        belong to other mux categories.
+      </t>
+      <t>
+        NOTE: The following ICE-related media-level SDP attributes are defined in
+        <xref target="I-D.ietf-mmusic-ice-sip-sdp" />: 'candidate', 'remote-candidates', 'ice-mismatch',
+        'ice-ufrag', 'ice-pwd', and 'ice-pacing'.
+      </t>
+      <t>
+        Initially, before ICE has produced selected candidate pairs that will be used for media, there might
+        be multiple transports established (if multiple candidate pairs are tested). Once ICE has selected
+        candidate pairs, they form the BUNDLE transport.
       </t>
       <t>
         Support and usage of ICE mechanism together with the BUNDLE extension
@@ -1686,50 +1693,16 @@ SDP Answer
         ICE mechanism is used. Note that applications might mandate usage
         of the ICE mechanism even if the BUNDLE extension is not used.
       </t>
-
-    <section title="SDP Offer/Answer Procedures" anchor="sec-ice-oa" toc="default">
-      <t>
-        When an offerer assigns a unique address:port to one or more bundled "m=" sections (excluding
-        any bundle-only "m=" section), the offerer MUST include SDP 'candidate' attributes (and
-        other applicable ICE-related media-level SDP attributes), containing unique ICE properties
-        (candidates etc), in each of those "m=" sections, following the procedures in 
-        <xref target="I-D.ietf-mmusic-ice-sip-sdp" />.
-      </t>
-      <t>
-        When an offerer assigns a BUNDLE address:port (previously selected or newly suggested) to a 
-        bundled "m=" section, (the "m=" section indicated by the offerer BUNDLE-tag) the offerer MUST only 
-        include SDP 'candidate' attributes (and other applicable ICE-related media-level SDP attributes) 
-        in that "m=" section, following the procedures in <xref format="default" pageno="false" 
-        target="sec-sdp-oa-cat"/>.
-      </t>
-      <t>
-        When an answerer assigns a BUNDLE address to an "m=" section within a
-        BUNDLE group (the "m=" section represented by the answerer BUNDLE-tag), 
-        the answerer only includes SDP 'candidate' attributes (and
-        other applicable ICE-related media-level SDP attributes) in that "m="
-        section, following the procedures in <xref format="default" pageno="false" 
-        target="sec-sdp-oa-cat"/>. The answerer MUST NOT include ICE-related media-level 
-        SDP attributes in any other "m=" sections.
-      </t>
       <t>
         NOTE: If the trickle ICE mechanism <xref target="I-D.ietf-mmusic-trickle-ice-sip" />
         is used, an offerer and answerer might assign a port value of '9', and an IPv4 
-        address of '0.0.0.0' (or, the IPv6 equivalent '::') to multiple "m=" sections. As far
-        as the procedures in this specification are concerned, before a BUNDLE group has been
-        negotiated, those addresses:ports are processed as unique addresses:ports.
-      </t>
-      <t>
-        NOTE: As most ICE-related media-level SDP attributes belong to the TRANSPORT mux category
-        <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />, the offerer and answerer follow the
-        procedures in <xref format="default" pageno="false" target="sec-sdp-oa-cat"/> when
-        deciding whether to include an attribute in a bundled "m=" section. However, in the
-        case of ICE-related media-level attributes, the rules apply to all attributes (see note below),
-        even if they belong to a different mux category.
-      </t>
-      <t>
-        NOTE: The following ICE-related media-level SDP attributes are defined in
-        <xref target="I-D.ietf-mmusic-ice-sip-sdp" />: 'candidate', 'remote-candidates', 'ice-mismatch',
-        'ice-ufrag', 'ice-pwd', and 'ice-pacing'.
+        address of '0.0.0.0' (or, the IPv6 equivalent '::') to multiple bundled "m=" sections
+        in the initial offer. The offerer and answerer will follow the normal procedures
+        for generating the offers and answers, including picking a bundled "m=" section as the
+        suggested offerer tagged "m=" section, selecting the tagged "m=" sections etc. The only
+        difference is that media can not be sent until one or more candidates have been provided.
+        Once a BUNDLE group has been negotiated, trickled candidates associated with a bundled
+        "m=" section will be applied to all bundled "m=" sections within the BUNDLE group.
       </t>
     </section>
     </section>
