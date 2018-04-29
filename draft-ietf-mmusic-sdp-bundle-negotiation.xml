@@ -198,17 +198,18 @@
       SDP 'group:BUNDLE' attribute identification-tag list in an answer.
     </t>
     <t>
-      Offerer tagged "m=" section: The bundled "m=" section identified by the offerer BUNDLE-tag in an offer
+      Suggested offerer tagged "m=" section: The bundled "m=" section identified by the offerer BUNDLE-tag in an initial offer,
+      before a BUNDLE group has been negotiated.
     </t>
     <t>
-      Answerer tagged "m=" section: The bundled "m=" section identified by the answerer BUNDLE-tag in an answer
+      Offerer tagged "m=" section: The bundled "m=" section identified by the offerer BUNDLE-tag in a subsequent offer.
+      The "m=" section contains characteristics (offerer BUNDLE address:port and offerer BUNDLE attributes) applied to
+      each "m=" section within the BUNDLE group.
     </t>
     <t>
-      Suggested Offerer tagged "m=" section: before an offerer tagged "m=" section has been selected by
-      the answerer, the bundled "m=" section that the offerer wants the answerer to select as the offerer tagged
-      "m=" section. An offerer suggests an offerer tagged "m=" section when a BUNDLE group is negotiated
-      (initial offer) and when the offerer later wants to change the offerer tagged "m=" section within
-      a previousy negotiated BUNDLE group.
+      Answerer tagged "m=" section: The bundled "m=" section identified by the answerer BUNDLE-tag in an answer 
+      (initial or subsequent). The "m=" section contains characteristics (answerer BUNDLE address:port and answerer BUNDLE attributes) 
+      applied to each "m=" section within the BUNDLE group.
     </t>
     <t>
       BUNDLE address:port: An address:port combination that an endpoint uses for sending and receiving 
@@ -224,17 +225,26 @@
     </t>
     <t>
       BUNDLE attributes: IDENTICAL and TRANSPORT multiplexing category SDP 
-      attributes. 
+      attributes. Once a BUNDLE group has been created, the attribute values apply
+      to each bundled "m=" section within the BUNDLE group.
+    </t>
+    <t>
+      Offerer BUNDLE attributes: IDENTICAL and TRANSPORT multiplexing category SDP 
+      attributes included in the offerer tagged "m=" section. 
+    </t>
+    <t>
+      Answerer BUNDLE attributes: IDENTICAL and TRANSPORT multiplexing category SDP 
+      attributes included in the answerer tagged "m=" section. 
     </t>
     <t>
       BUNDLE transport: The transport (5-tuple) used by all media described by the
       "m=" sections within a BUNDLE group.
     </t>
     <t>
-      BUNDLE group: A set of "m=" sections, created using an SDP Offer/Answer
-      exchange, which uses a single BUNDLE transport for sending and receiving all 
-      media (bundled media) described by the set of "m=" sections. The same BUNDLE 
-      transport is used for sending and receiving bundled media.      
+      BUNDLE group: A set of bundled "m=" sections, created using an SDP Offer/Answer
+      exchange, which uses a single BUNDLE transport, and a single set of BUNDLE attributes,
+      for sending and receiving all media (bundled media) described by the set of "m=" sections. 
+      The same BUNDLE transport is used for sending and receiving bundled media.      
     </t>
     <t>
       Bundled "m=" section: An "m=" section, whose identification-tag
@@ -252,12 +262,12 @@
       Initial offer: The first offer, within an SDP session (e.g. a SIP dialog
       when the Session Initiation Protocol (SIP) <xref format="default"
       pageno="false" target="RFC3261" /> is used to carry SDP), in which
-      the offerer indicates that it wants to create a given BUNDLE group.
+      the offerer indicates that it wants to negotiate a given BUNDLE group.
     </t>
     <t>
-      Initial answer: The answer to an offer in which the offerer indicates that it wants to negotiate
-      a BUNDLE group. If the answerer accepts the creation of the BUNDLE group, the BUNDLE group
-      is created once the answerer sends the answer.
+      Initial answer: The answer to an initial offer in which the offerer indicates that it wants to negotiate
+      a BUNDLE group, and where the answerer accepts the creation of the BUNDLE group. The BUNDLE group is 
+      created once the answerer sends the initial answer.
     </t>
     <t>
       Subsequent offer: An offer which contains a BUNDLE group that
