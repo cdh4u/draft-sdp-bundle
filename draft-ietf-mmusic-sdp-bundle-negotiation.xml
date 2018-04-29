@@ -342,7 +342,7 @@
        the "m=" sections occur in the SDP.
     </t>
     <t>
-       The mux category [I-D.ietf-mmusic-sdp-mux-attributes] for the 'group:BUNDLE'
+       The multiplexing category [I-D.ietf-mmusic-sdp-mux-attributes] for the 'group:BUNDLE'
        attribute is 'NORMAL'.
     </t>
     <t>
@@ -1510,14 +1510,11 @@ SDP Answer
         <t>
           Within a BUNDLE group, the offerer and answerer MUST enable
           RTP/RTCP multiplexing <xref format="default" pageno="false"
-          target="RFC5761"/> for the RTP-based media specified by
-          the BUNDLE group. In addition, the offerer and answerer MUST
-          support the SDP 'rtcp-mux-only' attribute <xref format="default" pageno="false" 
+          target="RFC5761"/> for the RTP-based bundled media (i.e., the
+          same transport will be used for both RTP packets and RTCP packets). 
+          In addition, the offerer and answerer MUST support the 
+          SDP 'rtcp-mux-only' attribute <xref format="default" pageno="false" 
           target="I-D.ietf-mmusic-mux-exclusive"/>.
-        </t>
-        <t>
-          When RTP/RTCP multiplexing is enabled, the same transport will be 
-          used for both RTP packets and RTCP packets associated with the BUNDLE group. 
         </t>
         <section title="SDP Offer/Answer Procedures" anchor="sec-rtprtcp-mux-oa" toc="default">
           <t>
@@ -1525,47 +1522,30 @@ SDP Answer
             SDP 'rtcp-mux' attribute <xref format="default" pageno="false"
             target="RFC5761"/> and the SDP 'rtcp-mux-only' attribute
             <xref format="default" pageno="false" target="I-D.ietf-mmusic-mux-exclusive"/>
-            to negotiate usage of RTP/RTCP multiplexing for RTP-based media associated
-            with a BUNDLE group.
-          </t>
-          <t>
-            The mux category <xref target="I-D.ietf-mmusic-sdp-mux-attributes" /> of the
-            SDP 'rtcp-mux' and 'rtcp-mux-only' attributes is IDENTICAL.
-            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/> describes
-            the details regarding which bundled "m=" sections an offerer and answerer
-            associates the attributes with.
+            to negotiate usage of RTP/RTCP multiplexing for RTP-based bundled media.
           </t>
           <t>
             RTP/RTCP multiplexing only applies to RTP-based media. However, as described in
-            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>, within a BUNDLE
-            group the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes might be included in
-            a non-RTP-based bundled "m=" section (if such "m=" line is indicated by a BUNDLE-tag).
-          </t>
-          <t>
-            NOTE: The offer in which the offerer indicates that it wants to create a BUNDLE group 
-            can be the initial offer of the session, or a subsequent offer within the session. 
-            As defined in <xref format="default" pageno="false" target="sec-term"/>, within the 
-            scope of this document the initial offer always refers to the offer in which the offerer 
-            indicates that it wants to create a BUNDLE group, no matter whether that offer is the 
-            initial offer, or a subsequent offer, within the session.
+            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>, within an offer
+            or answer the SDP 'rtcp-mux' and SDP 'rtcp-mux-only' attributes might be included in
+            a bundled "m=" section for non-RTP-based media (if such "m=" section is the offerer 
+            tagged "m=" section or answerer tagged "m=" section).
           </t>
         <section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
           <t>
             When an offerer generates an initial offer, if the offer contains
-            one or more RTP-based bundled "m=" sections (or, if there is a chance that RTP-based
-            "m=" sections will later be added to the BUNDLE group), the offerer MUST
-            include an SDP 'rtcp-mux' attribute <xref format="default"
-            pageno="false" target="RFC5761"/> in each bundled "m=" section (excluding any bundle-only "m=" sections),
-            following the procedures for IDENTICAL mux category attributes in <xref format="default" pageno="false"
-            target="sec-sdp-oa-cat"/>. In addition, the offerer MAY include an
-            SDP 'rtcp-mux-only' attribute <xref format="default" pageno="false"
-            target="I-D.ietf-mmusic-mux-exclusive"/> in a RTP-based bundled "m=" section.
+            one or more bundled "m=" sections for RTP-based  media (or, if there is a chance that "m=" sections
+            for RTP-based media will later be added to the BUNDLE group), the offerer MUST
+            include an SDP 'rtcp-mux' attribute <xref format="default" pageno="false" target="RFC5761"/> in each 
+            bundled "m=" section (excluding any bundle-only "m=" sections). In addition, the offerer MAY include an
+            SDP 'rtcp-mux-only' attribute <xref format="default" pageno="false" target="I-D.ietf-mmusic-mux-exclusive"/> 
+            in one or more bundled "m=" sections for RTP-based media.
           </t>
           <t>
             NOTE: Whether the offerer includes the SDP 'rtcp-mux-only' attribute
             depends on whether the offerer supports fallback to usage of a separate
-            port for RTCP in case the answerer moves one or more RTP-based "m=" section out of
-            the BUNDLE group in the answer.
+            port for RTCP in case the answerer moves one or more "m=" sections for RTP-based media 
+            out of the BUNDLE group in the answer.
           </t>
           <t>
             NOTE: If the offerer includes an SDP 'rtcp-mux' attribute in the bundled "m=" sections, 
@@ -1573,59 +1553,58 @@ SDP Answer
             the offerer can also include an SDP 'rtcp' attribute <xref format="default"
             pageno="false" target="RFC3605"/> in one or more RTP-based bundled "m=" sections in order 
             to provide a fallback port for RTCP, as described in <xref format="default" pageno="false"
-            target="RFC5761"/>. However, the fallback port will only be used for RTP-based
-            "m=" sections moved out of the BUNDLE group by the answerer.
+            target="RFC5761"/>. However, the fallback port will only be applied to "m=" sections for RTP-based
+            media that are moved out of the BUNDLE group by the answerer.
           </t>
           <t>
             In the initial offer, the address:port combination for RTCP MUST be unique in each
-            bundled RTP-based "m=" section (excluding a bundle-only "m=" section), similar to RTP.
+            bundled "m=" section for RTP-based media (excluding a bundle-only "m=" section), similar to RTP.
           </t>
         </section>
         <section title="Generating the SDP Answer" anchor="sec-rtprtcp-mux-oa-ans" toc="default">
           <t>
             When an answerer generates an answer, if the answerer supports RTP-based media,
-            and if a bundled "m=" section in the offer contained an SDP 'rtcp-mux' attribute,
+            and if a bundled "m=" section in the corresponding offer contained an SDP 'rtcp-mux' attribute,
             the answerer MUST enable usage of RTP/RTCP multiplexing, even if there currently
-            are no RTP-based "m=" sections within the BUNDLE group. The answerer MUST include
-            an SDP 'rtcp-mux' attribute in the bundled "m=" section indicated by the answerer BUNDLE-tag,
-            following the procedures for IDENTICAL mux category attributes in <xref format="default"
-            pageno="false" target="sec-sdp-oa-cat"/>. In addition, if the "m=" section in the offer
-            contained an SDP "rtcp-mux-only" attribute, the answerer MUST include an SDP
-            "rtcp-mux-only" attribute in the bundled "m=" section indicated by the answerer BUNDLE-tag 
-            in the answer.
+            are no bundled "m=" sections for RTP-based media within the BUNDLE group. The answerer MUST include
+            an SDP 'rtcp-mux' attribute in the answerer tagged "m=" section, following the procedures for 
+            BUNDLE attributes [<xref format="default" pageno="false" target="sec-sdp-oa-cat"/>]. 
+            In addition, if the "m=" section that is selected as the offerer tagged "m=" section contained
+            an SDP "rtcp-mux-only" attribute, the answerer MUST include an SDP "rtcp-mux-only" attribute 
+            in the answerer tagged "m=" section.
           </t>
           <t>
-            If the "m=" section indicated by the offerer BUNDLE-tag in the offer contained an
-            SDP 'rtcp-mux-only' attribute, and if the answerer moves an RTP-based "m=" section
-            out of the BUNDLE group in the answer [<xref format="default" pageno="false"
-            target="sec-sdp-oa-ans-mov"/>], the answerer MUST either include the attribute
-            in the moved "m=" section (and enable RTP/RTCP multiplexing for the media associated with
-            the "m=" section), or reject the "m=" section [<xref format="default" pageno="false"
+            In an initial offer, if the suggested offerer tagged "m=" section contained an
+            SDP 'rtcp-mux-only' attribute, the "m=" section was for RTP-based media, and the 
+            answerer does not accept the "m=" section in the created BUNDLE group, the answerer
+            MUST either move the "m=" section out of the BUNDLE group [<xref format="default" 
+            pageno="false" target="sec-sdp-oa-ans-mov"/>], include the attribute in the 
+            moved "m=" section and enable RTP/RTCP multiplexing for the media associated with
+            the "m=" section, or reject the "m=" section [<xref format="default" pageno="false"
             target="sec-sdp-oa-ans-rej"/>].
           </t>
           <t>
-            The answerer MUST NOT include an SDP 'rtcp' attribute in any "m=" section
-            within the BUNDLE group in the answer. The answerer will use the port value
-            of the selected offerer BUNDLE address:port for sending RTP and RTCP packets associated
-            with each RTP-based bundled "m=" section towards the offerer.
+            The answerer MUST NOT include an SDP 'rtcp' attribute in any bundled "m=" section
+            in the answer. The answerer will use the port value of the tagged offerer 
+            "m=" section sending RTP and RTCP packets associated with RTP-based bundled media
+            towards the offerer.
           </t>
           <t>
             If the usage of RTP/RTCP multiplexing within a BUNDLE group has been
             negotiated in a previous offer/answer exchange, the answerer MUST
-            include an SDP 'rtcp-mux' attribute in the "m=" section associated with
-            the answerer BUNDLE-tag in the answer. It is not possible to disable
-            RTP/RTCP multiplexing within a BUNDLE group.
+            include an SDP 'rtcp-mux' attribute in the answerer tagged "m=" section . 
+            It is not possible to disable RTP/RTCP multiplexing within a BUNDLE group.
           </t>
         </section>
         <section title="Offerer Processing of the SDP Answer" anchor="sec-rtprtcp-mux-oa-pra" toc="default">
           <t>
             When an offerer receives an answer, if the answerer has accepted
-            the usage of RTP/RTCP multiplexing (see <xref target="sec-rtprtcp-mux-oa-ans"/>),
+            the usage of RTP/RTCP multiplexing [<xref target="sec-rtprtcp-mux-oa-ans"/>],
             the answerer follows the procedures for RTP/RTCP multiplexing defined
             in <xref format="default" pageno="false" target="RFC5761"/>. The
-            offerer will use the port value associated with the answerer
-            BUNDLE address:port for sending RTP and RTCP packets associated with each
-            RTP-based bundled "m=" section towards the answerer.
+            offerer will use the port value of the answerer tagged "m=" section
+            for sending RTP and RTCP packets associated with
+            RTP-based bundled media towards the answerer.
           </t>
           <t>
             NOTE: It is considered a protocol error if the answerer has not
@@ -1636,9 +1615,9 @@ SDP Answer
         <section title="Modifying the Session" anchor="sec-rtprtcp-mux-oa-mod" toc="default">
           <t>
             When an offerer generates a subsequent offer, the offerer MUST include
-            an SDP 'rtcp-mux' attribute in the bundled "m=" section indicated by the offerer BUNDLE-tag, 
-            following the procedures for IDENTICAL mux category attributes in <xref format="default" pageno="false"
-            target="sec-sdp-oa-cat"/>.
+            an SDP 'rtcp-mux' attribute in the offerer tagged "m=" section, following 
+            the procedures for IDENTICAL multiplexing category attributes in 
+            <xref format="default" pageno="false" target="sec-sdp-oa-cat"/>.
           </t>
         </section>
       </section>
@@ -1675,11 +1654,11 @@ SDP Answer
         </list>
       </t>
       <t>
-        NOTE: Most ICE-related media-level SDP attributes belong to the TRANSPORT mux category
+        NOTE: Most ICE-related media-level SDP attributes belong to the TRANSPORT multiplexing category
         <xref target="I-D.ietf-mmusic-sdp-mux-attributes" />, and the generic SDP attribute offer/answer
-        considerations for TRANSPORT mux category apply to the attributes. However, in the case of
+        considerations for TRANSPORT multiplexing category apply to the attributes. However, in the case of
         ICE-related attributes, the same considerations also apply to ICE-related media-level attributes that
-        belong to other mux categories.
+        belong to other multiplexing categories.
       </t>
       <t>
         NOTE: The following ICE-related media-level SDP attributes are defined in
