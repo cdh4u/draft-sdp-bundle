@@ -359,11 +359,11 @@
     </t>
     <t>
       In order to ensure that an answerer that does not support the BUNDLE extension always
-      rejects a bundled "m=" section, the offerer can assign a zero port value to the "m="
+      rejects a bundled "m=" section in an offer, the offerer can assign a zero port value to the "m="
       section. According to <xref target="RFC3264" pageno="false" format="default"/> an answerer
       will reject such an "m=" section.
-      By including an SDP 'bundle-only' attribute in such an "m=" section, the offerer can
-      request that the answerer accepts the "m=" section if the answerer supports the BUNDLE
+      By including an SDP 'bundle-only' attribute in a bundled "m=" section, the offerer can
+      request that the answerer accepts the "m=" section only if the answerer supports the BUNDLE
       extension, and if the answerer keeps the "m=" section within the associated BUNDLE group.
     </t>
     <figure>
@@ -385,9 +385,9 @@
       ]]></artwork>
     </figure>
     <t>
-      Once the offerer and answerer BUNDLE addresses:ports have been selected, an offerer and answerer
-      only assign the BUNDLE address:port to one bundled "m=" section. The offerer and answerer assign 
-      a zero port value and include an SDP 'bundle-only' attribute to every other bundled "m=" section.
+      Once the offerer tagged "m=" section and the answerer tagged "m=" section have been selected, 
+      an offerer and answerer will include an SDP 'bundle-only' attribute in, and assign a zero
+      port value to, every other bundled "m=" section.
     </t>
     <t>
       The usage of the 'bundle-only' attribute is only defined for a bundled "m=" section with
