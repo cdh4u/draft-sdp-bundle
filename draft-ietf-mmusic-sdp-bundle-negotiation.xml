@@ -97,81 +97,89 @@
 
 <middle>
   <section title="Introduction" toc="default">
-   <t>
-    When the SDP offer/answer mechanism <xref format="default" pageno="false" target="RFC3264"/>  
-    is used to negotiate the establishment of multimedia communication sessions, if separate 
-    transports (5-tuples) are negotiated for each individual media stream, each transport consumes 
-    additional resources (especially when Interactive Connectivity Establishment (ICE)
-    <xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/> is used). 
-    For this reason, it is attractive to use a single transport for multiple media streams.
-  </t>
-  <t>
-    This specification defines a way to use a single transport (BUNDLE transport) 
-    for sending and receiving media (bundled media) described by multiple SDP media descriptions 
-    ("m=" sections). The same BUNDLE transport is used for sending and receiving bundled media, which
-    means that the symmetric Real-time Transport Protocol (RTP) mechanism <xref format="default" pageno="false" target="RFC4961"/> 
-    is always used for RTP-based bundled media.
-  </t>
-  <t>
-    This specification defines a new SDP Grouping Framework <xref format="default" pageno="false"
-    target="RFC5888"/> extension called 'BUNDLE'. The extension can be used with the Session Description
-    Protocol (SDP) Offer/Answer mechanism <xref format="default" pageno="false" target="RFC3264"/>
-    to negotiate which "m=" sections will become part of a BUNDLE group. Within a BUNDLE group, each "m=" section
-    will use a BUNDLE transport for sending and receiving bundled media.    
-  </t>
-  <t>
-    Within a BUNDLE group, each endpoint uses a single address:port combination for sending and receiving 
-    bundled media. The address:port combination is referred to as the BUNDLE address:port.
-    In addition to negotiating the BUNDLE group, the offerer and answerer <xref format="default" pageno="false" target="RFC3264"/> 
-    use the BUNDLE extension to negotiate the BUNDLE addresses:ports, one for the offerer (offerer BUNDLE
-    address:port) and one for the answerer (answerer BUNDLE address:port). Once the offerer and the answerer have
-    negotiated the BUNDLE addresses:ports, and a BUNDLE group has been formed, they assign their respective BUNDLE address:port 
-    to each "m=" section within the BUNDLE group. The endpoints then use the BUNDLE addresses:ports for sending and receiving 
-    the bundled media associated with the BUNDLE group.
-  </t>
-  <t>
-    The use of a BUNDLE transport allows the usage of a single set of
-    Interactive Connectivity Establishment (ICE) <xref format="default" pageno="false" 
-    target="I-D.ietf-ice-rfc5245bis"/> candidates for the whole BUNDLE group.
-  </t>
-  <t>
-    This specification defines a new SDP attribute, 'bundle-only', which can be used to
-    request that specific media is only used if the "m=" section describing the media is kept 
-    within a BUNDLE group. 
-  </t>
-  <t>  
-    This specification updates RFC 3264 <xref format="default" pageno="false" 
-    target="RFC3264"/>, to allow assigning a zero port value to a "m=" section also 
-    in cases where the media described by the "m=" section is not disabled or rejected.
-  </t>
-  <t>
-    This specification defines a new RTP Control Protocol (RTCP) <xref format="default"
-    pageno="false" target="RFC3550"/> source description (SDES) item, 'MID', and a new RTP SDES header
-    extension that can be used to associate RTP streams with "m=" sections.
-  </t>
-  <t>
-    This specification updates <xref format="default" pageno="false" target="RFC7941"/>, by adding an exception,
-    for the MID RTP header extension, to the requirement regarding protection 
-    of an SDES RTP header extension carrying an SDES item for the MID RTP 
-    header extension.
-  </t>
-  <t>
-    A given BUNDLE address:port MUST only be associated with a single BUNDLE group. If an SDP offer 
-    or answer contains multiple BUNDLE groups, the procedures in this specification apply to each 
-    group independently. All RTP based media flows described by a single BUNDLE group belong to a single
-    RTP session <xref format="default" pageno="false" target="RFC3550"/>.
-  </t>
-  <t>
-    The BUNDLE extension is backward compatible. Endpoints that do not support the extension
-    are expected to generate offers and answers without an SDP 'group:BUNDLE' attribute, and
-    are expected to assign a unique address:port to each "m=" section within an offer and answer, according
-    to the procedures in <xref format="default" pageno="false" target="RFC4566"/> and
-    <xref format="default" pageno="false" target="RFC3264"/>.
-  </t>
+    <section title="Background" toc="default">
+      <t>
+        When the SDP offer/answer mechanism <xref format="default" pageno="false" target="RFC3264"/>  
+        is used to negotiate the establishment of multimedia communication sessions, if separate 
+        transports (5-tuples) are negotiated for each individual media stream, each transport consumes 
+        additional resources (especially when Interactive Connectivity Establishment (ICE)
+        <xref format="default" pageno="false" target="I-D.ietf-ice-rfc5245bis"/> is used). 
+        For this reason, it is attractive to use a single transport for multiple media streams.
+      </t>
+    </section>
+    <section title="BUNDLE Mechanism" toc="default">
+      <t>
+        This specification defines a way to use a single transport (BUNDLE transport) 
+        for sending and receiving media (bundled media) described by multiple SDP media descriptions 
+        ("m=" sections). The address:port combination used by an endpoint for sending and receiving 
+        bundled media is referred to as the BUNDLE address:port. The set of SDP attributes that are 
+        applied to each "m=" section within a BUNDLE group is referred to as BUNDLE attributes. 
+        The same BUNDLE transport is used for sending and receiving bundled media, which
+        means that the symmetric Real-time Transport Protocol (RTP) mechanism <xref format="default" 
+       pageno="false" target="RFC4961"/> is always used for RTP-based bundled media.
+      </t>
+      <t>
+        This specification defines a new SDP Grouping Framework <xref format="default" pageno="false"
+        target="RFC5888"/> extension called 'BUNDLE'. The extension can be used with the Session Description
+        Protocol (SDP) Offer/Answer mechanism <xref format="default" pageno="false" target="RFC3264"/>
+        to negotiate which "m=" sections will become part of a BUNDLE group. In addition, the offerer and 
+        answerer <xref format="default" pageno="false" target="RFC3264"/> use the BUNDLE extension to negotiate 
+        the BUNDLE addresses:ports (offerer BUNDLE address:port and answerer BUNDLE address:port) and the 
+        set of BUNDLE attributes (offerer BUNDLE attributes and answerer BUNDLE attributes) that will be applied to
+        each "m=" section within the BUNDLE group.
+      </t>
+      <t>
+        The use of a BUNDLE transport allows the usage of a single set of
+        Interactive Connectivity Establishment (ICE) <xref format="default" pageno="false" 
+        target="I-D.ietf-ice-rfc5245bis"/> candidates for the whole BUNDLE group.
+      </t>
+      <t>
+        A given BUNDLE address:port MUST only be associated with a single BUNDLE group. If an SDP offer 
+        or answer contains multiple BUNDLE groups, the procedures in this specification apply to each 
+        group independently. All RTP-based bundled media associated with a given BUNDLE group belong to a single
+        RTP session <xref format="default" pageno="false" target="RFC3550"/>.
+      </t>
+      <t>
+        The BUNDLE extension is backward compatible. Endpoints that do not support the extension
+        are expected to generate offers and answers without an SDP 'group:BUNDLE' attribute, and
+        are expected to assign a unique address:port to each "m=" section within an offer and answer, according
+        to the procedures in <xref format="default" pageno="false" target="RFC4566"/> and
+       <xref format="default" pageno="false" target="RFC3264"/>.
+      </t>
+    </section>
+    <section title="Protocol Extensions" toc="default">
+      <t>
+        In addition to defining the new SDP Grouping Framework extension, this specification defines
+        the following protocol extensions and RFC updates:
+        <list style="symbols">
+        <t>
+          The specification defines a new SDP attribute, 'bundle-only', which can be used to
+          request that a specific "m=" section (and the associated media) is used only used if kept 
+          within a BUNDLE group.
+        </t>
+        <t>  
+          The specification updates RFC 3264 <xref format="default" pageno="false" 
+          target="RFC3264"/>, to also allow assigning a zero port value to a "m=" section 
+          in cases where the media described by the "m=" section is not disabled or rejected.
+        </t>
+        <t>
+          The specification defines a new RTP Control Protocol (RTCP) <xref format="default"
+          pageno="false" target="RFC3550"/> source description (SDES) item, 'MID', and a new RTP SDES header
+          extension that can be used to associate RTP streams with "m=" sections.
+        </t>
+        <t>
+          The specification updates <xref format="default" pageno="false" target="RFC7941"/>, by adding an exception,
+          for the MID RTP header extension, to the requirement regarding protection 
+          of an SDES RTP header extension carrying an SDES item for the MID RTP 
+          header extension.
+        </t>
+        </list>
+      </t>
+    </section>
   </section>
 
 
-    <section anchor="sec-term" title="Terminology" toc="default">
+  <section anchor="sec-term" title="Terminology" toc="default">
     <t>
     <list style="symbols">
     <t>
@@ -289,8 +297,7 @@
     </t>
   </section>
 
-
-    <section title="Conventions" toc="default">
+  <section title="Conventions" toc="default">
     <t>
       The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL
       NOT", "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED",
@@ -299,10 +306,9 @@
       <xref format="default" pageno="false" target="RFC8174" /> when, 
       and only when, they appear in all capitals, as shown here.
     </t>
-    </section>
+  </section>
 
-
-    <section title="Applicability Statement" toc="default">
+  <section title="Applicability Statement" toc="default">
     <t>
       The mechanism in this specification only applies to the Session
       Description Protocol (SDP) <xref format="default" pageno="false"
@@ -311,7 +317,7 @@
       Declarative usage of SDP is out of scope of this document, and is
       thus undefined.
     </t>
-    </section>
+  </section>
 
   <section title="SDP Grouping Framework BUNDLE Extension" anchor="sec-group" toc="default">
     <t>
