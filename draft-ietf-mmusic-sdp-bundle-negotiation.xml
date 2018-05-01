@@ -2121,14 +2121,14 @@ SDP Answer
     </section>
 
   <section title="Examples" anchor="sec-example-alt1" toc="default">
-    <section title="Example: BUNDLE Address:Port Selection" anchor="sec-example-add"
+    <section title="Example: Tagged m= Section Selections" anchor="sec-example-add"
 	toc="default">
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An offer, in which the offerer assigns a unique address:port to each bundled "m=" section within the BUNDLE group.</t>
-          <t>An answer, in which the answerer selects the offerer BUNDLE address:port, and then selects its own BUNDLE
-          address (the answerer BUNDLE address:port) and assigns it to the bundled "m=" section indicated by the answerer BUNDLE-tag.</t>
+          <t>An initial offer, in which the offerer wants to negotiate a BUNDLE group, and indicates the audio m= section as the suggested offerer tagged "m=" section.</t>
+          <t>An initial answer, in which the answerer accepts the creation of the BUNDLE group, selects the audio m= section in the offer as the offerer tagged "m=" section,
+          selects the audio "m=" section in the answer as the answerer tagged "m=" section and assigns the answerer BUNDLE address:port to that "m=" section.</t>
         </list>
       </t>
           <figure>
@@ -2190,13 +2190,14 @@ SDP Answer (2)
         </figure>
     </section>
 
-    <section title="Example: BUNDLE Extension Rejected" anchor="sec-example-bunrej" toc="default">
+    <section title="Example: BUNDLE Group Rejected" anchor="sec-example-bunrej" toc="default">
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An offer, in which the offerer assigns a unique address:port to each bundled "m=" section within the BUNDLE group.</t>
-          <t>An answer, in which the answerer rejects the offered BUNDLE group, and assigns a unique address:port
-          to each "m=" section (following normal RFC 3264 procedures).</t>
+          <t>An initial offer, in which the offerer wants to negotiate a BUNDLE group, and indicates the audio m= section as the suggested offerer tagged "m=" section.</t>
+          <t>An initial answer, in which the answerer rejects the creation of the BUNDLE group, generates a normal answer and assigns a unique address:port to each "m="
+          section in the answer.</t>
+
         </list>
       </t>
       <figure>
@@ -2257,14 +2258,11 @@ SDP Answer (2)
       <t>
         The example below shows:
         <list style="symbols">
-          <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
-          exchange), in which the offerer adds a new "m=" section, indicated by the "zen"
-          identification-tag, to a previously negotiated BUNDLE group, assigns the previously selected offerer BUNDLE address:port
-          to the added "m=" section, indicated by the offerer BUNDLE-tag. To every other bundled "m=" section the offerer
-          assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
-          <t>An answer, in which the answerer assigns the answerer BUNDLE address:port to the
-          bundled "m=" section indicated by the answerer BUNDLE-tag. To every other bundled "m=" section the answerer
-          assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
+          <t>A subsequent offer, in which the offerer adds a new bundled "m=" section (video), indicated by the "zen"
+          identification-tag, to a previously negotiated BUNDLE group, indicates the new "m=" section as the
+          offerer tagged "m=" section and assigns the offerer BUNDLE address:port to that "m=" section.</t>
+          <t>A subsequent answer, in which the answerer indicates the new video "m=" section in the answer as the answerer tagged "m=" section
+          and assigns the answerer BUNDLE address:port to that "m=" section.</t>
         </list>
       </t>
           <figure>
@@ -2344,14 +2342,11 @@ SDP Answer (2)
       <t>
         The example below shows:
         <list style="symbols">
-          <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
-          transaction), in which the offerer moves a bundled "m=" section, indicated by the "zen"
-          identification-tag, out of a BUNDLE group, assigns a unique address:port to
-          the moved "m=" section, and assigns the previously selected offerer BUNDLE address:port to another bundled "m=" section, indicated by the offerer BUNDLE-tag.
-          To every other bundled "m=" section the offerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
-          <t>An answer, in which the answerer moves the "m=" section out of the BUNDLE group, assigns a unique address:port to
-          the moved "m=" section, and assigns the answerer BUNDLE address:port to the bundled "m=" section indicated by the answerer BUNDLE-tag. To every
-          other bundled "m=" section the answerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
+          <t>A subsequent offer, in which the offerer removes a "m=" section (video), indicated by the "zen"
+          identification-tag, from a previously negotiated BUNDLE group, indicates one of the bundled "m=" sections (audio) 
+          remaining in the BUNDLE group as the offerer tagged "m=" section and assigns the offerer BUNDLE address:port to that "m=" section.</t>
+          <t>A subsequent answer, in which the answerer removes the "m=" section from the BUNDLE group, indicates the audio "m=" section 
+          in the answer as the answerer tagged "m=" section and assigns the answerer BUNDLE address:port to that "m=" section.</t>
         </list>
       </t>
           <figure>
@@ -2429,14 +2424,11 @@ SDP Answer (2)
       <t>
         The example below shows:
         <list style="symbols">
-          <t>A subsequent offer (the BUNDLE group has been created as part of a previous offer/answer
-          transaction), in which the offerer disables a bundled "m=" section indicated by the "zen"
-          identification-tag, within a BUNDLE group, assigns a zero port number
-          to the disabled "m=" section, and assigns the offerer BUNDLE address:port to another bundled "m=" section, indicated by the offerer BUNDLE-tag.
-          To every other bundled "m=" section the offerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
-          <t>An answer, in which the answerer moves the disabled "m=" sections out of the BUNDLE group, assigns a zero port value
-          to the disabled "m=" section, and assigns the answerer BUNDLE address:port to the bundled "m=" section indicated by the answerer BUNDLE-tag.
-          To every other bundled "m=" section the answerer assigns a zero port value and includes an SDP 'bundle-only' attribute.</t>
+          <t>A subsequent offer, in which the offerer disables (by assigning a zero port value) a "m=" section (video), indicated by the "zen"
+          identification-tag, from a previously negotiated BUNDLE group, indicates one of the bundled "m=" sections (audio) 
+          remaining active in the BUNDLE group as the offerer tagged "m=" section and assigns the offerer BUNDLE address:port to that "m=" section.</t>
+          <t>A subsequent answer, in which the answerer disables the "m=" section, indicates the audio "m=" section 
+          in the answer as the answerer tagged "m=" section and assigns the answerer BUNDLE address:port to that "m=" section.</t>
         </list>
       </t>
           <figure>
