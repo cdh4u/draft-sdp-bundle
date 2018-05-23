@@ -737,11 +737,9 @@ SDP Offer
         </t>
         <t>
           If all of the criteria above are fulfilled, the answerer MUST select
-          the "m=" section as the offerer tagged "m=" section. In addition, in
-          the corresponding answer, the answerer MUST select the "m=" section that
-          corresponds to the offerer tagged "m=" section as the answerer 
-          tagged "m=" section. In the answer the answerer BUNDLE-tag indicates the 
-          answerer tagged "m=" section.
+          the "m=" section as the offerer tagged "m=" section, and MUST also mark
+          the corresponding "m=" section in the answer as the answerer tagged "m=" section.
+          In the answer the answerer BUNDLE-tag indicates the answerer tagged "m=" section.
         </t>
         <t>
           If one or more of the criteria are not fulfilled, the answerer MUST pick the next
