@@ -667,7 +667,7 @@ SDP Offer
               in the corresponding subsequent offer, and MUST NOT be changed by the answerer; and
             </t>
             <t>
-              Select the answerer tagged "m=" section [<xref target="sec-sdp-oa-ans-ans"
+              Select the answerer tagged "m=" section [<xref target="sec-sdp-oa-ans-off"
               pageno="false" format="default"/>]; and
             </t>
             <t>
@@ -687,7 +687,7 @@ SDP Offer
             <t>
               Place the identification-tag of each bundled "m=" section in the
               SDP 'group:BUNDLE' attribute identification-tag list. The answerer BUNDLE-tag
-              indicates the answerer tagged "m=" section [<xref target="sec-sdp-oa-ans-ans" 
+              indicates the answerer tagged "m=" section [<xref target="sec-sdp-oa-ans-off" 
               pageno="false" format="default"/>].
             </t>
           </list>
@@ -716,7 +716,7 @@ SDP Offer
           to disable the "m=" section [<xref target="sec-sdp-oa-mod-dis" pageno="false" format="default"/>].
         </t>
 
-      <section title="Answerer Selection of Offerer tagged 'm=' section" anchor="sec-sdp-oa-ans-off" toc="default">
+      <section title="Answerer Selection of tagged 'm=' sections" anchor="sec-sdp-oa-ans-off" toc="default">
         <t>
           When the answerer selects the offerer tagged "m=" section, it first checks the suggested 
           offerer tagged "m=" section [<xref target="sec-sdp-oa-ino-req" pageno="false" format="default"/>]. 
@@ -737,7 +737,11 @@ SDP Offer
         </t>
         <t>
           If all of the criteria above are fulfilled, the answerer MUST select
-          the "m=" section as the offerer tagged "m=" section.
+          the "m=" section as the offerer tagged "m=" section. In addition, in
+          the corresponding answer, the answerer MUST select the "m=" section that
+          corresponds to the offerer tagged "m=" section as the answerer 
+          tagged "m=" section. In the answer the answerer BUNDLE-tag indicates the 
+          answerer tagged "m=" section.
         </t>
         <t>
           If one or more of the criteria are not fulfilled, the answerer MUST pick the next
@@ -755,14 +759,6 @@ SDP Offer
           [<xref target="sec-example-add" pageno="false" format="default"/>] shows an
           example of an offerer BUNDLE address:port selection.
         </t>
-      </section>
-
-      <section title="Answerer Selection of Answerer tagged 'm=' section" anchor="sec-sdp-oa-ans-ans" toc="default">
-        <t>
-          The answerer MUST select the "m=" section in that corresponds to the selected offerer tagged "m=" section 
-          in the corresponding offer [<xref target="sec-sdp-oa-ans-off" pageno="false" format="default"/>]
-          as the answerer tagged "m=" section. In the answer the answerer BUNDLE-tag indicates the answerer tagged "m=" section.
-        </t>  
         <t>
           [<xref target="sec-sdp-oa-ans-ex" pageno="false" format="default"/>] and 
           [<xref target="sec-example-add" pageno="false" format="default"/>] show an example of an
