@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-51.txt" updates="3264,7941" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-52.txt" updates="3264,7941" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
     Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -2553,6 +2553,7 @@ SDP Answer (2)
       <list style="symbols">
         <t>Changes based on IESG reviews.</t>
         <t>- Clarification of 'initial offer' terminology.</t>
+        <t>- Merging of tagged m- section selection sections.</t>
       </list>
     </t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-50
