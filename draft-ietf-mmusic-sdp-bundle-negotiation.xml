@@ -206,7 +206,7 @@
       SDP 'group:BUNDLE' attribute identification-tag list in an answer.
     </t>
     <t>
-      Suggested offerer tagged "m=" section: The bundled "m=" section identified by the offerer BUNDLE-tag in an initial offer,
+      Suggested offerer tagged "m=" section: The bundled "m=" section identified by the offerer BUNDLE-tag in an initial BUNDLE offer,
       before a BUNDLE group has been negotiated.
     </t>
     <t>
@@ -216,7 +216,7 @@
     </t>
     <t>
       Answerer tagged "m=" section: The bundled "m=" section identified by the answerer BUNDLE-tag in an answer 
-      (initial or subsequent). The "m=" section contains characteristics (answerer BUNDLE address:port and answerer BUNDLE attributes) 
+      (initial BUNDLE answer or subsequent). The "m=" section contains characteristics (answerer BUNDLE address:port and answerer BUNDLE attributes) 
       applied to each "m=" section within the BUNDLE group.
     </t>
     <t>
@@ -267,15 +267,15 @@
       Bundled media: All media associated with a given BUNDLE group.
     </t>
     <t>
-      Initial offer: The first offer, within an SDP session (e.g. a SIP dialog
+      Initial BUNDLE offer: The first offer, within an SDP session (e.g. a SIP dialog
       when the Session Initiation Protocol (SIP) <xref format="default"
       pageno="false" target="RFC3261" /> is used to carry SDP), in which
       the offerer indicates that it wants to negotiate a given BUNDLE group.
     </t>
     <t>
-      Initial answer: The answer to an initial offer in which the offerer indicates that it wants to negotiate
+      Initial BUNDLE answer: The answer to an initial BUNDLE offer in which the offerer indicates that it wants to negotiate
       a BUNDLE group, and where the answerer accepts the creation of the BUNDLE group. The BUNDLE group is 
-      created once the answerer sends the initial answer.
+      created once the answerer sends the initial BUNDLE answer.
     </t>
     <t>
       Subsequent offer: An offer which contains a BUNDLE group that
@@ -488,9 +488,9 @@
             following the normal offer/answer procedures for each attribute, with the following exceptions:
             <list style="symbols">
             <t>
-              In the initial offerer, the offerer MUST NOT include IDENTICAL and TRANSPORT multiplexing category SDP 
-              attributes (BUNDLE attributes) in bundle-only "m=" sections. The offerer MUST included 
-              such attributes in all other bundled "m=" sections. In the initial offer each bundled "m=" line can contain 
+              In the initial BUNDLE offer, the offerer MUST NOT include IDENTICAL and TRANSPORT multiplexing category SDP 
+              attributes (BUNDLE attributes) in bundle-only "m=" sections. The offerer MUST include
+              such attributes in all other bundled "m=" sections. In the initial BUNDLE offer each bundled "m=" line can contain 
               a different set of BUNDLE attributes, and attribute values. Once the offerer tagged "m=" section has been
               selected, the BUNDLE attributes contained in the offerer tagged "m=" section will apply to each bundled "m=" 
               section within the BUNDLE group.
@@ -503,7 +503,7 @@
               will apply to each bundled "m=" section within the BUNDLE group.
             </t>
             <t>
-              In an offer (initial or subsequent), or in an answer (initial or subsequent), the offerer and answerer MUST
+              In an offer (initial BUNDLE offer or subsequent), or in an answer (initial BUNDLE answer or subsequent), the offerer and answerer MUST
               include SDP attributes of other categories than IDENTICAL and TRANSPORT in each bundled "m=" section that
               a given attribute applies to. Each bundled "m=" line can contain a different set of such attributes, and
               attribute values, as such attributes only apply to the given bundled "m=" section in which they are included.
@@ -521,7 +521,13 @@
       </section>
     <section anchor="sec-sdp-oa-ino" title="Generating the Initial SDP Offer" toc="default">
         <t>
-          When an offerer generates an initial offer, in order to negotiate a
+          The procedures in this section apply to the first offer, within an SDP session (e.g. a SIP
+          dialog when the Session Initiation Protocol (SIP) [RFC3261] is used to carry SDP), in which the 
+          offerer indicates that it wants to negotiate a given BUNDLE group. This could occur in the 
+          initial offer, or in a subsequent offer, of the SDP session.
+        </t>
+        <t>
+          When an offerer generates an initial BUNDLE offer, in order to negotiate a
           BUNDLE group, it MUST:
           <list style="symbols">
             <t>
@@ -572,11 +578,11 @@
         </t>
         <t>
           [<xref target="sec-sdp-oa-ino-ex" pageno="false" format="default"/>] and [<xref target="sec-example-add" pageno="false" format="default"/>] show
-          an example of an initial offer.
+          an example of an initial BUNDLE offer.
         </t>
       <section title="Suggesting the Offerer tagged 'm=' section" anchor="sec-sdp-oa-ino-req" toc="default">
         <t>
-          In the initial offer, the bundled "m=" section indicated by the offerer BUNDLE-tag is the suggested offerer tagged "m=" section. 
+          In the initial BUNDLE offer, the bundled "m=" section indicated by the offerer BUNDLE-tag is the suggested offerer tagged "m=" section. 
           The address:port combination associated with the "m=" section will be used by the offerer for sending and receiving bundled
           media if the answerer selects the "m=" section as the offerer tagged "m=" section [<xref target="sec-sdp-oa-ans-off" 
           pageno="false" format="default"/>]. In addition, if the answerer selects the "m=" section as the offerer tagged "m=" section, 
@@ -593,7 +599,7 @@
       </section>
       <section anchor="sec-sdp-oa-ino-ex" title="Example: Initial SDP Offer">
         <t>
-          The example shows an initial offer. The offer includes two
+          The example shows an initial BUNDLE offer. The offer includes two
           "m=" sections in the offer, and suggests that both "m=" sections are included in a BUNDLE group. 
           The audio "m=" section is the suggested offerer tagged "m=" section, indicated by placing the 
           identification-tag associated with the "m=" section (offerer BUNDLE-tag) first in the SDP group:BUNDLE 
@@ -636,13 +642,13 @@ SDP Offer
 
     <section anchor="sec-sdp-oa-ans" title="Generating the SDP Answer" toc="default">
         <t>
-          When an answerer generates an answer (initial or subsequent) that contains a BUNDLE group the following general
+          When an answerer generates an answer (initial BUNDLE answer or subsequent) that contains a BUNDLE group the following general
           SDP grouping framework restrictions, defined in <xref target="RFC5888" pageno="false"
           format="default"/>, also apply to the BUNDLE group:
           <list style="symbols">
             <t>
-              The answerer is only allowed to include a BUNDLE group in an initial answer if the offerer requested 
-              the BUNDLE group to be created in the corresponding initial offer; and
+              The answerer is only allowed to include a BUNDLE group in an initial BUNDLE answer if the offerer requested 
+              the BUNDLE group to be created in the corresponding initial BUNDLE offer; and
             </t>  
             <t>
               The answerer is only allowed to include a BUNDLE group in a subsequent answer if the corresponding
@@ -659,10 +665,10 @@ SDP Offer
            </list>
         </t>
         <t>
-          In addition, when an answerer generates an answer (initial or subsequent) that contains a BUNDLE group, the answerer MUST:
+          In addition, when an answerer generates an answer (initial BUNDLE answer or subsequent) that contains a BUNDLE group, the answerer MUST:
           <list style="symbols">
             <t>
-              In case of an initial answer, select the offerer tagged "m=" section using the procedures in <xref target="sec-sdp-oa-ans-off"
+              In case of an initial BUNDLE answer, select the offerer tagged "m=" section using the procedures in <xref target="sec-sdp-oa-ans-off"
               pageno="false" format="default"/>. In case of a subsequent answer, the offerer tagged "m=" section is indicated
               in the corresponding subsequent offer, and MUST NOT be changed by the answerer; and
             </t>
@@ -828,7 +834,7 @@ SDP Offer
       <section title="Rejecting a Media Description in a BUNDLE Group" anchor="sec-sdp-oa-ans-rej" toc="default">
        <t>
           When an answerer wants to reject a bundled "m=" section in an answer, it MUST first check 
-          the following criterium:
+          the following criterion:
           <list style="symbols">
           <t>
             In the corresponding offer, the "m=" section is the offerer tagged "m=" section.
@@ -915,7 +921,7 @@ SDP Answer
         within the BUNDLE group.
       </t>
       <t>
-        NOTE: As the answerer might reject one or more bundled "m=" sections in an initial offer, 
+        NOTE: As the answerer might reject one or more bundled "m=" sections in an initial BUNDLE offer, 
         or move a bundled "m=" section out of a BUNDLE group, a given bundled "m=" section in the 
         offer might not be indicated as bundled in the corresponding answer.
       </t>
@@ -980,9 +986,15 @@ SDP Answer
       <section title="Adding a Media Description to a BUNDLE group" anchor="sec-sdp-oa-mod-add" toc="default">
         <t>
           When an offerer generates a subsequent offer, in which it wants to add a bundled "m=" section to
-          a previously negotiated BUNDLE group, the offerer follows the procedures in [<xref target="sec-sdp-oa-mod" 
-          pageno="false" format="default"/>]. The offerer either picks the added "m=" section, or an "m=" section
+          a previously negotiated BUNDLE group, the offerer follows the procedures in <xref target="sec-sdp-oa-mod" 
+          pageno="false" format="default"/>. The offerer either picks the added "m=" section, or an "m=" section
           previously added to the BUNDLE group, as the offerer tagged "m=" section.
+        </t>
+        <t>
+          NOTE: As described in <xref target="sec-sdp-oa-ans-mov" pageno="false" format="default"/>, the answerer can not move the added "m=" section 
+          out of the BUNDLE group in its answer. If the answer wants to move the "m=" section out of the BUNDLE group, it will have to first accept 
+          it into the BUNDLE group in the answer, and then send a subsequent offer where the "m=" section is moved out of the BUNDLE group
+          [<xref target="sec-sdp-oa-mod-mov" pageno="false" format="default"/>].
         </t>
       </section>
       <section title="Moving a Media Description Out of a BUNDLE Group" anchor="sec-sdp-oa-mod-mov" toc="default">
@@ -1539,9 +1551,9 @@ SDP Answer
             a bundled "m=" section for non-RTP-based media (if such "m=" section is the offerer 
             tagged "m=" section or answerer tagged "m=" section).
           </t>
-        <section title="Generating the Initial SDP Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
+        <section title="Generating the Initial SDP BUNDLE Offer" anchor="sec-rtprtcp-mux-oa-ino" toc="default">
           <t>
-            When an offerer generates an initial offer, if the offer contains
+            When an offerer generates an initial BUNDLE offer, if the offer contains
             one or more bundled "m=" sections for RTP-based  media (or, if there is a chance that "m=" sections
             for RTP-based media will later be added to the BUNDLE group), the offerer MUST
             include an SDP 'rtcp-mux' attribute <xref format="default" pageno="false" target="RFC5761"/> in each 
@@ -1565,7 +1577,7 @@ SDP Answer
             media that are moved out of the BUNDLE group by the answerer.
           </t>
           <t>
-            In the initial offer, the address:port combination for RTCP MUST be unique in each
+            In the initial BUNDLE offer, the address:port combination for RTCP MUST be unique in each
             bundled "m=" section for RTP-based media (excluding a bundle-only "m=" section), similar to RTP.
           </t>
         </section>
@@ -1582,7 +1594,7 @@ SDP Answer
             in the answerer tagged "m=" section.
           </t>
           <t>
-            In an initial offer, if the suggested offerer tagged "m=" section contained an
+            In an initial BUNDLE offer, if the suggested offerer tagged "m=" section contained an
             SDP 'rtcp-mux-only' attribute, the "m=" section was for RTP-based media, and the 
             answerer does not accept the "m=" section in the created BUNDLE group, the answerer
             MUST either move the "m=" section out of the BUNDLE group [<xref format="default" 
@@ -1652,9 +1664,9 @@ SDP Answer
           </t>
           <t>
             The generic SDP attribute offer/answer considerations [<xref format="default" pageno="false" target="sec-sdp-oa-cat"/>] also apply to ICE-related 
-            attributes. Therefore, when an offer sends an initial offer (in order to negotiate a BUNDLE group) the offerer
+            attributes. Therefore, when an offer sends an initial BUNDLE offer (in order to negotiate a BUNDLE group) the offerer
             include ICE-related media-level attributes in each bundled "m=" section (excluding any bundle-only "m=" section),
-            and each "m=" section MUST contain unique ICE properties. When an answerer generates an answer (initial or subsequent) 
+            and each "m=" section MUST contain unique ICE properties. When an answerer generates an answer (initial BUNDLE answer or subsequent) 
             that contains a BUNDLE group, and when an offerer sends a subsequent offer that contains a BUNDLE group, ICE-related media-level 
             attributes are only included in the tagged "m=" section (suggested offerer tagged "m=" section or answerer tagged "m=" section), and
             the ICE properties are applied to each bundled "m=" section within the BUNDLE group.
@@ -1688,7 +1700,7 @@ SDP Answer
         NOTE: If the trickle ICE mechanism <xref target="I-D.ietf-mmusic-trickle-ice-sip" />
         is used, an offerer and answerer might assign a port value of '9', and an IPv4 
         address of '0.0.0.0' (or, the IPv6 equivalent '::') to multiple bundled "m=" sections
-        in the initial offer. The offerer and answerer will follow the normal procedures
+        in the initial BUNDLE offer. The offerer and answerer will follow the normal procedures
         for generating the offers and answers, including picking a bundled "m=" section as the
         suggested offerer tagged "m=" section, selecting the tagged "m=" sections etc. The only
         difference is that media can not be sent until one or more candidates have been provided.
@@ -2126,8 +2138,8 @@ SDP Answer
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An initial offer, in which the offerer wants to negotiate a BUNDLE group, and indicates the audio m= section as the suggested offerer tagged "m=" section.</t>
-          <t>An initial answer, in which the answerer accepts the creation of the BUNDLE group, selects the audio m= section in the offer as the offerer tagged "m=" section,
+          <t>An initial BUNDLE offer, in which the offerer wants to negotiate a BUNDLE group, and indicates the audio m= section as the suggested offerer tagged "m=" section.</t>
+          <t>An initial BUNDLE answer, in which the answerer accepts the creation of the BUNDLE group, selects the audio m= section in the offer as the offerer tagged "m=" section,
           selects the audio "m=" section in the answer as the answerer tagged "m=" section and assigns the answerer BUNDLE address:port to that "m=" section.</t>
         </list>
       </t>
@@ -2194,8 +2206,8 @@ SDP Answer (2)
       <t>
         The example below shows:
         <list style="symbols">
-          <t>An initial offer, in which the offerer wants to negotiate a BUNDLE group, and indicates the audio m= section as the suggested offerer tagged "m=" section.</t>
-          <t>An initial answer, in which the answerer rejects the creation of the BUNDLE group, generates a normal answer and assigns a unique address:port to each "m="
+          <t>An initial BUNDLE offer, in which the offerer wants to negotiate a BUNDLE group, and indicates the audio m= section as the suggested offerer tagged "m=" section.</t>
+          <t>An initial BUNDLE answer, in which the answerer rejects the creation of the BUNDLE group, generates a normal answer and assigns a unique address:port to each "m="
           section in the answer.</t>
 
         </list>
@@ -2543,6 +2555,12 @@ SDP Answer (2)
 
   <section title="Change Log">
     <t>[RFC EDITOR NOTE: Please remove this section when publishing]</t>
+    <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-51
+      <list style="symbols">
+        <t>Changes based on IESG reviews.</t>
+        <t>- Clarification of 'initial offer' terminology.</t>
+      </list>
+    </t>
     <t>Changes from draft-ietf-mmusic-sdp-bundle-negotiation-50
       <list style="symbols">
         <t>Changes based on IESG reviews.</t>
