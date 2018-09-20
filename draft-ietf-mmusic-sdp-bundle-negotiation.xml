@@ -625,7 +625,7 @@ SDP Offer
   a=rtpmap:0 PCMU/8000
   a=rtpmap:8 PCMA/8000
   a=rtpmap:97 iLBC/8000
-  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+  a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
   m=video 10002 RTP/AVP 31 32
   b=AS:1000
@@ -633,7 +633,7 @@ SDP Offer
   a=rtcp-mux
   a=rtpmap:31 H261/90000
   a=rtpmap:32 MPV/90000
-  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+  a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
 ]]></artwork>
       </figure>
@@ -890,14 +890,14 @@ SDP Answer
   a=mid:foo
   a=rtcp-mux
   a=rtpmap:0 PCMU/8000
-  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+  a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
   m=video 0 RTP/AVP 32
   b=AS:1000
   a=mid:bar
   a=bundle-only
   a=rtpmap:32 MPV/90000
-  a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+  a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
 
 ]]></artwork>
@@ -2157,7 +2157,7 @@ SDP Offer (1)
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 10002 RTP/AVP 31 32
     b=AS:1000
@@ -2165,7 +2165,7 @@ SDP Offer (1)
     a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
 
 SDP Answer (2)
@@ -2182,14 +2182,14 @@ SDP Answer (2)
     a=mid:foo
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 32
     b=AS:1000
     a=mid:bar
     a=bundle-only
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
 
 ]]></artwork>
@@ -2226,7 +2226,7 @@ SDP Offer (1)
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 10002 RTP/AVP 31 32
     b=AS:1000
@@ -2234,7 +2234,7 @@ SDP Offer (1)
     a=rtcp-mux
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
 
 SDP Answer (2)
@@ -2291,7 +2291,7 @@ SDP Offer (1)
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 31 32
     b=AS:1000
@@ -2299,14 +2299,14 @@ SDP Offer (1)
     a=bundle-only
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 10000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
     a=rtcp-mux
     a=rtpmap:66 H261/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
 
 SDP Answer (2)
@@ -2323,21 +2323,21 @@ SDP Answer (2)
     a=mid:foo
     a=bundle-only
     a=rtpmap:0 PCMU/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 32
     b=AS:1000
     a=mid:bar
     a=bundle-only
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 20000 RTP/AVP 66
     b=AS:1000
     a=mid:zen
     a=rtcp-mux
     a=rtpmap:66 H261/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
 
 ]]></artwork>
@@ -2375,7 +2375,7 @@ SDP Offer (1)
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 31 32
     b=AS:1000
@@ -2383,7 +2383,7 @@ SDP Offer (1)
     a=bundle-only
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 50000 RTP/AVP 66
     b=AS:1000
@@ -2406,14 +2406,14 @@ SDP Answer (2)
     a=mid:foo
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 32
     b=AS:1000
     a=mid:bar
     a=bundle-only
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 60000 RTP/AVP 66
     b=AS:1000
@@ -2457,7 +2457,7 @@ SDP Offer (1)
     a=rtpmap:0 PCMU/8000
     a=rtpmap:8 PCMA/8000
     a=rtpmap:97 iLBC/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 31 32
     c=IN IP6 2001:db8::3
@@ -2466,7 +2466,7 @@ SDP Offer (1)
     a=bundle-only
     a=rtpmap:31 H261/90000
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 66
     a=mid:zen
@@ -2487,7 +2487,7 @@ SDP Answer (2)
     a=mid:foo
     a=rtcp-mux
     a=rtpmap:0 PCMU/8000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 32
     c=IN IP6 2001:db8::1
@@ -2495,7 +2495,7 @@ SDP Answer (2)
     a=mid:bar
     a=bundle-only
     a=rtpmap:32 MPV/90000
-    a=extmap 1 urn:ietf:params:rtp-hdrext:sdes:mid
+    a=extmap:1 urn:ietf:params:rtp-hdrext:sdes:mid
 
     m=video 0 RTP/AVP 66
     a=mid:zen
