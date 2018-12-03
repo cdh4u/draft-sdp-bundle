@@ -4,7 +4,7 @@
 <?rfc toc="yes" ?>
 <?rfc compact="yes" ?>
 <?rfc sortrefs="no" ?>
-<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-52.txt" updates="3264,7941" submissionType="IETF" xml:lang="en">
+<rfc ipr="pre5378Trust200902" category="std" docName="draft-ietf-mmusic-sdp-bundle-negotiation-52.txt" updates="3264,5888,7941" submissionType="IETF" xml:lang="en">
 <front>
     <title abbrev="Bundled media">
     Negotiating Media Multiplexing Using the Session Description Protocol (SDP)
@@ -79,6 +79,10 @@
         This specification updates RFC 3264, to also allow assigning a zero port value
         to a "m=" section in cases where the media described by the "m=" section 
         is not disabled or rejected.
+      </t>
+      <t>
+        This specification updates RFC 5888, to also allow an SDP 'group' attribute to
+        contain an identification-tag that identifies a "m=" section with the port set to zero.
       </t>
       <t>
         This specification defines a new RTP Control Protocol
@@ -1845,7 +1849,30 @@ SDP Answer
     </section>
   </section>
 
+  <section anchor="sec-5888" title="Update to RFC 5888" toc="default">
+      <t>
+        This section updates RFC 5888 <xref format="default" pageno="false" target="RFC3261"/>), 
+        in order to allow extensions to allow an SDP 'group' attribute containing
+        an identification-tag that identifies a "m=" section with the port set to zero
 
+        Section 9.2 (Group Value in Answers) of RFC 5888 is updated.
+    <section anchor="sec-5888-old-9_2" title="Original text of section 9.2 (3rd paragraph) of RFC 5888" toc="default">
+      <t>
+        SIP entities refuse media streams by setting the port to zero in the corresponding 
+        "m" line. "a=group" lines MUST NOT contain identification-tags that correspond to 
+        "m" lines with the port set to zero, but an extension mechanism might specify different 
+        semantics for including identification-tags that correspond to such "m=" lines.
+      </t>
+    </section>
+    <section anchor="sec-5888-new-9_2" title="New text replacing section 9.2 (3rd paragraph) of RFC 5888" toc="default">
+      <t>
+        SIP entities refuse media streams by setting the port to zero in the corresponding 
+        "m" line. "a=group" lines MUST NOT contain identification-tags that correspond to 
+        "m" lines with the port set to zero.
+      </t>
+    </section>
+  </section>
+  
     <section title="RTP/RTCP extensions for identification-tag transport" anchor="sec-receiver-id" toc="default">
       <t>
         SDP Offerers and Answerers <xref format="default" pageno="false" target="RFC3264"/>
