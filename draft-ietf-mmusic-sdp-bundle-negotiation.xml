@@ -1855,6 +1855,7 @@ SDP Answer
         in order to allow extensions to allow an SDP 'group' attribute containing
         an identification-tag that identifies a "m=" section with the port set to zero
         Section 9.2 (Group Value in Answers) of RFC 5888 is updated.
+      </t>
     <section anchor="sec-5888-old-9_2" title="Original text of section 9.2 (3rd paragraph) of RFC 5888" toc="default">
       <t>
         SIP entities refuse media streams by setting the port to zero in the corresponding 
