@@ -180,9 +180,35 @@
         </list>
       </t>
     </section>
+    <section title='Contradiction regarding bundle-only "m=" sections' toc="default">
+      <t>
+        Since the approval of the WebRTC specification documents, the IETF has become aware of an inconsistency
+        between the document specifying JSEP and the document specifying BUNDLE (RFC 8829 and RFC 8843, respectively).
+        Rather than delaying publication further to come to a resolution, the documents are being published as they were
+        originally approved. The IETF intends to restart work on these technologies, and revised versions of these
+        documents will be published as soon as a resolution becomes available.
+      </t>
+      <t>
+        The specific issue involves the handling of "m=" sections that are designated as bundle-only, as discussed
+        in RFC 8829, Section 4.1.1. Currently, there is divergence between JSEP and BUNDLE, as well as between these
+        specifications and existing browser implementations:
+        <list style="symbols">
+        <t>
+          JSEP prescribes that said "m=" sections should use port zero and add an "a=bundle-only" attribute in
+          initial offers, but not in answers or subsequent offers.
+        </t>
+        <t>  
+          BUNDLE prescribes that these "m=" sections should be marked as described in the previous point,
+          but in all offers and answers.
+        </t>
+        <t>
+          Most current browsers do not mark any "m=" sections with port zero and instead use the same port for
+          all bundled "m=" sections; one follows the JSEP behavior.
+        </t>
+        </list>
+      </t>
+    </section>
   </section>
-
-
   <section anchor="sec-term" title="Terminology" toc="default">
     <t>
     <list style="symbols">
